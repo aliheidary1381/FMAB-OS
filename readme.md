@@ -2,14 +2,18 @@
 
 My personal NixOS configuration.
 
+![Screenshot](./screenshots/Screenshot-1.png "Screenshot")
+
+![Screenshot](./screenshots/Screenshot-2.png "Screenshot")
+
 ## Main components
 
-I tried my best to stick with KDE-native (or at least Qt6-native) apps,
+I tried my best to stick with KDE-native (or at least Qt6-native FOSS) apps,
 unless they have a significant disadvantage.
 
   * Catppuccin themes
   * GRUB bootloader
-  * KDE Plasma desktop environment
+  * KDE Plasma (Qt6) desktop environment with Wayland
   * SDDM (auto-login)
   * Wave terminal emulator
   * Fish shell
@@ -18,6 +22,7 @@ unless they have a significant disadvantage.
   * VMMs (WinBoat for Windows, Waydroid for Android, and Virt-manager for
   everything else. They don't take much space unless they're initialized
   i.e. unless you download the OSes).
+  * systemd, networkd, resolved, pipewire, btrfs filesystem, glibc, gnu coreutils, LTS kernel, etc.
 
 ### Windows apps to install
 
