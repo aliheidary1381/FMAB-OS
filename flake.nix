@@ -59,6 +59,7 @@
                 ./zed.nix
                 ./wave.nix
                 catppuccin.homeModules.catppuccin
+                ./equalization.nix
               ];
             };
           }

@@ -93,6 +93,8 @@
     wireplumber.enable = true;
   };
 
+  services.blueman.enable = false; # using Bluedevil instead
+
   networking.nameservers = [
     "1.1.1.1"
     "8.8.8.8"
@@ -122,8 +124,9 @@
 
   programs.git.enable = true;
 
-  fonts.packages =
-    [ config.ali.fonts.my-fonts ] ++(with pkgs; [ nerd-fonts.fira-code ]);
+  programs.dconf.enable = true;
+
+  fonts.packages = [ config.ali.fonts.my-fonts ] ++ (with pkgs; [ nerd-fonts.fira-code ]);
   fonts.fontconfig.defaultFonts = {
     monospace = [ "FiraCode Nerd Font Mono" ];
     # sansSerif = [ "IRANSansX" ];

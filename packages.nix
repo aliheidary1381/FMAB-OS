@@ -12,6 +12,7 @@ let
       isoimagewriter
       kfind
       kmix
+      bluedevil
       ksystemlog
       kompare
       kolourpaint

@@ -1,4 +1,5 @@
-{ pkgs }: {
+{ pkgs }:
+{
   lyrics-finder = pkgs.stdenv.mkDerivation {
     pname = "mediahuman-lyrics-finder";
     version = "1.6.3";
