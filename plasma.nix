@@ -1,0 +1,104 @@
+{
+  ...
+}:
+{
+  programs.plasma = {
+    enable = true;
+    workspace.wallpaper = ./images/plasma-desktop-dark-background.png;
+    kscreenlocker.appearance.wallpaper = ./images/sddm-and-plasma-screenlocker-background.png;
+    desktop.icons.folderPreviewPopups = true;
+    desktop.widgets = [
+      {
+        plasmusicToolbar = {
+          background = "transparentShadow";
+          position = {
+            horizontal = 51;
+            vertical = 300;
+          };
+          size = {
+            height = 400;
+            width = 250;
+          };
+        };
+      }
+    ];
+    fonts = {
+      # general = {
+      #   family = "IRANSansX";
+      #   pointSize = 12;
+      # };
+      # menu = {
+      #   family = "IRANSansX";
+      #   pointSize = 10;
+      # };
+      # toolbar = {
+      #   family = "IRANSansX";
+      #   pointSize = 10;
+      # };
+      # windowTitle = {
+      #   family = "IRANSansX";
+      #   pointSize = 10;
+      # };
+      # small = {
+      #   family = "IRANSansX";
+      #   pointSize = 8;
+      # };
+      fixedWidth = {
+        family = "FiraCode Nerd Font Mono";
+        pointSize = 12;
+      };
+    };
+    input.keyboard.layouts = [
+      {
+        layout = "us";
+        displayName = "en";
+      }
+      {
+        layout = "ir";
+        displayName = "fa";
+      }
+    ];
+    input.keyboard.numlockOnStartup = "on";
+    input.touchpads = [
+      {
+        name = "DELL0810:00 044E:120A Touchpad";
+        productId = "120a";
+        vendorId = "044e";
+        enable = true;
+        naturalScroll = true;
+        pointerSpeed = 0.7;
+        scrollSpeed = 0.3;
+      }
+    ];
+    krunner.position = "center";
+    kscreenlocker.autoLock = false;
+    kscreenlocker.lockOnResume = true;
+    kscreenlocker.lockOnStartup = true;
+    kscreenlocker.passwordRequired = true;
+    kwin.effects.blur.enable = true;
+    kwin.effects.blur.strength = 5;
+    kwin.effects.shakeCursor.enable = false;
+    kwin.titlebarButtons.right = [
+      "keep-above-windows"
+      "minimize"
+      "maximize"
+      "close"
+    ];
+    kwin.titlebarButtons.left = [
+      "application-menu"
+      "more-window-actions"
+    ];
+    powerdevil.AC.autoSuspend.action = "nothing";
+    powerdevil.AC.dimDisplay.enable = false;
+    powerdevil.AC.powerButtonAction = "turnOffScreen";
+    powerdevil.AC.powerProfile = "performance";
+    powerdevil.AC.whenLaptopLidClosed = "turnOffScreen";
+    powerdevil.battery.autoSuspend.action = "nothing";
+    powerdevil.battery.dimDisplay.enable = false;
+    powerdevil.battery.powerButtonAction = "turnOffScreen";
+    powerdevil.battery.powerProfile = "powerSaving";
+    powerdevil.battery.whenLaptopLidClosed = "turnOffScreen";
+    workspace.colorScheme = "CatppuccinFrappeYellow"; # Note: krita theme should be selected manually in the app
+    # workspace.splashScreen = ?; # TODO
+  };
+}
