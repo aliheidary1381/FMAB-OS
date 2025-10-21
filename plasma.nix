@@ -1,11 +1,37 @@
 {
+  pkgs,
   ...
 }:
+let
+  my-pics = pkgs.stdenv.mkDerivation {
+    name = "fmab-dist";
+    src = ./images;
+    installPhase = ''
+      mkdir -p $out/share/wallpapers/fmab/contents/images
+      mkdir -p $out/share/wallpapers/fmab/contents/images_dark
+      cp $src/plasma-desktop-light-background.png $out/share/wallpapers/fmab/contents/images/1920x1080.png
+      cp $src/plasma-desktop-dark-background.png $out/share/wallpapers/fmab/contents/images_dark/1920x1080.png
+      cp $src/metadata.json $out/share/wallpapers/fmab/metadata.json
+      mkdir -p $out/share/lockscreens/fmab/contents/images
+      cp $src/sddm-and-plasma-screenlocker-background.png $out/share/lockscreens/fmab/contents/images/1920x1080.png
+      mkdir -p $out/share/menu/fmab/contents/icons
+      cp $src/icon.png $out/share/menu/fmab/contents/icons/icon.png
+    '';
+  };
+in
 {
   programs.plasma = {
     enable = true;
-    workspace.wallpaper = ./images/plasma-desktop-dark-background.png;
-    kscreenlocker.appearance.wallpaper = ./images/sddm-and-plasma-screenlocker-background.png;
+    workspace.lookAndFeel = "org.kde.breezedark.desktop";
+    workspace.wallpaper = [ "${my-pics}/share/wallpapers/fmab/contents/images_dark/1920x1080.png" ];
+    kscreenlocker.appearance.wallpaper = "${my-pics}/share/lockscreens/fmab/contents/images/1920x1080.png";
+    workspace.colorScheme = "CatppuccinFrappeYellow"; # Note: krita theme should be selected manually in the app
+    # workspace.splashScreen = ?; # TODO
+    # configFile."plasma-org.kde.plasma.desktop-appletsrc" = {
+    #   "Containments.172.Applets.173.Configuration.General" = {
+    #     icon = "${my-pics}/share/menu/fmab/contents/icons/icon.png";
+    #   };
+    # };
     desktop.icons.folderPreviewPopups = true;
     desktop.widgets = [
       {
@@ -98,7 +124,5 @@
     powerdevil.battery.powerButtonAction = "turnOffScreen";
     powerdevil.battery.powerProfile = "powerSaving";
     powerdevil.battery.whenLaptopLidClosed = "turnOffScreen";
-    workspace.colorScheme = "CatppuccinFrappeYellow"; # Note: krita theme should be selected manually in the app
-    # workspace.splashScreen = ?; # TODO
   };
 }

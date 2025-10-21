@@ -73,7 +73,7 @@
     grub.enable = false;
   };
 
-  boot.loader.grub.splashImage = /home/ali/Pictures/Wallpapers/grub-background.png;
+  boot.loader.grub.splashImage = ./images/grub-background.png;
   boot.loader.grub.theme = config.ali.grub.sleekGrubThemePatched.override {
     withBanner = "Ali Heydari's personal laptop";
     withStyle = "orange";

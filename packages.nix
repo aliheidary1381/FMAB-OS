@@ -28,6 +28,10 @@ let
         flavour = [ "frappe" ];
         accents = [ "yellow" ];
       })
+      (catppuccin-kde.override {
+        flavour = [ "latte" ];
+        accents = [ "yellow" ];
+      })
     ]);
   basic = with pkgs; [
     google-chrome
@@ -85,8 +89,10 @@ let
     jabref
     texlab
     R
+    rPackages.IRkernel
     kdePackages.cantor
     labplot
+    # sage
     # positron-bin
   ];
   coding = with pkgs; [
@@ -118,12 +124,44 @@ let
       ocamlformat
     ]); # pkgs.opam is ditched in favour of nix
   prolog = with pkgs; [ swi-prolog ];
-  python = with pkgs; [
-    python313FreeThreading
-    # pycharm
-    # dataspell
-    pyright
-  ]; # uv & pkgs.python313Packages.pip is also ditched
+  python =
+    with pkgs;
+    [
+      # pycharm
+      # dataspell
+      pyright
+      (python313.buildEnv.override {
+        extraLibs = [
+          rPackages.IRkernel
+        ]
+        ++ (with python313Packages; [
+          tqdm
+          numpy
+          scipy
+          pandas
+          pyarrow
+          jupyterlab
+          notebook
+          nix-kernel
+          # ilua
+          # gophernotes
+          scikit-learn
+          # keras # depends on tf # TODO: requires tf new release update
+          torch
+          torchvision
+          opencv4
+          xgboost
+          networkx
+          matplotlib
+          seaborn
+          # hvplot
+          # plotly
+          # dash
+          # streamlit
+          # dask
+        ]);
+      })
+    ]; # uv & pkgs.python313Packages.pip is also ditched
   javascript = with pkgs; [
     nodejs_24
     deno

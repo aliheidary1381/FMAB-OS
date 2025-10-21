@@ -116,11 +116,19 @@
     };
     "bg@catpuccin-frappe" = {
       "display:name" = "Catpuccin Frappe";
-      "display:order" = 1;
+      "display:order" = 0;
       "bg:*" = true;
       "bg:opacity" = 0.6;
       "bg:activebordercolor" = "#e5c890"; # accent = yellow
       "bg" = "#303446";
+    };
+    "bg@catpuccin-latte" = {
+      "display:name" = "Catpuccin Latte";
+      "display:order" = 1;
+      "bg:*" = true;
+      "bg:opacity" = 0.6;
+      "bg:activebordercolor" = "#df8e1d"; # accent = yellow
+      "bg" = "#eff1f5";
     };
   };
 
@@ -303,7 +311,7 @@
     };
     "catpuccin-frappe" = {
       "display:name" = "Catpuccin Frappe";
-      "display:order" = 1;
+      "display:order" = 0;
       "black" = "#51576d";
       "red" = "#e78284";
       "green" = "#a6d189";
@@ -325,6 +333,31 @@
       "foreground" = "#c6d0f5";
       "background" = "#303446";
       "cursor" = "#f2d5cf";
+    };
+    "catpuccin-latte" = {
+      "display:name" = "Catpuccin Latte";
+      "display:order" = 1;
+      "black" = "#bcc0cc";
+      "red" = "#d20f39";
+      "green" = "#40a02b";
+      "yellow" = "#df8e1d";
+      "blue" = "#1e66f5";
+      "magenta" = "#8839ef";
+      "cyan" = "#179299";
+      "white" = "#5c5f77";
+      "brightBlack" = "#acb0be";
+      "brightRed" = "#e64553";
+      "brightGreen" = "#40a02b";
+      "brightYellow" = "#df8e1d";
+      "brightBlue" = "#209fb5";
+      "brightMagenta" = "#ea76cb";
+      "brightCyan" = "#04a5e5";
+      "brightWhite" = "#ccd0da";
+      "gray" = "#9ca0b0";
+      "cmdtext" = "#8c8fa1";
+      "foreground" = "#4c4f69";
+      "background" = "#eff1f5";
+      "cursor" = "#dc8a78";
     };
   };
 
