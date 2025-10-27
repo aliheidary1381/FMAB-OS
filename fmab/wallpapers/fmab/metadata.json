@@ -1,0 +1,13 @@
+{
+  "KPlugin": {
+    "Authors": [
+      {
+        "Email": "aliheidary1381@gmail.com",
+        "Name": "Ali Heydari"
+      }
+    ],
+    "Id": "FMAB",
+    "License": "CC-BY-SA-4.0",
+    "Name": "FMA:B"
+  }
+}
