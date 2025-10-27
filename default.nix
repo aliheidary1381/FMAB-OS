@@ -57,6 +57,7 @@
     wayland.enable = true;
     wayland.compositor = "kwin";
     autoLogin.relogin = true;
+    theme = "/run/current-system/sw/share/sddm/themes/fmab";
   };
   services.displayManager.autoLogin = {
     enable = true;
@@ -73,10 +74,12 @@
     grub.enable = false;
   };
 
-  boot.loader.grub.splashImage = ./images/grub-background.png;
-  boot.loader.grub.theme = config.ali.grub.sleekGrubThemePatched.override {
-    withBanner = "Ali Heydari's personal laptop";
-    withStyle = "orange";
+  boot.loader.grub2-theme = {
+    enable = true;
+    theme = "whitesur";
+    icon = "color";
+    splashImage = ./images/grub-background.png;
+    footer = true;
   };
 
   # Configure console keymap
@@ -137,7 +140,6 @@
 
   systemd.targets.machines.enable = true;
 
-  services.winboat.enable = true;
   virtualisation.docker.enable = true; # For WinBoat Windows containers
   virtualisation.waydroid.enable = true; # For Android containers https://wiki.nixos.org/wiki/Waydroid https://docs.waydro.id/usage/
 

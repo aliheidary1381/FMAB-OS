@@ -6,7 +6,7 @@
 
     src = pkgs.fetchurl {
       url = "https://www.mediahuman.com/download/LyricsFinder.amd64.deb";
-      sha256 = "1z1xvmlqp4ncbmkr3in5v7fvrklrg2mvwmlyiz3n9777qh48g0c5";
+      sha256 = "1ra0yxpl5plpig6640vga3nffrx4kr33xl4hl42mv47dy1vbsp0m"; # nix-prefetch-url
     };
 
     nativeBuildInputs = with pkgs; [

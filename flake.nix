@@ -3,6 +3,10 @@
 
   inputs = {
     nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
+    grub2-themes = {
+      url = "github:vinceliuice/grub2-themes";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
     home-manager = {
       url = "github:nix-community/home-manager";
       inputs.nixpkgs.follows = "nixpkgs";
@@ -16,16 +20,19 @@
       url = "github:nix-community/nixvim";
       inputs.nixpkgs.follows = "nixpkgs";
     };
-    winboat.url = "github:TibixDev/winboat";
-    catppuccin.url = "github:catppuccin/nix";
+    # winboat.url = "github:TibixDev/winboat";
+    catppuccin = {
+      url = "github:catppuccin/nix";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
   };
 
   outputs =
     {
       nixpkgs,
+      grub2-themes,
       home-manager,
       plasma-manager,
-      winboat,
       catppuccin,
       nixvim,
       ...
@@ -37,13 +44,13 @@
         modules = [
           ./hardware-configuration.nix
           ./default.nix
+          grub2-themes.nixosModules.default
           nixvim.nixosModules.nixvim
           ./nvim.nix
           ./shell.nix
           ./packages.nix
           ./custom-packages-and-patches.nix
           catppuccin.nixosModules.catppuccin
-          winboat.nixosModules.x86_64-linux.default
           home-manager.nixosModules.home-manager
           {
             home-manager.useGlobalPkgs = true;

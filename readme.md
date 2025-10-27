@@ -2,11 +2,17 @@
 
 My personal NixOS configuration.
 
-![Screenshot](./screenshots/dark-1.png "Screenshot")
+![Screenshot](./fmab/plasma/look-and-feel/fmab.dark.desktop/contents/previews/fullscreenpreview.png "Screenshot")
 
-![Screenshot](./screenshots/dark-2.png "Screenshot")
+![Screenshot](./fmab/plasma/look-and-feel/fmab.dark.desktop/contents/previews/fullscreenpreview2.png "Screenshot")
 
-![Screenshot](./screenshots/light-1.png "Screenshot")
+![Screenshot](./fmab/plasma/look-and-feel/fmab.light.desktop/contents/previews/fullscreenpreview.png "Screenshot")
+
+<!--![Screenshot](./fmab/plasma/look-and-feel/fmab.dark.desktop/contents/previews/fullscreenlockscreen.png "Screenshot")-->
+
+<!--![Screenshot](./fmab/plasma/look-and-feel/fmab.dark.desktop/contents/previews/splash.png "Screenshot")-->
+
+<!--![Screenshot](./fmab/plasma/look-and-feel/fmab.light.desktop/contents/previews/splash.png "Screenshot")-->
 
 ## Main components
 
@@ -15,8 +21,8 @@ unless they have a significant disadvantage.
 
   * Catppuccin themes (Automatically switched on day/night time)
   * GRUB bootloader
-  * KDE Plasma (Qt6) desktop environment with Wayland
-  * SDDM (auto-login)
+  * KDE Plasma (Qt6) desktop environment on Wayland
+  * SDDM
   * Wave terminal emulator
   * Fish shell
   * Helix editor (CLI)
@@ -26,10 +32,9 @@ unless they have a significant disadvantage.
   i.e. unless you download the OSes).
   * systemd, networkd, resolved, pipewire, btrfs filesystem, glibc, gnu coreutils, LTS kernel, etc.
 
-### Windows apps to install
+### Recommended Windows apps to install
 
   * Office 365 Pro Plus
-  * Adobe Acrobat Pro DC
   * Adobe Photoshop
 
 ## Background images acknowledgements
@@ -53,8 +58,6 @@ and distributed in NA by Aniplex Inc.
 
 ## Future plans / TODO
 
-  * Adding a custom splash screen for system startup (both on plasma & plymouth).
   * Better starship prompts.
   * Adding AI integration to Wave & Zed.
   * "Fixing" automatic theme switch for wave, nvim, helix, fish, starship, bat, fzf, lsd, and lazygit.
-  * Changing the start menu (application launcher icon) declaratively.

@@ -20,6 +20,7 @@
       # "kotlin"
       # "graphql"
       "nix"
+      "qml"
       "csv"
       "rainbow-csv"
       "proto"

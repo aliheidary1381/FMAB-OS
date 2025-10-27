@@ -22,17 +22,10 @@ let
     ++ (with pkgs; [
       haruna
       krename
-      systemdgenie
-      elf-dissector
-      (catppuccin-kde.override {
-        flavour = [ "frappe" ];
-        accents = [ "yellow" ];
-      })
-      (catppuccin-kde.override {
-        flavour = [ "latte" ];
-        accents = [ "yellow" ];
-      })
-    ]);
+      # systemdgenie
+      # elf-dissector
+    ])
+    ++ [ config.ali.packages.fmab-customizations ];
   basic = with pkgs; [
     google-chrome
     cloudflare-warp
@@ -56,6 +49,7 @@ let
     krita # gimp3-with-plugins
     rtorrent
     flood
+    winboat
     libguestfs-with-appliance
     # Add Subtitle Composer & Kdenlive for subtitle & video editing, Krita & Karbon for raster and vector image editing, and KEXI for database management
   ];
@@ -65,6 +59,8 @@ let
     jq
     sl
     cowsay
+    cmatrix
+    asciiquarium-transparent
     parallel-full
     dig
     tcpdump
@@ -86,6 +82,7 @@ let
     ffmpeg-full
   ];
   academia = with pkgs; [
+    stirling-pdf
     jabref
     texlab
     R
@@ -103,7 +100,7 @@ let
     heaptrack
     sqlc
     kdePackages.kcachegrind
-    datagrip
+    # datagrip
     sqls
     yaml-language-server
     package-version-server
@@ -124,44 +121,42 @@ let
       ocamlformat
     ]); # pkgs.opam is ditched in favour of nix
   prolog = with pkgs; [ swi-prolog ];
-  python =
-    with pkgs;
-    [
-      # pycharm
-      # dataspell
-      pyright
-      (python313.buildEnv.override {
-        extraLibs = [
-          rPackages.IRkernel
-        ]
-        ++ (with python313Packages; [
-          tqdm
-          numpy
-          scipy
-          pandas
-          pyarrow
-          jupyterlab
-          notebook
-          nix-kernel
-          # ilua
-          # gophernotes
-          scikit-learn
-          # keras # depends on tf # TODO: requires tf new release update
-          torch
-          torchvision
-          opencv4
-          xgboost
-          networkx
-          matplotlib
-          seaborn
-          # hvplot
-          # plotly
-          # dash
-          # streamlit
-          # dask
-        ]);
-      })
-    ]; # uv & pkgs.python313Packages.pip is also ditched
+  python = with pkgs; [
+    # pycharm
+    # dataspell
+    pyright
+    (python313.buildEnv.override {
+      extraLibs = [
+        rPackages.IRkernel
+      ]
+      ++ (with python313Packages; [
+        tqdm
+        numpy
+        scipy
+        pandas
+        pyarrow
+        jupyterlab
+        notebook
+        nix-kernel
+        # ilua
+        # gophernotes
+        scikit-learn
+        keras # depends on tf
+        torch
+        torchvision
+        opencv4
+        xgboost
+        networkx
+        matplotlib
+        seaborn
+        # hvplot
+        # plotly
+        # dash
+        # streamlit
+        # dask
+      ]);
+    })
+  ]; # uv & pkgs.python313Packages.pip is also ditched
   javascript = with pkgs; [
     nodejs_24
     deno
@@ -170,6 +165,9 @@ let
     vscode-langservers-extracted
     typescript-language-server
     biome
+    eslint
+    vtsls
+    tailwindcss-language-server
   ]; # pkgs.pnpm is also ditched
   goPkgs = with pkgs; [
     go
@@ -194,7 +192,8 @@ let
     lldb_21
     icu
     qtcreator
-    # qt5.full
+    # libsForQt5.qt5.qtbase
+    # libsForQt5.qt5.qtwebsockets
     # clion
     cmake-language-server
     clang-tools
@@ -202,7 +201,6 @@ let
   # todo: gcc15 clang_21 llvmPackages_21.libcxxClang llvmPackages_21.clang-unwrapped
 in
 {
-  # nixpkgs.config.permittedInsecurePackages = [ "qtwebengine-5.15.19" ];
 
   # List packages installed in system profile. To search, run:
   # $ nix search

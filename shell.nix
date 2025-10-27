@@ -15,6 +15,7 @@
       "gc" =
         "sudo nix-env --delete-generations old && sudo nix-collect-garbage -d && sudo journalctl --rotate && sudo journalctl --vacuum-time=1s";
       "proxy" = "proxychains4 fish";
+      "update" = "pushd /home/ali/Documents/NixOS-config && nix flake update && popd";
     };
   };
 

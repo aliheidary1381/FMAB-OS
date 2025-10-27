@@ -9,8 +9,10 @@ in
 {
   programs.git = {
     enable = true;
-    userName = "Ali Heydari";
-    userEmail = "aliheidary1381@gmail.com";
+    settings.user = {
+      name = "Ali Heydari";
+      email = "aliheidary1381@gmail.com";
+    };
   };
 
   programs.bat.enable = true;
@@ -49,7 +51,7 @@ in
   home.homeDirectory = "/home/ali";
   home.file = {
     ".face.icon" = {
-      source = ./images/face.png;
+      source = ./fmab/sddm/faces/.face.icon;
       executable = false;
     };
   };
