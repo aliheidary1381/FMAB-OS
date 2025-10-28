@@ -54,7 +54,7 @@
     enable = true;
     theme = "whitesur";
     icon = "color";
-    splashImage = ./images/grub-background.png;
+    splashImage = "${config.ali.packages.fmab-customizations}/share/grub/background.png";
     footer = true;
   };
 
