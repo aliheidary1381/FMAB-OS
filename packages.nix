@@ -8,11 +8,12 @@ let
   KDE =
     with pkgs.kdePackages;
     [
+      plymouth-kcm
+      bluedevil
+      kmix
       partitionmanager
       isoimagewriter
       kfind
-      kmix
-      bluedevil
       ksystemlog
       kompare
       kolourpaint
@@ -83,7 +84,8 @@ let
   ];
   academia = with pkgs; [
     stirling-pdf
-    jabref
+    jabref # kbibtex
+    kile
     texlab
     R
     rPackages.IRkernel
@@ -189,7 +191,7 @@ let
     gdb
     ninja
     libclang
-    lldb_21
+    lldb
     icu
     qtcreator
     # libsForQt5.qt5.qtbase
@@ -198,7 +200,6 @@ let
     cmake-language-server
     clang-tools
   ]; # pkgs.vcpkg is also ditched
-  # todo: gcc15 clang_21 llvmPackages_21.libcxxClang llvmPackages_21.clang-unwrapped
 in
 {
 

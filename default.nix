@@ -58,6 +58,16 @@
     footer = true;
   };
 
+  boot.plymouth = {
+    enable = true;
+    themePackages = with pkgs; [
+      plymouth-matrix-theme
+      kdePackages.breeze-plymouth
+      config.ali.packages.fmab-customizations
+    ];
+    theme = "fmab"; # available: matrix, breeze, breeze-text, catppuccin-frappe, catppuccin-latte, catppuccin-macchiato, catppuccin-mocha, details, fade-in, glow, script, solar, spinfinity, spinner, text, tribar
+  };
+
   # Configure display manager & desktop manager.
   services.xserver.enable = false;
   services.displayManager.sddm = {

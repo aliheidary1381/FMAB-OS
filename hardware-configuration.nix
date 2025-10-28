@@ -10,6 +10,7 @@
     (modulesPath + "/installer/scan/not-detected.nix")
   ];
 
+  boot.consoleLogLevel = 3;
   boot.initrd.availableKernelModules = [
     "xhci_pci"
     "ahci"
@@ -18,8 +19,20 @@
     "sd_mod"
     "rtsx_usb_sdmmc"
   ];
-  boot.initrd.kernelModules = [ ];
-  boot.kernelModules = [ "kvm-intel" ];
+  boot.initrd.kernelModules = [ "i915" ];
+  boot.initrd.verbose = false;
+  boot.kernelModules = [
+    "kvm-intel"
+    "ip_tables"
+    "iptable_nat"
+  ];
+  boot.kernelParams = [
+    "quiet"
+    "splash"
+    "boot.shell_on_fail"
+    "udev.log_priority=3"
+    "rd.systemd.show_status=auto"
+  ];
   boot.extraModulePackages = [ ];
 
   fileSystems."/" = {

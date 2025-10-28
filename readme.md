@@ -2,6 +2,10 @@
 
 My personal NixOS configuration.
 
+This repo includes custom themes for GRUB, plymouth, SDDM, KDE Plasma, and desktop wallpapers.
+This could be a decent base for you to use for your own custom themes.
+It also includes lots of built-in software, and their configs.
+
 ![Screenshot](./fmab/plasma/look-and-feel/fmab.dark.desktop/contents/previews/fullscreenpreview.png "Screenshot")
 
 ![Screenshot](./fmab/plasma/look-and-feel/fmab.dark.desktop/contents/previews/fullscreenpreview2.png "Screenshot")
@@ -19,10 +23,11 @@ My personal NixOS configuration.
 I tried my best to stick with KDE-native (or at least Qt6-native FOSS) apps,
 unless they have a significant disadvantage.
 
-  * Catppuccin themes (Automatically switched on day/night time)
   * GRUB bootloader
-  * KDE Plasma (Qt6) desktop environment on Wayland
+  * Plymouth
   * SDDM
+  * KDE Plasma (Qt6) desktop environment on Wayland
+  * Catppuccin pallete colours
   * Wave terminal emulator
   * Fish shell
   * Helix editor (CLI)
