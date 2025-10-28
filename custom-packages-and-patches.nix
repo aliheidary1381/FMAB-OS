@@ -28,8 +28,215 @@ let
   # ];
 
   fmab-customizations = pkgs.runCommand "fmab-customizations" { } ''
-    mkdir -p $out/share
+    mkdir -p $out/share/icons
+    cp -Lr ${pkgs.kdePackages.breeze-icons}/share/icons/breeze $out/share/icons/fmab
+    cp -Lr ${pkgs.kdePackages.breeze-icons}/share/icons/breeze-dark $out/share/icons/fmab-dark
+    chmod 644 $out/share/icons/fmab/apps/22/plasma-symbolic.svg
+    chmod 644 $out/share/icons/fmab/apps/22@2x/plasma-symbolic.svg
+    chmod 644 $out/share/icons/fmab/apps/22@3x/plasma-symbolic.svg
+    chmod 644 $out/share/icons/fmab/apps/24/plasma-symbolic.svg
+    chmod 644 $out/share/icons/fmab/apps/24@2x/plasma-symbolic.svg
+    chmod 644 $out/share/icons/fmab/apps/24@3x/plasma-symbolic.svg
+    chmod 644 $out/share/icons/fmab/places/16/start-here-kde.svg
+    chmod 644 $out/share/icons/fmab/places/16/start-here-kde-plasma.svg
+    chmod 644 $out/share/icons/fmab/places/16/start-here-kde-plasma-symbolic.svg
+    chmod 644 $out/share/icons/fmab/places/16/start-here-kde-symbolic.svg
+    chmod 644 $out/share/icons/fmab/places/16/start-here-symbolic.svg
+    chmod 644 $out/share/icons/fmab/places/16@2x/start-here-kde.svg
+    chmod 644 $out/share/icons/fmab/places/16@2x/start-here-kde-plasma.svg
+    chmod 644 $out/share/icons/fmab/places/16@2x/start-here-kde-plasma-symbolic.svg
+    chmod 644 $out/share/icons/fmab/places/16@2x/start-here-kde-symbolic.svg
+    chmod 644 $out/share/icons/fmab/places/16@2x/start-here-symbolic.svg
+    chmod 644 $out/share/icons/fmab/places/16@3x/start-here-kde.svg
+    chmod 644 $out/share/icons/fmab/places/16@3x/start-here-kde-plasma.svg
+    chmod 644 $out/share/icons/fmab/places/16@3x/start-here-kde-plasma-symbolic.svg
+    chmod 644 $out/share/icons/fmab/places/16@3x/start-here-kde-symbolic.svg
+    chmod 644 $out/share/icons/fmab/places/16@3x/start-here-symbolic.svg
+    chmod 644 $out/share/icons/fmab/places/22/start-here-kde.svg
+    chmod 644 $out/share/icons/fmab/places/22/start-here-kde-plasma.svg
+    chmod 644 $out/share/icons/fmab/places/22/start-here-kde-plasma-symbolic.svg
+    chmod 644 $out/share/icons/fmab/places/22/start-here-kde-symbolic.svg
+    chmod 644 $out/share/icons/fmab/places/22@2x/start-here-kde.svg
+    chmod 644 $out/share/icons/fmab/places/22@2x/start-here-kde-plasma.svg
+    chmod 644 $out/share/icons/fmab/places/22@2x/start-here-kde-plasma-symbolic.svg
+    chmod 644 $out/share/icons/fmab/places/22@2x/start-here-kde-symbolic.svg
+    chmod 644 $out/share/icons/fmab/places/22@3x/start-here-kde.svg
+    chmod 644 $out/share/icons/fmab/places/22@3x/start-here-kde-plasma.svg
+    chmod 644 $out/share/icons/fmab/places/22@3x/start-here-kde-plasma-symbolic.svg
+    chmod 644 $out/share/icons/fmab/places/22@3x/start-here-kde-symbolic.svg
+    chmod 644 $out/share/icons/fmab/places/24/start-here-kde.svg
+    chmod 644 $out/share/icons/fmab/places/24/start-here-kde-plasma.svg
+    chmod 644 $out/share/icons/fmab/places/24/start-here-kde-plasma-symbolic.svg
+    chmod 644 $out/share/icons/fmab/places/24/start-here-kde-symbolic.svg
+    chmod 644 $out/share/icons/fmab/places/24@2x/start-here-kde.svg
+    chmod 644 $out/share/icons/fmab/places/24@2x/start-here-kde-plasma.svg
+    chmod 644 $out/share/icons/fmab/places/24@2x/start-here-kde-plasma-symbolic.svg
+    chmod 644 $out/share/icons/fmab/places/24@2x/start-here-kde-symbolic.svg
+    chmod 644 $out/share/icons/fmab/places/24@3x/start-here-kde.svg
+    chmod 644 $out/share/icons/fmab/places/24@3x/start-here-kde-plasma.svg
+    chmod 644 $out/share/icons/fmab/places/24@3x/start-here-kde-plasma-symbolic.svg
+    chmod 644 $out/share/icons/fmab/places/24@3x/start-here-kde-symbolic.svg
+    chmod 644 $out/share/icons/fmab/places/32/start-here-kde.svg
+    chmod 644 $out/share/icons/fmab/places/64/start-here-kde.svg
+    chmod 644 $out/share/icons/fmab/places/64/start-here-kde-plasma.svg
+    chmod 644 $out/share/icons/fmab/places/96/start-here-kde.svg
+    chmod 644 $out/share/icons/fmab/places/96/start-here-kde-plasma.svg
+    chmod 644 $out/share/icons/fmab-dark/apps/22/plasma-symbolic.svg
+    chmod 644 $out/share/icons/fmab-dark/apps/22@2x/plasma-symbolic.svg
+    chmod 644 $out/share/icons/fmab-dark/apps/22@3x/plasma-symbolic.svg
+    chmod 644 $out/share/icons/fmab-dark/apps/24/plasma-symbolic.svg
+    chmod 644 $out/share/icons/fmab-dark/apps/24@2x/plasma-symbolic.svg
+    chmod 644 $out/share/icons/fmab-dark/apps/24@3x/plasma-symbolic.svg
+    chmod 644 $out/share/icons/fmab-dark/places/16/start-here-kde.svg
+    chmod 644 $out/share/icons/fmab-dark/places/16/start-here-kde-plasma.svg
+    chmod 644 $out/share/icons/fmab-dark/places/16/start-here-kde-plasma-symbolic.svg
+    chmod 644 $out/share/icons/fmab-dark/places/16/start-here-kde-symbolic.svg
+    chmod 644 $out/share/icons/fmab-dark/places/16/start-here-symbolic.svg
+    chmod 644 $out/share/icons/fmab-dark/places/16@2x/start-here-kde.svg
+    chmod 644 $out/share/icons/fmab-dark/places/16@2x/start-here-kde-plasma.svg
+    chmod 644 $out/share/icons/fmab-dark/places/16@2x/start-here-kde-plasma-symbolic.svg
+    chmod 644 $out/share/icons/fmab-dark/places/16@2x/start-here-kde-symbolic.svg
+    chmod 644 $out/share/icons/fmab-dark/places/16@2x/start-here-symbolic.svg
+    chmod 644 $out/share/icons/fmab-dark/places/16@3x/start-here-kde.svg
+    chmod 644 $out/share/icons/fmab-dark/places/16@3x/start-here-kde-plasma.svg
+    chmod 644 $out/share/icons/fmab-dark/places/16@3x/start-here-kde-plasma-symbolic.svg
+    chmod 644 $out/share/icons/fmab-dark/places/16@3x/start-here-kde-symbolic.svg
+    chmod 644 $out/share/icons/fmab-dark/places/16@3x/start-here-symbolic.svg
+    chmod 644 $out/share/icons/fmab-dark/places/22/start-here-kde.svg
+    chmod 644 $out/share/icons/fmab-dark/places/22/start-here-kde-plasma.svg
+    chmod 644 $out/share/icons/fmab-dark/places/22/start-here-kde-plasma-symbolic.svg
+    chmod 644 $out/share/icons/fmab-dark/places/22/start-here-kde-symbolic.svg
+    chmod 644 $out/share/icons/fmab-dark/places/22@2x/start-here-kde.svg
+    chmod 644 $out/share/icons/fmab-dark/places/22@2x/start-here-kde-plasma.svg
+    chmod 644 $out/share/icons/fmab-dark/places/22@2x/start-here-kde-plasma-symbolic.svg
+    chmod 644 $out/share/icons/fmab-dark/places/22@2x/start-here-kde-symbolic.svg
+    chmod 644 $out/share/icons/fmab-dark/places/22@3x/start-here-kde.svg
+    chmod 644 $out/share/icons/fmab-dark/places/22@3x/start-here-kde-plasma.svg
+    chmod 644 $out/share/icons/fmab-dark/places/22@3x/start-here-kde-plasma-symbolic.svg
+    chmod 644 $out/share/icons/fmab-dark/places/22@3x/start-here-kde-symbolic.svg
+    chmod 644 $out/share/icons/fmab-dark/places/24/start-here-kde.svg
+    chmod 644 $out/share/icons/fmab-dark/places/24/start-here-kde-plasma.svg
+    chmod 644 $out/share/icons/fmab-dark/places/24/start-here-kde-plasma-symbolic.svg
+    chmod 644 $out/share/icons/fmab-dark/places/24/start-here-kde-symbolic.svg
+    chmod 644 $out/share/icons/fmab-dark/places/24@2x/start-here-kde.svg
+    chmod 644 $out/share/icons/fmab-dark/places/24@2x/start-here-kde-plasma.svg
+    chmod 644 $out/share/icons/fmab-dark/places/24@2x/start-here-kde-plasma-symbolic.svg
+    chmod 644 $out/share/icons/fmab-dark/places/24@2x/start-here-kde-symbolic.svg
+    chmod 644 $out/share/icons/fmab-dark/places/24@3x/start-here-kde.svg
+    chmod 644 $out/share/icons/fmab-dark/places/24@3x/start-here-kde-plasma.svg
+    chmod 644 $out/share/icons/fmab-dark/places/24@3x/start-here-kde-plasma-symbolic.svg
+    chmod 644 $out/share/icons/fmab-dark/places/24@3x/start-here-kde-symbolic.svg
+    chmod 644 $out/share/icons/fmab-dark/places/32/start-here-kde.svg
+    chmod 644 $out/share/icons/fmab-dark/places/64/start-here-kde.svg
+    chmod 644 $out/share/icons/fmab-dark/places/64/start-here-kde-plasma.svg
+    chmod 644 $out/share/icons/fmab-dark/places/96/start-here-kde.svg
+    chmod 644 $out/share/icons/fmab-dark/places/96/start-here-kde-plasma.svg
+    cp ${./fmab/icons/light.svg} $out/share/icons/fmab/apps/22/plasma-symbolic.svg
+    cp ${./fmab/icons/light.svg} $out/share/icons/fmab/apps/22@2x/plasma-symbolic.svg
+    cp ${./fmab/icons/light.svg} $out/share/icons/fmab/apps/22@3x/plasma-symbolic.svg
+    cp ${./fmab/icons/light.svg} $out/share/icons/fmab/apps/24/plasma-symbolic.svg
+    cp ${./fmab/icons/light.svg} $out/share/icons/fmab/apps/24@2x/plasma-symbolic.svg
+    cp ${./fmab/icons/light.svg} $out/share/icons/fmab/apps/24@3x/plasma-symbolic.svg
+    cp ${./fmab/icons/light.svg} $out/share/icons/fmab/places/16/start-here-kde.svg
+    cp ${./fmab/icons/light.svg} $out/share/icons/fmab/places/16/start-here-kde-plasma.svg
+    cp ${./fmab/icons/light.svg} $out/share/icons/fmab/places/16/start-here-kde-plasma-symbolic.svg
+    cp ${./fmab/icons/light.svg} $out/share/icons/fmab/places/16/start-here-kde-symbolic.svg
+    cp ${./fmab/icons/light.svg} $out/share/icons/fmab/places/16/start-here-symbolic.svg
+    cp ${./fmab/icons/light.svg} $out/share/icons/fmab/places/16@2x/start-here-kde.svg
+    cp ${./fmab/icons/light.svg} $out/share/icons/fmab/places/16@2x/start-here-kde-plasma.svg
+    cp ${./fmab/icons/light.svg} $out/share/icons/fmab/places/16@2x/start-here-kde-plasma-symbolic.svg
+    cp ${./fmab/icons/light.svg} $out/share/icons/fmab/places/16@2x/start-here-kde-symbolic.svg
+    cp ${./fmab/icons/light.svg} $out/share/icons/fmab/places/16@2x/start-here-symbolic.svg
+    cp ${./fmab/icons/light.svg} $out/share/icons/fmab/places/16@3x/start-here-kde.svg
+    cp ${./fmab/icons/light.svg} $out/share/icons/fmab/places/16@3x/start-here-kde-plasma.svg
+    cp ${./fmab/icons/light.svg} $out/share/icons/fmab/places/16@3x/start-here-kde-plasma-symbolic.svg
+    cp ${./fmab/icons/light.svg} $out/share/icons/fmab/places/16@3x/start-here-kde-symbolic.svg
+    cp ${./fmab/icons/light.svg} $out/share/icons/fmab/places/16@3x/start-here-symbolic.svg
+    cp ${./fmab/icons/light.svg} $out/share/icons/fmab/places/22/start-here-kde.svg
+    cp ${./fmab/icons/light.svg} $out/share/icons/fmab/places/22/start-here-kde-plasma.svg
+    cp ${./fmab/icons/light.svg} $out/share/icons/fmab/places/22/start-here-kde-plasma-symbolic.svg
+    cp ${./fmab/icons/light.svg} $out/share/icons/fmab/places/22/start-here-kde-symbolic.svg
+    cp ${./fmab/icons/light.svg} $out/share/icons/fmab/places/22@2x/start-here-kde.svg
+    cp ${./fmab/icons/light.svg} $out/share/icons/fmab/places/22@2x/start-here-kde-plasma.svg
+    cp ${./fmab/icons/light.svg} $out/share/icons/fmab/places/22@2x/start-here-kde-plasma-symbolic.svg
+    cp ${./fmab/icons/light.svg} $out/share/icons/fmab/places/22@2x/start-here-kde-symbolic.svg
+    cp ${./fmab/icons/light.svg} $out/share/icons/fmab/places/22@3x/start-here-kde.svg
+    cp ${./fmab/icons/light.svg} $out/share/icons/fmab/places/22@3x/start-here-kde-plasma.svg
+    cp ${./fmab/icons/light.svg} $out/share/icons/fmab/places/22@3x/start-here-kde-plasma-symbolic.svg
+    cp ${./fmab/icons/light.svg} $out/share/icons/fmab/places/22@3x/start-here-kde-symbolic.svg
+    cp ${./fmab/icons/light.svg} $out/share/icons/fmab/places/24/start-here-kde.svg
+    cp ${./fmab/icons/light.svg} $out/share/icons/fmab/places/24/start-here-kde-plasma.svg
+    cp ${./fmab/icons/light.svg} $out/share/icons/fmab/places/24/start-here-kde-plasma-symbolic.svg
+    cp ${./fmab/icons/light.svg} $out/share/icons/fmab/places/24/start-here-kde-symbolic.svg
+    cp ${./fmab/icons/light.svg} $out/share/icons/fmab/places/24@2x/start-here-kde.svg
+    cp ${./fmab/icons/light.svg} $out/share/icons/fmab/places/24@2x/start-here-kde-plasma.svg
+    cp ${./fmab/icons/light.svg} $out/share/icons/fmab/places/24@2x/start-here-kde-plasma-symbolic.svg
+    cp ${./fmab/icons/light.svg} $out/share/icons/fmab/places/24@2x/start-here-kde-symbolic.svg
+    cp ${./fmab/icons/light.svg} $out/share/icons/fmab/places/24@3x/start-here-kde.svg
+    cp ${./fmab/icons/light.svg} $out/share/icons/fmab/places/24@3x/start-here-kde-plasma.svg
+    cp ${./fmab/icons/light.svg} $out/share/icons/fmab/places/24@3x/start-here-kde-plasma-symbolic.svg
+    cp ${./fmab/icons/light.svg} $out/share/icons/fmab/places/24@3x/start-here-kde-symbolic.svg
+    cp ${./fmab/icons/light.svg} $out/share/icons/fmab/places/32/start-here-kde.svg
+    cp ${./fmab/icons/light.svg} $out/share/icons/fmab/places/64/start-here-kde.svg
+    cp ${./fmab/icons/light.svg} $out/share/icons/fmab/places/64/start-here-kde-plasma.svg
+    cp ${./fmab/icons/light.svg} $out/share/icons/fmab/places/96/start-here-kde.svg
+    cp ${./fmab/icons/light.svg} $out/share/icons/fmab/places/96/start-here-kde-plasma.svg
+    cp ${./fmab/icons/dark.svg} $out/share/icons/fmab-dark/apps/22/plasma-symbolic.svg
+    cp ${./fmab/icons/dark.svg} $out/share/icons/fmab-dark/apps/22@2x/plasma-symbolic.svg
+    cp ${./fmab/icons/dark.svg} $out/share/icons/fmab-dark/apps/22@3x/plasma-symbolic.svg
+    cp ${./fmab/icons/dark.svg} $out/share/icons/fmab-dark/apps/24/plasma-symbolic.svg
+    cp ${./fmab/icons/dark.svg} $out/share/icons/fmab-dark/apps/24@2x/plasma-symbolic.svg
+    cp ${./fmab/icons/dark.svg} $out/share/icons/fmab-dark/apps/24@3x/plasma-symbolic.svg
+    cp ${./fmab/icons/dark.svg} $out/share/icons/fmab-dark/places/16/start-here-kde.svg
+    cp ${./fmab/icons/dark.svg} $out/share/icons/fmab-dark/places/16/start-here-kde-plasma.svg
+    cp ${./fmab/icons/dark.svg} $out/share/icons/fmab-dark/places/16/start-here-kde-plasma-symbolic.svg
+    cp ${./fmab/icons/dark.svg} $out/share/icons/fmab-dark/places/16/start-here-kde-symbolic.svg
+    cp ${./fmab/icons/dark.svg} $out/share/icons/fmab-dark/places/16/start-here-symbolic.svg
+    cp ${./fmab/icons/dark.svg} $out/share/icons/fmab-dark/places/16@2x/start-here-kde.svg
+    cp ${./fmab/icons/dark.svg} $out/share/icons/fmab-dark/places/16@2x/start-here-kde-plasma.svg
+    cp ${./fmab/icons/dark.svg} $out/share/icons/fmab-dark/places/16@2x/start-here-kde-plasma-symbolic.svg
+    cp ${./fmab/icons/dark.svg} $out/share/icons/fmab-dark/places/16@2x/start-here-kde-symbolic.svg
+    cp ${./fmab/icons/dark.svg} $out/share/icons/fmab-dark/places/16@2x/start-here-symbolic.svg
+    cp ${./fmab/icons/dark.svg} $out/share/icons/fmab-dark/places/16@3x/start-here-kde.svg
+    cp ${./fmab/icons/dark.svg} $out/share/icons/fmab-dark/places/16@3x/start-here-kde-plasma.svg
+    cp ${./fmab/icons/dark.svg} $out/share/icons/fmab-dark/places/16@3x/start-here-kde-plasma-symbolic.svg
+    cp ${./fmab/icons/dark.svg} $out/share/icons/fmab-dark/places/16@3x/start-here-kde-symbolic.svg
+    cp ${./fmab/icons/dark.svg} $out/share/icons/fmab-dark/places/16@3x/start-here-symbolic.svg
+    cp ${./fmab/icons/dark.svg} $out/share/icons/fmab-dark/places/22/start-here-kde.svg
+    cp ${./fmab/icons/dark.svg} $out/share/icons/fmab-dark/places/22/start-here-kde-plasma.svg
+    cp ${./fmab/icons/dark.svg} $out/share/icons/fmab-dark/places/22/start-here-kde-plasma-symbolic.svg
+    cp ${./fmab/icons/dark.svg} $out/share/icons/fmab-dark/places/22/start-here-kde-symbolic.svg
+    cp ${./fmab/icons/dark.svg} $out/share/icons/fmab-dark/places/22@2x/start-here-kde.svg
+    cp ${./fmab/icons/dark.svg} $out/share/icons/fmab-dark/places/22@2x/start-here-kde-plasma.svg
+    cp ${./fmab/icons/dark.svg} $out/share/icons/fmab-dark/places/22@2x/start-here-kde-plasma-symbolic.svg
+    cp ${./fmab/icons/dark.svg} $out/share/icons/fmab-dark/places/22@2x/start-here-kde-symbolic.svg
+    cp ${./fmab/icons/dark.svg} $out/share/icons/fmab-dark/places/22@3x/start-here-kde.svg
+    cp ${./fmab/icons/dark.svg} $out/share/icons/fmab-dark/places/22@3x/start-here-kde-plasma.svg
+    cp ${./fmab/icons/dark.svg} $out/share/icons/fmab-dark/places/22@3x/start-here-kde-plasma-symbolic.svg
+    cp ${./fmab/icons/dark.svg} $out/share/icons/fmab-dark/places/22@3x/start-here-kde-symbolic.svg
+    cp ${./fmab/icons/dark.svg} $out/share/icons/fmab-dark/places/24/start-here-kde.svg
+    cp ${./fmab/icons/dark.svg} $out/share/icons/fmab-dark/places/24/start-here-kde-plasma.svg
+    cp ${./fmab/icons/dark.svg} $out/share/icons/fmab-dark/places/24/start-here-kde-plasma-symbolic.svg
+    cp ${./fmab/icons/dark.svg} $out/share/icons/fmab-dark/places/24/start-here-kde-symbolic.svg
+    cp ${./fmab/icons/dark.svg} $out/share/icons/fmab-dark/places/24@2x/start-here-kde.svg
+    cp ${./fmab/icons/dark.svg} $out/share/icons/fmab-dark/places/24@2x/start-here-kde-plasma.svg
+    cp ${./fmab/icons/dark.svg} $out/share/icons/fmab-dark/places/24@2x/start-here-kde-plasma-symbolic.svg
+    cp ${./fmab/icons/dark.svg} $out/share/icons/fmab-dark/places/24@2x/start-here-kde-symbolic.svg
+    cp ${./fmab/icons/dark.svg} $out/share/icons/fmab-dark/places/24@3x/start-here-kde.svg
+    cp ${./fmab/icons/dark.svg} $out/share/icons/fmab-dark/places/24@3x/start-here-kde-plasma.svg
+    cp ${./fmab/icons/dark.svg} $out/share/icons/fmab-dark/places/24@3x/start-here-kde-plasma-symbolic.svg
+    cp ${./fmab/icons/dark.svg} $out/share/icons/fmab-dark/places/24@3x/start-here-kde-symbolic.svg
+    cp ${./fmab/icons/dark.svg} $out/share/icons/fmab-dark/places/32/start-here-kde.svg
+    cp ${./fmab/icons/dark.svg} $out/share/icons/fmab-dark/places/64/start-here-kde.svg
+    cp ${./fmab/icons/dark.svg} $out/share/icons/fmab-dark/places/64/start-here-kde-plasma.svg
+    cp ${./fmab/icons/dark.svg} $out/share/icons/fmab-dark/places/96/start-here-kde.svg
+    cp ${./fmab/icons/dark.svg} $out/share/icons/fmab-dark/places/96/start-here-kde-plasma.svg
     cp -r ${./fmab}/* $out/share/
+    chmod -R u+w $out/share
+    sed -i "s|ImageDir=.*|ImageDir=$out/share/plymouth/themes/fmab|" $out/share/plymouth/themes/fmab/fmab.plymouth
+    sed -i "s|ScriptFile=.*|ScriptFile=$out/share/plymouth/themes/fmab/fmab.script|" $out/share/plymouth/themes/fmab/fmab.plymouth
+    sed -i "s|logo=.*|logo=$out/share/sddm/themes/fmab/default-logo.svg|" $out/share/sddm/themes/fmab/theme.conf
+    sed -i "s|background=.*|logo=$out/share/wallpapers/fmab-lock/contents/images/1920x1080.png|" $out/share/sddm/themes/fmab/theme.conf
   '';
 in
 {
@@ -84,7 +291,7 @@ in
         Type = "simple";
         KillMode = "process";
         KillSignal = "SIGHUP";
-        ExecStart = "/run/current-system/sw/bin/proxychains4 /run/current-system/sw/bin/rtorrent -o network.scgi.open_local=/home/ali/rpc.socket,system.daemon.set=true,system.file.allocate.set=1";
+        ExecStart = "${pkgs.proxychains}/bin/proxychains4 ${pkgs.rtorrent}/bin/rtorrent -o network.scgi.open_local=/home/ali/rpc.socket,system.daemon.set=true,system.file.allocate.set=1";
         Restart = "on-failure";
         RestartSec = 3;
       };
@@ -97,7 +304,7 @@ in
       serviceConfig = {
         User = "ali";
         Type = "simple";
-        ExecStart = "/run/current-system/sw/bin/flood";
+        ExecStart = "${pkgs.flood}/bin/flood";
         StandardOutput = "journal";
         StandardError = "journal";
         Restart = "on-failure";
@@ -115,12 +322,13 @@ in
       serviceConfig = {
         User = "root";
         Type = "simple";
-        ExecStart = "/run/current-system/sw/bin/Stirling-PDF";
-        ExecStop = "/run/current-system/sw/bin/kill -15 $MAINPID";
+        ExecStart = "${pkgs.stirling-pdf}/bin/Stirling-PDF";
+        ExecStop = "${pkgs.coreutils}/bin/kill -15 $MAINPID";
         SuccessExitStatus = 143;
       };
     };
   };
+
   options.ali = {
     fonts.my-fonts = lib.mkOption { type = lib.types.package; };
     packages.fmab-customizations = lib.mkOption { type = lib.types.package; };

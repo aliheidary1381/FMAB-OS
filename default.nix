@@ -43,11 +43,20 @@
   };
 
   # Bootloader.
-  # TODO: plymouth
-  boot.loader.grub.enable = true;
-  boot.loader.grub.efiSupport = true;
-  boot.loader.grub.device = "nodev";
+  boot.loader.grub = {
+    enable = true;
+    efiSupport = true;
+    device = "nodev";
+  };
   boot.loader.efi.canTouchEfiVariables = true;
+
+  boot.loader.grub2-theme = {
+    enable = true;
+    theme = "whitesur";
+    icon = "color";
+    splashImage = ./images/grub-background.png;
+    footer = true;
+  };
 
   # Configure display manager & desktop manager.
   services.xserver.enable = false;
@@ -57,12 +66,13 @@
     wayland.enable = true;
     wayland.compositor = "kwin";
     autoLogin.relogin = true;
-    theme = "/run/current-system/sw/share/sddm/themes/fmab";
+    theme = "${config.ali.packages.fmab-customizations}/share/sddm/themes/fmab";
   };
   services.displayManager.autoLogin = {
     enable = true;
     user = "ali";
   };
+
   services.desktopManager.plasma6.enable = true;
   services.displayManager.defaultSession = "plasma";
 
@@ -70,16 +80,9 @@
     enable = true;
     flavor = "frappe";
     accent = "yellow";
-    sddm.enable = false;
     grub.enable = false;
-  };
-
-  boot.loader.grub2-theme = {
-    enable = true;
-    theme = "whitesur";
-    icon = "color";
-    splashImage = ./images/grub-background.png;
-    footer = true;
+    plymouth.enable = false;
+    sddm.enable = false;
   };
 
   # Configure console keymap

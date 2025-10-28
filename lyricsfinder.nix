@@ -31,7 +31,7 @@
 
     installPhase = ''
       install -Dm755 unpacked/opt/lyrics-finder/LyricsFinder $out/bin/lyricsfinder
-      sed 's|Exec=.*|Exec=/run/current-system/sw/bin/lyricsfinder %U|' unpacked/usr/share/applications/lyrics-finder.desktop > lyricsfinder.desktop
+      sed 's|Exec=.*|Exec=lyricsfinder %U|' unpacked/usr/share/applications/lyrics-finder.desktop > lyricsfinder.desktop
       install -Dm644 unpacked/usr/share/applications/lyrics-finder.desktop $out/share/applications/lyrics-finder.desktop
       cp -r unpacked/usr/share/lyrics-finder/locale $out/share/lyrics-finder/
       install -Dm644 unpacked/usr/share/icons/hicolor/1024x1024/apps/LyricsFinder.png $out/share/icons/hicolor/1024x1024/apps/LyricsFinder.png
