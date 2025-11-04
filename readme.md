@@ -35,12 +35,22 @@ unless they have a significant disadvantage.
   * VMMs (WinBoat for Windows, Waydroid for Android, and Virt-manager for
   everything else. They don't take much space unless they're initialized
   i.e. unless you download the OSes).
+  * Ollama, Open WebUI, local Gemma and Qwen, with integrations for Zed IDE and Wave Terminal.
   * systemd, networkd, resolved, pipewire, btrfs filesystem, glibc, gnu coreutils, LTS kernel, etc.
 
 ### Recommended Windows apps to install
 
   * Office 365 Pro Plus
   * Adobe Photoshop
+
+### Web app addresses
+
+  * Flood is at [localhost:3000](http://localhost:3000/)
+  * Stirling PDF is at [localhost:8080](http://localhost:8080/)
+  * Open WebUI (for Ollama) is at [localhost:8085](http://localhost:8085/)
+  * noVNC (for QEMU Windows) is at [localhost:8006](http://localhost:8006/).
+  Note that it's only used for debugging and diagnostics. Windows apps are mainly
+  accessed from the WinBoat app.
 
 ## Background images acknowledgements
 
@@ -64,5 +74,5 @@ and distributed in NA by Aniplex Inc.
 ## Future plans / TODO
 
   * Better starship prompts.
-  * Adding AI integration to Wave & Zed.
+  * Move home-manager-managed stuff to global configs.
   * "Fixing" automatic theme switch for wave, nvim, helix, fish, starship, bat, fzf, lsd, and lazygit.

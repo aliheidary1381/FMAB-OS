@@ -8,8 +8,12 @@ let
   KDE =
     with pkgs.kdePackages;
     [
+      plasma-disks
+      plasma-firewall
+      kaccounts-providers
+      kio-gdrive
       plymouth-kcm
-      bluedevil
+      plasma-sdk
       kmix
       partitionmanager
       isoimagewriter
@@ -18,13 +22,14 @@ let
       kompare
       kolourpaint
       kcolorchooser
-      calligra # libreoffice-qt
+      calligra
     ]
     ++ (with pkgs; [
-      haruna
-      krename
       # systemdgenie
       # elf-dissector
+      krita
+      haruna
+      krename
     ])
     ++ [ config.ali.packages.fmab-customizations ];
   basic = with pkgs; [
@@ -47,15 +52,25 @@ let
     efibootmgr
   ];
   expert = with pkgs; [
-    krita # gimp3-with-plugins
+    (libreoffice.overrideAttrs (oldAttrs: {
+      withFonts = true;
+      withHelp = false;
+      kdeIntegration = true;
+      langs = [ "en-GB" ];
+    }))
+    gimp3-with-plugins
+    # Add inkscape-with-extensions & texlivePackages.svg-inkscape & inkscape-extensions.textext for vector graphics
+    media-downloader
     rtorrent
     flood
     winboat
     libguestfs-with-appliance
-    # Add Subtitle Composer & Kdenlive for subtitle & video editing, Krita & Karbon for raster and vector image editing, and KEXI for database management
+    yt-dlp
+    # Add subtitlecomposer for subtitle editing, kdePackages.kdenlive for video editing, and davinci-resolve-studio for more advanced editing
+    # Add blender-hip for 3D graphics
   ];
   shell_tools = with pkgs; [
-    waveterm
+    waveterm # TODO: add tabby also
     wget
     jq
     sl
@@ -66,8 +81,16 @@ let
     dig
     tcpdump
     inetutils
-    fd
     httpie
+    gtrash
+    broot
+    xcp
+    fd
+    eza
+    bat
+    lazygit
+    fzf
+    zoxide
   ];
   music = with pkgs; [
     streamrip
@@ -75,7 +98,7 @@ let
     kid3
     puddletag
     ocenaudio
-    mediainfo
+    mediainfo-gui
     mkvtoolnix
     makemkv
     dvdae
@@ -84,9 +107,10 @@ let
   ];
   academia = with pkgs; [
     stirling-pdf
+    texliveFull
+    texlab
     jabref # kbibtex
     kile
-    texlab
     R
     rPackages.IRkernel
     kdePackages.cantor
@@ -103,6 +127,7 @@ let
     sqlc
     kdePackages.kcachegrind
     # datagrip
+    # Add kexi for database management
     sqls
     yaml-language-server
     package-version-server
@@ -185,10 +210,10 @@ let
   ]; # pkgs.cargo is also ditched
   c = with pkgs; [
     libgcc
-    glibc
-    cmake
     gcc
     gdb
+    glibc
+    cmake
     ninja
     libclang
     lldb
@@ -202,7 +227,6 @@ let
   ]; # pkgs.vcpkg is also ditched
 in
 {
-
   # List packages installed in system profile. To search, run:
   # $ nix search
   environment.systemPackages =

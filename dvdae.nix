@@ -1,4 +1,4 @@
-{ pkgs }:
+{ pkgs, ... }:
 let
   version = "8.7.0";
   flacPkgs = import (builtins.fetchGit {

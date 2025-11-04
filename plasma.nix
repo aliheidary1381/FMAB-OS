@@ -1,7 +1,4 @@
 {
-  ...
-}:
-{
   programs.plasma = {
     enable = true;
     workspace.lookAndFeel = "fmab.dark.desktop";

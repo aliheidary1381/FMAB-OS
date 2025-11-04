@@ -1,4 +1,3 @@
-{ ... }:
 {
   home.file.".config/waveterm/presets.json".text = builtins.toJSON {
     "bg@default" = {
@@ -385,5 +384,36 @@
     "tab:preset" = "catpuccin-frappe";
     "term:theme" = "catpuccin-frappe";
     "term:fontsize" = 16;
+    "ai:preset" = "ai@gemma-3n";
+  };
+
+  home.file.".config/waveterm/presets/ai.json".text = builtins.toJSON {
+    "ai@gemma-3n" = {
+      "display:name" = "Gemma 3n (e2b-it-q4_K_M)";
+      "display:order" = 1;
+      "ai:*" = true;
+      "ai:baseurl" = "http://localhost:11434/v1";
+      "ai:name" = "gemma3n";
+      "ai:model" = "gemma3n:e2b-it-q4_K_M";
+      "ai:apitoken" = "ollama"; # doesn't matter. it's ignored
+    };
+    "ai@qwen3-think" = {
+      "display:name" = "Qwen3 thinking (4b-thinking-2507-q4_K_M)";
+      "display:order" = 2;
+      "ai:*" = true;
+      "ai:baseurl" = "http://localhost:11434/v1";
+      "ai:name" = "qwen3";
+      "ai:model" = "qwen3:4b-thinking-2507-q4_K_M";
+      "ai:apitoken" = "ollama"; # doesn't matter. it's ignored
+    };
+    "ai@qwen3-instruct" = {
+      "display:name" = "Qwen3 instruct (4b-instruct-2507-q4_K_M)";
+      "display:order" = 3;
+      "ai:*" = true;
+      "ai:baseurl" = "http://localhost:11434/v1";
+      "ai:name" = "qwen3";
+      "ai:model" = "qwen3:4b-instruct-2507-q4_K_M";
+      "ai:apitoken" = "ollama"; # doesn't matter. it's ignored
+    };
   };
 }

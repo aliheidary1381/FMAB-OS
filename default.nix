@@ -73,8 +73,6 @@
   services.displayManager.sddm = {
     enable = true;
     autoNumlock = true;
-    wayland.enable = true;
-    wayland.compositor = "kwin";
     autoLogin.relogin = true;
     theme = "${config.ali.packages.fmab-customizations}/share/sddm/themes/fmab";
   };
@@ -94,6 +92,8 @@
     plymouth.enable = false;
     sddm.enable = false;
   };
+
+  services.colord.enable = true;
 
   # Configure console keymap
   console.keyMap = "us";
@@ -126,6 +126,19 @@
     ];
   };
 
+  services.cloudflare-warp.enable = true;
+
+  services.ollama.enable = true;
+  services.ollama.loadModels = [
+    "gemma3n:e2b-it-q4_K_M"
+    "qwen3:4b-instruct-2507-q4_K_M"
+    "qwen3:4b-thinking-2507-q4_K_M"
+  ]; # "qwen3-coder:30b-a3b-q4_K_M" "qwen3-vl:2b-instruct-q4_K_M" "qwen3-vl:2b-thinking-q4_K_M" "qwen3-embedding:0.6b-q8_0"
+  services.open-webui.enable = true;
+  services.open-webui.port = 8085;
+
+  programs.nix-index.enable = true;
+
   programs.proxychains = {
     enable = true;
     proxies.windscribe = {
@@ -148,9 +161,6 @@
     # sansSerif = [ "IRANSansX" ];
   };
 
-  systemd.packages = with pkgs; [ cloudflare-warp ];
-  systemd.targets.multi-user.wants = [ "warp-svc.service" ];
-
   systemd.targets.machines.enable = true;
 
   virtualisation.docker.enable = true; # For WinBoat Windows containers
@@ -160,6 +170,7 @@
   programs.virt-manager.enable = true;
   users.groups.libvirtd.members = [ "ali" ];
   virtualisation.libvirtd = {
+    # TODO: use LXC for Windscribe
     enable = true;
     qemu.vhostUserPackages = with pkgs; [ virtiofsd ];
   };

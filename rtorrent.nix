@@ -1,4 +1,4 @@
-{ pkgs }:
+{ pkgs, ... }:
 let
   version = "v0.9.8-r16";
   rtorrent = pkgs.stdenv.mkDerivation {

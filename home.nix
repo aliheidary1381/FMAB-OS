@@ -15,12 +15,14 @@ in
     };
   };
 
+  programs.eza.enable = true;
+  programs.lsd.enable = true;
   programs.bat.enable = true;
   programs.fish.enable = true;
   programs.lazygit.enable = true;
   programs.fzf.enable = true;
-  programs.lsd.enable = true;
   programs.zoxide.enable = true;
+  programs.broot.enable = true;
   programs.element-desktop.enable = true; # KDE's neochat had deprecated dependencies.
 
   catppuccin = {
@@ -35,6 +37,7 @@ in
     fzf.enable = true;
     lazygit.enable = true;
     lsd.enable = true;
+    eza.enable = true;
   };
 
   home.file.".config/fish/themes/Catppuccin Frappe.theme".source =
