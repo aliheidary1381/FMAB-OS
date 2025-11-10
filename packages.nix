@@ -15,6 +15,7 @@ let
       plymouth-kcm
       plasma-sdk
       kmix
+      filelight
       partitionmanager
       isoimagewriter
       kfind
@@ -22,7 +23,9 @@ let
       kompare
       kolourpaint
       kcolorchooser
-      calligra
+      kcharselect
+      # qrca
+      qtlanguageserver
     ]
     ++ (with pkgs; [
       # systemdgenie
@@ -69,6 +72,13 @@ let
     # Add subtitlecomposer for subtitle editing, kdePackages.kdenlive for video editing, and davinci-resolve-studio for more advanced editing
     # Add blender-hip for 3D graphics
   ];
+  ai = with pkgs; [
+    mcp-nixos
+    github-mcp-server
+    # mcp-k8s-go
+    # mcp-grafana
+    # playwright-mcp
+  ];
   shell_tools = with pkgs; [
     waveterm # TODO: add tabby also
     wget
@@ -87,6 +97,7 @@ let
     xcp
     fd
     eza
+    lsd
     bat
     lazygit
     fzf
@@ -111,8 +122,15 @@ let
     texlab
     jabref # kbibtex
     kile
-    R
-    rPackages.IRkernel
+    (rWrapper.override {
+      packages = with rPackages; [
+        IRkernel
+        languageserver
+      ];
+    })
+    (pkgs.writeShellScriptBin "r-languageserver" ''
+      exec R --slave -e 'languageserver::run()'
+    '')
     kdePackages.cantor
     labplot
     # sage
@@ -151,41 +169,61 @@ let
   python = with pkgs; [
     # pycharm
     # dataspell
+    # (pkgs.writeShellScriptBin "dataspell-with-jupyter-notebook" ''
+    #   jupyter notebook & dataspell; pkill -f "jupyter-notebook"
+    # '')
     pyright
-    (python313.buildEnv.override {
-      extraLibs = [
-        rPackages.IRkernel
-      ]
-      ++ (with python313Packages; [
-        tqdm
-        numpy
-        scipy
-        pandas
-        pyarrow
-        jupyterlab
-        notebook
-        nix-kernel
-        # ilua
-        # gophernotes
-        scikit-learn
-        keras # depends on tf
-        torch
-        torchvision
-        opencv4
-        xgboost
-        networkx
-        matplotlib
-        seaborn
-        # hvplot
-        # plotly
-        # dash
-        # streamlit
-        # dask
-      ]);
-    })
+    basedpyright
+    ruff
+    (
+      (python313.override {
+        packageOverrides = self: super: {
+          ipykernel = super.ipykernel.overrideAttrs (old: {
+            postInstall = ''
+              mkdir -p $out/share/jupyter/kernels/ir
+              cp -r ${rPackages.IRkernel}/library/IRkernel/kernelspec/* $out/share/jupyter/kernels/ir/
+            '';
+          });
+        };
+      }).withPackages
+      (
+        # ps is python313Packages
+        ps: with ps; [
+          python-lsp-server
+          python-lsp-ruff
+          pylsp-mypy
+          tqdm
+          numpy
+          scipy
+          pandas
+          pyarrow
+          jupyterlab
+          notebook
+          scikit-learn
+          keras # depends on tf
+          torch
+          torchvision
+          opencv4
+          xgboost
+          networkx
+          matplotlib
+          seaborn
+          # hvplot
+          # plotly
+          # dash
+          # streamlit
+          # dask
+          pillow
+          pydicom
+        ]
+      )
+    )
   ]; # uv & pkgs.python313Packages.pip is also ditched
   javascript = with pkgs; [
-    nodejs_24
+    nodejs-slim_24 # = nodejs with no npm
+    (pnpm.overrideAttrs (oldAttrs: {
+      withNode = false;
+    }))
     deno
     # webstorm
     typescript
@@ -195,7 +233,7 @@ let
     eslint
     vtsls
     tailwindcss-language-server
-  ]; # pkgs.pnpm is also ditched
+  ];
   goPkgs = with pkgs; [
     go
     gopls
@@ -203,11 +241,12 @@ let
   ];
   rust = with pkgs; [
     rustc
+    cargo
     rustfmt
     clippy
     # rustrover
     rust-analyzer
-  ]; # pkgs.cargo is also ditched
+  ];
   c = with pkgs; [
     libgcc
     gcc
@@ -233,6 +272,7 @@ in
     KDE
     ++ basic
     ++ expert
+    ++ ai
     ++ shell_tools
     ++ music
     ++ academia
@@ -244,4 +284,8 @@ in
     ++ goPkgs
     ++ rust
     ++ c;
+  environment.sessionVariables = {
+    GOPATH = "/home/ali/.go";
+    GOMODCACHE = "/home/ali/.go/pkg/mod";
+  };
 }

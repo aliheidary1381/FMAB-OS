@@ -251,27 +251,116 @@ in
 
     # nixpkgs.overlays = [
     #   (self: super: {
-    #     goland = super.jetbrains.goland.override {
-    #       vmopts = jetbrains-vmoptions-patch;
-    #     };
-    #     clion = super.jetbrains.clion.override {
-    #       vmopts = jetbrains-vmoptions-patch;
-    #     };
-    #     datagrip = super.jetbrains.datagrip.override {
-    #       vmopts = jetbrains-vmoptions-patch;
-    #     };
-    #     pycharm = super.jetbrains.pycharm-professional.override {
-    #       vmopts = jetbrains-vmoptions-patch;
-    #     };
+    #     goland =
+    #       super.jetbrains.plugins.addPlugins
+    #         (super.jetbrains.goland.override {
+    #           vmopts = jetbrains-vmoptions-patch;
+    #         })
+    #         [
+    #           # "org.jetbrains.junie"
+    #           # "com.intellij.ml.llm"
+    #           # "com.intellij.mcpServer"
+    #           "catppuccin-theme"
+    #           "catppuccin-icons"
+    #           "nixidea" # "nix-idea"
+    #           # "mobi.hsz.idea.gitignore"
+    #           "ini" # "com.jetbrains.plugins.ini4idea"
+    #           "-env-files" # "ru.adelf.idea.dotenv"
+    #           "toml" # "org.toml.lang"
+    #           "csv-editor" # "net.seesharpsoft.intellij.plugins.csv"
+    #           # "com.intellij.kubernetes"
+    #           "docker" # "Docker"
+    #           "gitlab" # "org.jetbrains.plugins.gitlab"
+    #           # "org.jetbrains.plugins.github"
+    #           # "org.intellij.plugins.markdown"
+    #           # "com.intellij.ideolog"
+    #           "protocol-buffers" # "idea.plugin.protoeditor"
+    #           # "com.intellij.grpc"
+    #           # "org.jetbrains.plugins.yaml"
+    #           # "com.intellij.microservices.ui"
+    #           # "org.intellij.RegexpTester"
+    #         ];
+    #     clion =
+    #       super.jetbrains.plugins.addPlugins
+    #         (super.jetbrains.clion.override {
+    #           vmopts = jetbrains-vmoptions-patch;
+    #         })
+    #         [
+    #           "catppuccin-theme"
+    #           "catppuccin-icons"
+    #           "-env-files"
+    #           "gitlab"
+    #           # "name.kropp.intellij.makefile"
+    #           # "com.intellij.qt"
+    #           # "com.intellij.lang.qml"
+    #         ];
+    #     datagrip =
+    #       super.jetbrains.plugins.addPlugins
+    #         (super.jetbrains.datagrip.override {
+    #           vmopts = jetbrains-vmoptions-patch;
+    #         })
+    #         [
+    #           "catppuccin-theme"
+    #           "catppuccin-icons"
+    #         ];
+    #     pycharm =
+    #       super.jetbrains.plugins.addPlugins
+    #         (super.jetbrains.pycharm-professional.override {
+    #           vmopts = jetbrains-vmoptions-patch;
+    #         })
+    #         [
+    #           "catppuccin-theme"
+    #           "catppuccin-icons"
+    #           "-env-files"
+    #           "gitlab"
+    #           # "com.intellij.bigdatatools"
+    #           # "com.intellij.bigdatatools.core"
+    #           # "com.intellij.bigdatatools.binary.files"
+    #           # "com.intellij.bigdatatools.kafka"
+    #           # "R4Intellij"
+    #           # "com.leinardi.pycharm.pylint"
+    #           # "ru.meanmail.plugin.requirements"
+    #         ];
     #     dataspell = super.jetbrains.dataspell.override {
     #       vmopts = jetbrains-vmoptions-patch;
     #     };
-    #     webstorm = super.jetbrains.webstorm.override {
-    #       vmopts = jetbrains-vmoptions-patch;
-    #     };
-    #     rustrover = super.jetbrains.rust-rover.override {
-    #       vmopts = jetbrains-vmoptions-patch;
-    #     };
+    #     webstorm =
+    #       super.jetbrains.plugins.addPlugins
+    #         (super.jetbrains.webstorm.override {
+    #           vmopts = jetbrains-vmoptions-patch;
+    #         })
+    #         [
+    #           "catppuccin-theme"
+    #           "catppuccin-icons"
+    #           "-env-files"
+    #           "gitlab"
+    #           "protocol-buffers"
+    #           # "NodeJS"
+    #           # "deno"
+    #           # "intellij.vitejs"
+    #           # "org.jetbrains.plugins.astro"
+    #           # "dev.blachut.svelte.lang"
+    #           # "mdx.js"
+    #           # "intellij.prettierJS"
+    #           # "com.github.biomejs.intellijbiome"
+    #         ];
+    #     rustrover =
+    #       super.jetbrains.plugins.addPlugins
+    #         (super.jetbrains.rust-rover.override {
+    #           vmopts = jetbrains-vmoptions-patch;
+    #         })
+    #         [
+    #           "catppuccin-theme"
+    #           "catppuccin-icons"
+    #           "-env-files"
+    #           "toml"
+    #           "gitlab"
+    #         ];
+    #     # python313Packages = super.python313Packages // {
+    #     #   torch = super.python313Packages.torch.override {
+    #     #     vulkanSupport = true;
+    #     #   };
+    #     # };
     #   })
     # ];
 
@@ -291,7 +380,7 @@ in
         Type = "simple";
         KillMode = "process";
         KillSignal = "SIGHUP";
-        ExecStart = "${pkgs.proxychains}/bin/proxychains4 ${pkgs.rtorrent}/bin/rtorrent -o network.scgi.open_local=/home/ali/rpc.socket,system.daemon.set=true,system.file.allocate.set=1";
+        ExecStart = "${pkgs.proxychains}/bin/proxychains4 ${pkgs.rtorrent}/bin/rtorrent -o network.scgi.open_local=/home/ali/rpc.socket,system.daemon.set=true,system.file.allocate.set=1"; # TODO: a better rpc.socket path
         Restart = "on-failure";
         RestartSec = 3;
       };

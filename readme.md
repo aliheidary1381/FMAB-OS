@@ -48,7 +48,8 @@ unless they have a significant disadvantage.
   * Flood is at [localhost:3000](http://localhost:3000/)
   * Stirling PDF is at [localhost:8080](http://localhost:8080/)
   * Open WebUI (for Ollama) is at [localhost:8085](http://localhost:8085/)
-  * noVNC (for QEMU Windows) is at [localhost:8006](http://localhost:8006/).
+  * Jupyter Notebook is at [localhost:8888](http://localhost:8888/)
+  * noVNC (for QEMU Windows) is at [localhost:8006](http://localhost:8006/)
   Note that it's only used for debugging and diagnostics. Windows apps are mainly
   accessed from the WinBoat app.
 

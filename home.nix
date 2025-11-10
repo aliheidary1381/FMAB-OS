@@ -44,6 +44,7 @@ in
     "${sources.fish}/Catppuccin Frappe.theme";
   home.file.".config/fish/themes/Catppuccin Latte.theme".source =
     "${sources.fish}/Catppuccin Latte.theme";
+  home.file.".jupyter/jupyter_notebook_config.py".source = ./jupyter_notebook_config.py;
 
   home.activation.streamripConfig = lib.hm.dag.entryAfter [ "writeBoundary" ] ''
     cp ${./streamrip-config.toml} "$HOME/.config/streamrip/config.toml" && chmod 600 "$HOME/.config/streamrip/config.toml"

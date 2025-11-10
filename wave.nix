@@ -384,11 +384,11 @@
     "tab:preset" = "catpuccin-frappe";
     "term:theme" = "catpuccin-frappe";
     "term:fontsize" = 16;
-    "ai:preset" = "ai@gemma-3n";
+    "ai:preset" = "ai@gemma3n";
   };
 
   home.file.".config/waveterm/presets/ai.json".text = builtins.toJSON {
-    "ai@gemma-3n" = {
+    "ai@gemma3n" = {
       "display:name" = "Gemma 3n (e2b-it-q4_K_M)";
       "display:order" = 1;
       "ai:*" = true;

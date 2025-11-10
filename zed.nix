@@ -4,6 +4,7 @@
     extensions = [
       "catppuccin"
       "catppuccin-icons"
+      "fish"
       "html"
       "toml"
       "dockerfile"

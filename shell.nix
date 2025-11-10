@@ -8,14 +8,23 @@
     shellInit = ''
       set -g fish_greeting ""
       fish_config theme choose "Catppuccin Frappe"
+      function run
+        if test (count $argv) -eq 0
+          echo "Usage: run <package>"
+          return 1
+        end
+        nix run nixpkgs#$argv[1] -- $argv[2..-1]
+      end
     '';
     shellAliases = {
-      "build" = "sudo nixos-rebuild switch --flake /home/ali/Documents/NixOS-config --impure";
-      "boot" = "sudo nixos-rebuild boot --flake /home/ali/Documents/NixOS-config --impure";
-      "gc" =
-        "sudo nix-env --delete-generations old && sudo nix-collect-garbage -d && sudo journalctl --rotate && sudo journalctl --vacuum-time=1s";
-      "proxy" = "proxychains4 fish";
-      "update" = "pushd /home/ali/Documents/NixOS-config && nix flake update && popd";
+      build = "sudo nixos-rebuild switch --flake /home/ali/Documents/NixOS-config --impure";
+      boot = "sudo nixos-rebuild boot --flake /home/ali/Documents/NixOS-config --impure";
+      gc = "sudo nix-env --delete-generations old && sudo nix-collect-garbage -d && sudo journalctl --rotate && sudo journalctl --vacuum-time=1s";
+      proxy = "proxychains4 fish";
+      update = "pushd /home/ali/Documents/NixOS-config && nix flake update && popd";
+      cp = "cp -i";
+      mv = "mv -i";
+      tree = ''broot --tree --cmd ":print_tree"'';
     };
   };
 

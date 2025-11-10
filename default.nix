@@ -133,7 +133,8 @@
     "gemma3n:e2b-it-q4_K_M"
     "qwen3:4b-instruct-2507-q4_K_M"
     "qwen3:4b-thinking-2507-q4_K_M"
-  ]; # "qwen3-coder:30b-a3b-q4_K_M" "qwen3-vl:2b-instruct-q4_K_M" "qwen3-vl:2b-thinking-q4_K_M" "qwen3-embedding:0.6b-q8_0"
+    "qwen3-embedding:0.6b-q8_0"
+  ]; # "qwen3-coder:30b-a3b-q4_K_M" "qwen3-vl:2b-instruct-q4_K_M" "qwen3-vl:2b-thinking-q4_K_M"
   services.open-webui.enable = true;
   services.open-webui.port = 8085;
 
