@@ -1,9 +1,14 @@
-{ config, pkgs, ... }:
+{
+  config,
+  pkgs,
+  ...
+}:
 
 let
   rtorrent = config.ali.packages.rtorrent;
   lyrics-finder = config.ali.packages.lyrics-finder;
   dvdae = config.ali.packages.dvdae;
+  medmnist = config.ali.packages.medmnist;
 
   KDE =
     with pkgs.kdePackages;
@@ -24,8 +29,9 @@ let
       kolourpaint
       kcolorchooser
       kcharselect
-      # qrca
+      # qrca was not available
       qtlanguageserver
+      # neochat had deprecated dependencies
     ]
     ++ (with pkgs; [
       # systemdgenie
@@ -55,12 +61,7 @@ let
     efibootmgr
   ];
   expert = with pkgs; [
-    (libreoffice.overrideAttrs (oldAttrs: {
-      withFonts = true;
-      withHelp = false;
-      kdeIntegration = true;
-      langs = [ "en-GB" ];
-    }))
+    libreoffice-qt
     gimp3-with-plugins
     # Add inkscape-with-extensions & texlivePackages.svg-inkscape & inkscape-extensions.textext for vector graphics
     media-downloader
@@ -120,7 +121,7 @@ let
     stirling-pdf
     texliveFull
     texlab
-    jabref # kbibtex
+    jabref # kbibtex  has reached EOL
     kile
     (rWrapper.override {
       packages = with rPackages; [
@@ -133,6 +134,8 @@ let
     '')
     kdePackages.cantor
     labplot
+    # (builtins.getFlake "/home/ali/Documents/NixOS-config/packages/CellProfiler")
+    # .packages.${pkgs.system}.cellprofiler
     # sage
     # positron-bin
   ];
@@ -144,7 +147,7 @@ let
     heaptrack
     sqlc
     kdePackages.kcachegrind
-    # datagrip
+    datagrip
     # Add kexi for database management
     sqls
     yaml-language-server
@@ -167,14 +170,15 @@ let
     ]); # pkgs.opam is ditched in favour of nix
   prolog = with pkgs; [ swi-prolog ];
   python = with pkgs; [
-    # pycharm
-    # dataspell
-    # (pkgs.writeShellScriptBin "dataspell-with-jupyter-notebook" ''
-    #   jupyter notebook & dataspell; pkill -f "jupyter-notebook"
-    # '')
+    pycharm
+    dataspell
+    (pkgs.writeShellScriptBin "dataspell-with-jupyter-notebook" ''
+      jupyter notebook & dataspell; pkill -f "jupyter-notebook"
+    '')
     pyright
     basedpyright
     ruff
+    pyrefly
     (
       (python313.override {
         packageOverrides = self: super: {
@@ -193,19 +197,25 @@ let
           python-lsp-ruff
           pylsp-mypy
           tqdm
+          brotli
+
           numpy
           scipy
           pandas
           pyarrow
           jupyterlab
           notebook
+          xgboost
           scikit-learn
+          scikit-image
           keras # depends on tf
           torch
           torchvision
+          torch-geometric
           opencv4
-          xgboost
+          pillow
           networkx
+
           matplotlib
           seaborn
           # hvplot
@@ -213,8 +223,9 @@ let
           # dash
           # streamlit
           # dask
-          pillow
+          rdkit
           pydicom
+          medmnist
         ]
       )
     )
@@ -225,7 +236,7 @@ let
       withNode = false;
     }))
     deno
-    # webstorm
+    webstorm
     typescript
     vscode-langservers-extracted
     typescript-language-server
@@ -233,18 +244,18 @@ let
     eslint
     vtsls
     tailwindcss-language-server
-  ];
+  ]; # pkgs.corepack & pkgs.fnm are also ditched
   goPkgs = with pkgs; [
     go
     gopls
-    # goland
+    goland
   ];
   rust = with pkgs; [
     rustc
     cargo
     rustfmt
     clippy
-    # rustrover
+    rustrover
     rust-analyzer
   ];
   c = with pkgs; [
@@ -256,11 +267,7 @@ let
     ninja
     libclang
     lldb
-    icu
-    qtcreator
-    # libsForQt5.qt5.qtbase
-    # libsForQt5.qt5.qtwebsockets
-    # clion
+    clion
     cmake-language-server
     clang-tools
   ]; # pkgs.vcpkg is also ditched

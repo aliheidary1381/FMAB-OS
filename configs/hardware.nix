@@ -21,6 +21,7 @@
   ];
   boot.initrd.kernelModules = [ "i915" ];
   boot.initrd.verbose = false;
+
   boot.kernelModules = [
     "kvm-intel"
     "ip_tables"

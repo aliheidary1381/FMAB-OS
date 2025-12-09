@@ -23,7 +23,6 @@ in
   programs.fzf.enable = true;
   programs.zoxide.enable = true;
   programs.broot.enable = true;
-  programs.element-desktop.enable = true; # KDE's neochat had deprecated dependencies.
 
   catppuccin = {
     enable = true;
@@ -44,10 +43,10 @@ in
     "${sources.fish}/Catppuccin Frappe.theme";
   home.file.".config/fish/themes/Catppuccin Latte.theme".source =
     "${sources.fish}/Catppuccin Latte.theme";
-  home.file.".jupyter/jupyter_notebook_config.py".source = ./jupyter_notebook_config.py;
+  home.file.".jupyter/jupyter_notebook_config.py".source = ./jupyter_notebook.py;
 
   home.activation.streamripConfig = lib.hm.dag.entryAfter [ "writeBoundary" ] ''
-    cp ${./streamrip-config.toml} "$HOME/.config/streamrip/config.toml" && chmod 600 "$HOME/.config/streamrip/config.toml"
+    cp ${./streamrip.toml} "$HOME/.config/streamrip/config.toml" && chmod 600 "$HOME/.config/streamrip/config.toml"
   '';
   # home.file.".config/streamrip/config.toml".source = ./streamrip-config.toml; # not writable
 
@@ -55,7 +54,7 @@ in
   home.homeDirectory = "/home/ali";
   home.file = {
     ".face.icon" = {
-      source = ./fmab/sddm/faces/.face.icon;
+      source = ../fmab/sddm/faces/.face.icon;
       executable = false;
     };
   };

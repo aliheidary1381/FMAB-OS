@@ -9,5 +9,9 @@
     "Id": "FMAB",
     "License": "CC-BY-SA-4.0",
     "Name": "FMA:B"
+  },
+  "X-KDE-PlasmaImageWallpaper-AccentColor": {
+    "Light": "#DF8E1D",
+    "Dark": "#E5C890"
   }
 }

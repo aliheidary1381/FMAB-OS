@@ -1,6 +1,6 @@
 [ColorEffects:Disabled]
 Color=239, 241, 245
-ColorAmount=0.30000000000000004
+ColorAmount=0.3
 ColorEffect=2
 ContrastAmount=0.1
 ContrastEffect=0
@@ -127,7 +127,7 @@ ForegroundVisited=136, 57, 239
 [General]
 ColorScheme=CatppuccinLatteYellow
 Name=Catppuccin Latte Yellow
-accentActiveTitlebar=false
+accentActiveTitlebar=true
 shadeSortColumn=true
 
 

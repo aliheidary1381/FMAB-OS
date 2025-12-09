@@ -24,24 +24,9 @@
     ];
     fonts = {
       # general = {
-      #   family = "IRANSansX";
+      #   family = "IRANSansX Light";
       #   pointSize = 12;
-      # };
-      # menu = {
-      #   family = "IRANSansX";
-      #   pointSize = 10;
-      # };
-      # toolbar = {
-      #   family = "IRANSansX";
-      #   pointSize = 10;
-      # };
-      # windowTitle = {
-      #   family = "IRANSansX";
-      #   pointSize = 10;
-      # };
-      # small = {
-      #   family = "IRANSansX";
-      #   pointSize = 8;
+      #   weight = "normal";
       # };
       fixedWidth = {
         family = "FiraCode Nerd Font Mono";

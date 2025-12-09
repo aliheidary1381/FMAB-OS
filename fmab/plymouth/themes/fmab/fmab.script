@@ -16,9 +16,9 @@
 
 // -------------------------------- Assets ---------------------------------- //
 
-global.title.text = "Ali Heydari";
-global.defaults.font.default = "Noto Sans 12";
-global.defaults.font.title = "Noto Sans 14";
+global.title.text = "Don't forget 3.oct.11";
+global.defaults.font.default = "TP Lost Land 24";
+global.defaults.font.title = "TP Lost Land 30";
 
 global.assets = [];
 if (Window.GetBitsPerPixel() == 4) {

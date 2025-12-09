@@ -42,14 +42,14 @@
       nixosConfigurations.aliheydaripc = nixpkgs.lib.nixosSystem {
         system = "x86_64-linux";
         modules = [
-          ./hardware-configuration.nix
-          ./default.nix
+          ./configs/hardware.nix
+          ./configs/system.nix
           grub2-themes.nixosModules.default
           nixvim.nixosModules.nixvim
-          ./nvim.nix
-          ./shell.nix
-          ./packages.nix
-          ./custom-packages-and-patches.nix
+          ./configs/nvim.nix
+          ./configs/shell.nix
+          ./configs/environment.nix
+          ./packages/all.nix
           catppuccin.nixosModules.catppuccin
           home-manager.nixosModules.home-manager
           {
@@ -60,13 +60,13 @@
 
             home-manager.users.ali = {
               imports = [
-                ./home.nix
-                ./plasma.nix
-                ./helix.nix
-                ./zed.nix
-                ./wave.nix
+                ./configs/home.nix
+                ./configs/plasma.nix
+                ./configs/helix.nix
+                ./configs/zed.nix
+                ./configs/wave.nix
                 catppuccin.homeModules.catppuccin
-                ./equalization.nix
+                ./configs/equalization.nix
               ];
             };
           }

@@ -1,2 +1,3 @@
-fonts/IRANSansX.ttf
-ja-netfilter-all
+proprietary
+packages/CellProfiler
+packages/fonts/proprietary.nix

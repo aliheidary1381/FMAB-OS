@@ -26,6 +26,7 @@ verify_ssl = true
 quality = 4
 # This will download booklet pdfs that are included with some albums
 download_booklets = true
+
 # Authenticate to Qobuz using auth token? Value can be true/false only
 use_auth_token = true
 # Enter your userid if the above use_auth_token is set to true, else enter your email
@@ -35,13 +36,14 @@ password_or_token = ""
 # Do not change
 app_id = ""
 # Do not change
-secrets = [""]
+secrets = [ "" ]
 
 [tidal]
 # 0: 256kbps AAC, 1: 320kbps AAC, 2: 16/44.1 "HiFi" FLAC, 3: 24/44.1 "MQA" FLAC
 quality = 3
 # This will download videos included in Video Albums.
 download_videos = true
+
 # Do not change any of the fields below
 user_id = ""
 country_code = ""
@@ -140,6 +142,7 @@ save_artwork = false
 # If this is set to a value > 0, max(width, height) of the saved art will be set to this value in pixels
 # Proportions of the image will remain the same
 saved_max_width = -1
+
 
 [metadata]
 # Sets the value of the 'ALBUM' field in the metadata to the playlist's name.

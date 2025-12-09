@@ -65,6 +65,7 @@
       kdePackages.breeze-plymouth
       config.ali.packages.fmab-customizations
     ];
+    font = "${config.ali.fonts.my-fonts}/share/fonts/truetype/lost-land.ttf";
     theme = "fmab"; # available: matrix, breeze, breeze-text, catppuccin-frappe, catppuccin-latte, catppuccin-macchiato, catppuccin-mocha, details, fade-in, glow, script, solar, spinfinity, spinner, text, tribar
   };
 
@@ -137,6 +138,12 @@
   ]; # "qwen3-coder:30b-a3b-q4_K_M" "qwen3-vl:2b-instruct-q4_K_M" "qwen3-vl:2b-thinking-q4_K_M"
   services.open-webui.enable = true;
   services.open-webui.port = 8085;
+  # services.open-webui.environment = {
+  #   ANONYMIZED_TELEMETRY = "False";
+  #   DO_NOT_TRACK = "True";
+  #   SCARF_NO_ANALYTICS = "True";
+  #   OFFLINE_MODE = "True";
+  # };
 
   programs.nix-index.enable = true;
 
@@ -156,10 +163,25 @@
 
   programs.dconf.enable = true;
 
-  fonts.packages = [ config.ali.fonts.my-fonts ] ++ (with pkgs; [ nerd-fonts.fira-code ]);
+  fonts.packages =
+    with pkgs;
+    [
+      # Note: services.desktopManager.plasma6.notoPackage installs noto-fonts
+      # Note: texliveFull installs gyre-fonts
+      nerd-fonts.fira-code
+    ]
+    ++ [
+      # config.ali.fonts.my-fonts
+      config.ali.fonts.parastoo
+      config.ali.fonts.estedad
+      config.ali.fonts.estedad-mad
+      config.ali.fonts.sahel
+      config.ali.fonts.gandom
+      config.ali.fonts.lalezar
+    ];
   fonts.fontconfig.defaultFonts = {
     monospace = [ "FiraCode Nerd Font Mono" ];
-    # sansSerif = [ "IRANSansX" ];
+    # sansSerif = [ "IRANSansX Light" ];
   };
 
   systemd.targets.machines.enable = true;

@@ -1,6 +1,6 @@
 [ColorEffects:Disabled]
 Color=48, 52, 70
-ColorAmount=0.30000000000000004
+ColorAmount=0.3
 ColorEffect=2
 ContrastAmount=0.1
 ContrastEffect=0
@@ -127,7 +127,7 @@ ForegroundVisited=202, 158, 230
 [General]
 ColorScheme=CatppuccinFrappeYellow
 Name=Catppuccin Frappe Yellow
-accentActiveTitlebar=false
+accentActiveTitlebar=true
 shadeSortColumn=true
 
 
