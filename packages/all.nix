@@ -1,6 +1,7 @@
 {
   lib,
   pkgs,
+  nix-jetbrains-plugins,
   ...
 }:
 let
@@ -62,113 +63,167 @@ in
     ali.packages.medmnist = medmnist;
     # ali.jetbrains.vmoptions-patch = jetbrains-vmoptions-patch;
 
-    nixpkgs.overlays = [
+    nixpkgs.overlays = with nix-jetbrains-plugins.lib."x86_64-linux"; [
       (self: super: {
         goland =
-          super.jetbrains.plugins.addPlugins super.jetbrains.goland
+          buildIdeWithPlugins super.jetbrains
+            super.jetbrains.goland
             # (super.jetbrains.goland.override {
             #   vmopts = jetbrains-vmoptions-patch;
             # })
             [
-              # "org.jetbrains.junie"
-              # "com.intellij.ml.llm"
-              # "com.intellij.mcpServer"
-              "catppuccin-theme"
-              "catppuccin-icons"
-              "nixidea" # "nix-idea"
-              # "mobi.hsz.idea.gitignore"
-              "ini" # "com.jetbrains.plugins.ini4idea"
-              "-env-files" # "ru.adelf.idea.dotenv"
-              "toml" # "org.toml.lang"
-              "csv-editor" # "net.seesharpsoft.intellij.plugins.csv"
-              # "com.intellij.kubernetes"
-              "docker" # "Docker"
-              "gitlab" # "org.jetbrains.plugins.gitlab"
-              # "org.jetbrains.plugins.github"
+              "org.jetbrains.junie"
+              "com.intellij.ml.llm"
+              "com.intellij.mcpServer"
+              "com.github.catppuccin.jetbrains"
+              "com.github.catppuccin.jetbrains_icons"
+              "nix-idea"
+              # "org.fe3dback.nixlsp"
+              "mobi.hsz.idea.gitignore"
+              "com.jetbrains.plugins.ini4idea"
+              "ru.adelf.idea.dotenv"
+              "org.toml.lang"
+              "net.seesharpsoft.intellij.plugins.csv"
+              "com.intellij.kubernetes"
+              "org.jetbrains.plugins.yaml"
+              "Docker"
+              "org.jetbrains.plugins.gitlab"
+              "org.jetbrains.plugins.github"
               # "org.intellij.plugins.markdown"
-              # "com.intellij.ideolog"
-              "protocol-buffers" # "idea.plugin.protoeditor"
+              "com.intellij.ideolog"
+              "idea.plugin.protoeditor"
               # "com.intellij.grpc"
-              # "org.jetbrains.plugins.yaml"
-              # "com.intellij.microservices.ui"
-              # "org.intellij.RegexpTester"
+              "com.intellij.microservices.ui"
+              "org.intellij.RegexpTester"
             ];
         clion =
-          super.jetbrains.plugins.addPlugins super.jetbrains.clion
+          buildIdeWithPlugins super.jetbrains
             # (super.jetbrains.clion.override {
             #   vmopts = jetbrains-vmoptions-patch;
             # })
+            super.jetbrains.clion
             [
-              "catppuccin-theme"
-              "catppuccin-icons"
-              "-env-files"
-              "gitlab"
-              # "name.kropp.intellij.makefile"
-              # "com.intellij.qt"
-              # "com.intellij.lang.qml"
+              "org.jetbrains.junie"
+              "com.intellij.ml.llm"
+              "com.intellij.mcpServer"
+              "com.github.catppuccin.jetbrains"
+              "com.github.catppuccin.jetbrains_icons"
+              "mobi.hsz.idea.gitignore"
+              "ru.adelf.idea.dotenv"
+              "org.jetbrains.plugins.gitlab"
+              "org.jetbrains.plugins.github"
+              # "org.intellij.plugins.markdown"
+              "com.intellij.ideolog"
+              "name.kropp.intellij.makefile"
+              "com.intellij.qt"
+              "com.intellij.lang.qml"
             ];
         datagrip =
-          super.jetbrains.plugins.addPlugins super.jetbrains.datagrip
+          buildIdeWithPlugins super.jetbrains
             # (super.jetbrains.datagrip.override {
             #   vmopts = jetbrains-vmoptions-patch;
             # })
+            super.jetbrains.datagrip
             [
-              "catppuccin-theme"
-              "catppuccin-icons"
+              "org.jetbrains.junie"
+              "com.intellij.ml.llm"
+              "com.intellij.mcpServer"
+              "com.github.catppuccin.jetbrains"
+              "com.github.catppuccin.jetbrains_icons"
             ];
         pycharm =
-          super.jetbrains.plugins.addPlugins super.jetbrains.pycharm-professional
-            # (super.jetbrains.pycharm-professional.override {
+          buildIdeWithPlugins super.jetbrains
+            # (super.jetbrains.pycharm.override {
             #   vmopts = jetbrains-vmoptions-patch;
             # })
+            super.jetbrains.pycharm
             [
-              "catppuccin-theme"
-              "catppuccin-icons"
-              "-env-files"
-              "gitlab"
-              # "com.intellij.bigdatatools"
-              # "com.intellij.bigdatatools.core"
-              # "com.intellij.bigdatatools.binary.files"
-              # "com.intellij.bigdatatools.kafka"
-              # "R4Intellij"
-              # "com.leinardi.pycharm.pylint"
+              "org.jetbrains.junie"
+              "com.intellij.ml.llm"
+              "com.intellij.mcpServer"
+              "com.github.catppuccin.jetbrains"
+              "com.github.catppuccin.jetbrains_icons"
+              "mobi.hsz.idea.gitignore"
+              "ru.adelf.idea.dotenv"
+              "org.toml.lang"
+              "org.jetbrains.plugins.gitlab"
+              "org.jetbrains.plugins.github"
+              # "org.intellij.plugins.markdown"
+              "com.intellij.ideolog"
               # "ru.meanmail.plugin.requirements"
             ];
-        dataspell = super.jetbrains.dataspell;
-        # super.jetbrains.dataspell.override {
-        #   vmopts = jetbrains-vmoptions-patch;
-        # };
+        dataspell =
+          buildIdeWithPlugins super.jetbrains
+            # (super.jetbrains.dataspell.override {
+            #   vmopts = jetbrains-vmoptions-patch;
+            # })
+            super.jetbrains.dataspell
+            [
+              "org.jetbrains.junie"
+              "com.intellij.ml.llm"
+              "com.intellij.mcpServer"
+              "com.github.catppuccin.jetbrains"
+              "com.github.catppuccin.jetbrains_icons"
+              "ru.adelf.idea.dotenv"
+              # "org.intellij.plugins.markdown"
+              "com.intellij.ideolog"
+              "com.intellij.bigdatatools"
+              "com.intellij.bigdatatools.core"
+              "com.intellij.bigdatatools.metastore.core"
+              "com.intellij.bigdatatools.binary.files"
+              "com.intellij.bigdatatools.rfs"
+              "com.intellij.bigdatatools.kafka"
+              "R4Intellij"
+            ];
         webstorm =
-          super.jetbrains.plugins.addPlugins super.jetbrains.webstorm
+          buildIdeWithPlugins super.jetbrains
             # (super.jetbrains.webstorm.override {
             #   vmopts = jetbrains-vmoptions-patch;
             # })
+            super.jetbrains.webstorm
             [
-              "catppuccin-theme"
-              "catppuccin-icons"
-              "-env-files"
-              "gitlab"
-              "protocol-buffers"
-              # "NodeJS"
-              # "deno"
-              # "intellij.vitejs"
-              # "org.jetbrains.plugins.astro"
-              # "dev.blachut.svelte.lang"
-              # "mdx.js"
-              # "intellij.prettierJS"
-              # "com.github.biomejs.intellijbiome"
+              "org.jetbrains.junie"
+              "com.intellij.ml.llm"
+              "com.intellij.mcpServer"
+              "com.github.catppuccin.jetbrains"
+              "com.github.catppuccin.jetbrains_icons"
+              "mobi.hsz.idea.gitignore"
+              "ru.adelf.idea.dotenv"
+              "org.jetbrains.plugins.gitlab"
+              "org.jetbrains.plugins.github"
+              # "org.intellij.plugins.markdown"
+              "com.intellij.ideolog"
+              "idea.plugin.protoeditor"
+              # "com.intellij.grpc"
+              "NodeJS"
+              "deno"
+              "intellij.vitejs"
+              "org.jetbrains.plugins.astro"
+              "dev.blachut.svelte.lang"
+              "mdx.js"
+              "intellij.prettierJS"
             ];
         rustrover =
-          super.jetbrains.plugins.addPlugins super.jetbrains.rust-rover
+          buildIdeWithPlugins super.jetbrains
             # (super.jetbrains.rust-rover.override {
             #   vmopts = jetbrains-vmoptions-patch;
             # })
+            super.jetbrains.rust-rover
             [
-              "catppuccin-theme"
-              "catppuccin-icons"
-              "-env-files"
-              "toml"
-              "gitlab"
+              "org.jetbrains.junie"
+              "com.intellij.ml.llm"
+              "com.intellij.mcpServer"
+              "com.github.catppuccin.jetbrains"
+              "com.github.catppuccin.jetbrains_icons"
+              "mobi.hsz.idea.gitignore"
+              "ru.adelf.idea.dotenv"
+              "org.toml.lang"
+              "org.jetbrains.plugins.gitlab"
+              "org.jetbrains.plugins.github"
+              # "org.intellij.plugins.markdown"
+              "com.intellij.ideolog"
+              "idea.plugin.protoeditor"
+              # "com.intellij.grpc"
             ];
       })
       # (final: prev: {

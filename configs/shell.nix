@@ -8,12 +8,23 @@
     shellInit = ''
       set -g fish_greeting ""
       fish_config theme choose "Catppuccin Frappe"
+
       function run
         if test (count $argv) -eq 0
           echo "Usage: run <package>"
           return 1
         end
         nix run nixpkgs#$argv[1] -- $argv[2..-1]
+      end
+
+      function mp3
+          if test (count $argv) -ne 1
+              echo "Usage: mp3 <file.flac>"
+              return 1
+          end
+          set infile $argv[1]
+          set outfile (string replace -r '\.flac$' '.mp3' -- $infile)
+          ffmpeg -hide_banner -loglevel warning -stats -i "$infile" -map 0 -codec:v copy -codec:a libmp3lame -id3v2_version 3 -qscale:a 0 "$outfile"
       end
     '';
     shellAliases = {

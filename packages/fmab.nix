@@ -208,6 +208,6 @@ pkgs.runCommand "fmab-customizations" { } ''
   sed -i "s|ImageDir=.*|ImageDir=$out/share/plymouth/themes/fmab|" $out/share/plymouth/themes/fmab/fmab.plymouth
   sed -i "s|ScriptFile=.*|ScriptFile=$out/share/plymouth/themes/fmab/fmab.script|" $out/share/plymouth/themes/fmab/fmab.plymouth
   sed -i "s|logo=.*|logo=$out/share/sddm/themes/fmab/default-logo.svg|" $out/share/sddm/themes/fmab/theme.conf
-  sed -i "s|background=.*|logo=$out/share/wallpapers/fmab-lock/contents/images/1920x1080.png|" $out/share/sddm/themes/fmab/theme.conf
+  sed -i "s|background=.*|background=$out/share/wallpapers/fmab-lock/contents/images/1920x1080.png|" $out/share/sddm/themes/fmab/theme.conf
 ''
 # if icon change is not working, replace ${kdePackages.libplasma}/share/plasma/desktoptheme/*/icons/start.svgz

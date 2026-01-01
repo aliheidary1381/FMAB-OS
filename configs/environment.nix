@@ -70,6 +70,7 @@ let
     winboat
     libguestfs-with-appliance
     yt-dlp
+    screenkey
     # Add subtitlecomposer for subtitle editing, kdePackages.kdenlive for video editing, and davinci-resolve-studio for more advanced editing
     # Add blender-hip for 3D graphics
   ];
@@ -103,6 +104,8 @@ let
     lazygit
     fzf
     zoxide
+    imagemagick
+    ffmpeg-full
   ];
   music = with pkgs; [
     streamrip
@@ -115,13 +118,13 @@ let
     makemkv
     dvdae
     sacd
-    ffmpeg-full
   ];
   academia = with pkgs; [
     stirling-pdf
+    ghostscript
     texliveFull
     texlab
-    jabref # kbibtex  has reached EOL
+    # jabref # kbibtex  has reached EOL
     kile
     (rWrapper.override {
       packages = with rPackages; [
@@ -134,8 +137,6 @@ let
     '')
     kdePackages.cantor
     labplot
-    # (builtins.getFlake "/home/ali/Documents/NixOS-config/packages/CellProfiler")
-    # .packages.${pkgs.system}.cellprofiler
     # sage
     # positron-bin
   ];
@@ -209,6 +210,7 @@ let
           scikit-learn
           scikit-image
           keras # depends on tf
+          wandb
           torch
           torchvision
           torch-geometric
@@ -226,6 +228,7 @@ let
           rdkit
           pydicom
           medmnist
+          kagglehub
         ]
       )
     )

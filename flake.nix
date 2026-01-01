@@ -20,9 +20,12 @@
       url = "github:nix-community/nixvim";
       inputs.nixpkgs.follows = "nixpkgs";
     };
-    # winboat.url = "github:TibixDev/winboat";
     catppuccin = {
       url = "github:catppuccin/nix";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+    nix-jetbrains-plugins = {
+      url = "github:nix-community/nix-jetbrains-plugins";
       inputs.nixpkgs.follows = "nixpkgs";
     };
   };
@@ -35,12 +38,14 @@
       plasma-manager,
       catppuccin,
       nixvim,
+      nix-jetbrains-plugins,
       ...
     }:
     {
       config.nixpkgs.config.allowUnfree = true;
       nixosConfigurations.aliheydaripc = nixpkgs.lib.nixosSystem {
         system = "x86_64-linux";
+        specialArgs = { inherit nix-jetbrains-plugins; };
         modules = [
           ./configs/hardware.nix
           ./configs/system.nix

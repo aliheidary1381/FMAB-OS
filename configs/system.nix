@@ -14,7 +14,7 @@
   networking.hostName = "aliheydaripc";
 
   # Configure network proxy if necessary
-  # networking.proxy.default  = "socks5://192.168.122.66:18888"; # schema reminder user:password@proxy:port
+  # networking.proxy.default = "socks5://192.168.122.66:18888"; # schema reminder user:password@proxy:port
   networking.proxy.noProxy = "127.0.0.1,localhost,internal.domain";
 
   # Enable networking
@@ -47,6 +47,7 @@
     enable = true;
     efiSupport = true;
     device = "nodev";
+    # gfxmodeBios = lib.mkForce "1920x1080,auto";
   };
   boot.loader.efi.canTouchEfiVariables = true;
 
@@ -113,6 +114,8 @@
   services.blueman.enable = false; # using Bluedevil instead
 
   networking.nameservers = [
+    # "178.22.122.100"
+    # "185.51.200.2"
     "1.1.1.1"
     "8.8.8.8"
   ];
@@ -122,6 +125,8 @@
     dnssec = "allow-downgrade";
     dnsovertls = "opportunistic";
     fallbackDns = [
+      # "178.22.122.100"
+      # "185.51.200.2"
       "1.1.1.1"
       "8.8.8.8"
     ];
@@ -138,12 +143,12 @@
   ]; # "qwen3-coder:30b-a3b-q4_K_M" "qwen3-vl:2b-instruct-q4_K_M" "qwen3-vl:2b-thinking-q4_K_M"
   services.open-webui.enable = true;
   services.open-webui.port = 8085;
-  # services.open-webui.environment = {
-  #   ANONYMIZED_TELEMETRY = "False";
-  #   DO_NOT_TRACK = "True";
-  #   SCARF_NO_ANALYTICS = "True";
-  #   OFFLINE_MODE = "True";
-  # };
+  services.open-webui.environment = {
+    ANONYMIZED_TELEMETRY = "False";
+    DO_NOT_TRACK = "True";
+    SCARF_NO_ANALYTICS = "True";
+    OFFLINE_MODE = "True";
+  };
 
   programs.nix-index.enable = true;
 

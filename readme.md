@@ -6,17 +6,36 @@ This repo includes custom themes for GRUB, plymouth, SDDM, KDE Plasma, and deskt
 This could be a decent base for you to use for your own custom themes.
 It also includes lots of built-in software, and their configs.
 
+<details>
+<summary>Dark mode</summary>
+
 ![Screenshot](./fmab/plasma/look-and-feel/fmab.dark.desktop/contents/previews/fullscreenpreview.png "Screenshot")
 
 ![Screenshot](./fmab/plasma/look-and-feel/fmab.dark.desktop/contents/previews/fullscreenpreview2.png "Screenshot")
 
+![Screenshot](./fmab/plasma/look-and-feel/fmab.dark.desktop/contents/previews/fullscreenlockscreen.png "Lock screen")
+
+</details>
+
+<details>
+<summary>Light mode</summary>
+
 ![Screenshot](./fmab/plasma/look-and-feel/fmab.light.desktop/contents/previews/fullscreenpreview.png "Screenshot")
 
-<!--![Screenshot](./fmab/plasma/look-and-feel/fmab.dark.desktop/contents/previews/fullscreenlockscreen.png "Screenshot")-->
+![Screenshot](./fmab/plasma/look-and-feel/fmab.light.desktop/contents/previews/fullscreenlockscreen.png "Lock screen")
 
-<!--![Screenshot](./fmab/plasma/look-and-feel/fmab.dark.desktop/contents/previews/splash.png "Screenshot")-->
+![Screenshot](./fmab/plasma/look-and-feel/fmab.light.desktop/contents/previews/fullscreensplash.png "Splash screen")
 
-<!--![Screenshot](./fmab/plasma/look-and-feel/fmab.light.desktop/contents/previews/splash.png "Screenshot")-->
+</details>
+
+<details>
+<summary>Start up</summary>
+
+![Screenshot](./fmab/grub/fullscreenpreview.png "GRUB")
+
+![Screenshot](./fmab/plymouth/themes/fmab/fullscreenpreview.png "Splash screen")
+
+</details>
 
 ## Main components
 
@@ -37,11 +56,6 @@ unless they have a significant disadvantage.
   i.e. unless you download the OSes).
   * Ollama, Open WebUI, local Gemma and Qwen, with integrations for Zed IDE and Wave Terminal.
   * systemd, networkd, resolved, pipewire, btrfs filesystem, glibc, gnu coreutils, LTS kernel, etc.
-
-### Recommended Windows apps to install
-
-  * Office 365 Pro Plus
-  * Adobe Photoshop
 
 ### Web app addresses
 
