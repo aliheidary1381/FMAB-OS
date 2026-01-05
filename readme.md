@@ -1,5 +1,5 @@
 <div align="center">
-    <img src="./fmab/logo.jpg" alt="FMA:B OS logo" style="width:33%; height:auto;">
+    <img src="./fmab/logo.jpg" alt="FMA:B OS logo" style="width:33%; height:auto; border-radius:25%;">
 </div>
 
 # FMA:B OS ❄️
