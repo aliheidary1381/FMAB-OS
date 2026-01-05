@@ -1,3 +1,7 @@
+<div align="center">
+    <img src="./fmab/logo.jpg" alt="FMA:B OS logo" style="width:33%; height:auto;">
+</div>
+
 # FMA:B OS ❄️
 
 Here you can find good stuff to copy-paste into your own personal NixOS configuration.
