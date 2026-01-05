@@ -24,6 +24,8 @@
 
   # Set your time zone.
   time.timeZone = "Asia/Tehran";
+  location.latitude = 35.43;
+  location.longitude = 51.24;
 
   # Select internationalisation properties.
   i18n.defaultLocale = "en_GB.UTF-8";
@@ -189,31 +191,39 @@
     # sansSerif = [ "IRANSansX Light" ];
   };
 
-  systemd.targets.machines.enable = true;
-
+  systemd.targets.machines.enable = true; # For nspawn Linux containers
   virtualisation.docker.enable = true; # For WinBoat Windows containers
-  virtualisation.waydroid.enable = true; # For Android containers https://wiki.nixos.org/wiki/Waydroid https://docs.waydro.id/usage/
-
-  # https://nixos.wiki/wiki/Libvirt
+  virtualisation.waydroid.enable = true; # For WayDroid Android containers https://wiki.nixos.org/wiki/Waydroid https://docs.waydro.id/usage/
   programs.virt-manager.enable = true;
   users.groups.libvirtd.members = [ "ali" ];
   virtualisation.libvirtd = {
-    # TODO: use LXC for Windscribe
     enable = true;
-    qemu.vhostUserPackages = with pkgs; [ virtiofsd ];
+    package = pkgs.qemu_kvm;
+    qemu.vhostUserPackages = [ pkgs.virtiofsd ];
   };
   virtualisation.spiceUSBRedirection.enable = true;
 
-  # Define a user account. Don't forget to set a password with ‘passwd’.
-  users.users.ali = {
-    isNormalUser = true;
-    description = "Ali Heydari";
-    extraGroups = [
-      "networkmanager"
-      "wheel"
-      "docker"
-      "libvirtd"
-    ];
+  users.users = {
+    ali = {
+      home = "/home/ali";
+      description = "Ali Heydari";
+      isNormalUser = true;
+      createHome = true;
+      # hashedPassword = "$y$j9T$oet1b/sVBg4sP3S9UrJfE.$ISZnP2YDtde92p22ZO4lGDmXfZYLeG3j0L6sKnifbD1";
+      extraGroups = [
+        "networkmanager"
+        "wheel"
+        "docker"
+        "libvirtd"
+      ];
+    };
+    root = {
+      home = "/root";
+      description = "System administrator";
+      isSystemUser = true;
+      createHome = true;
+      # hashedPassword = "$y$j9T$CdMh4dAXoM0o5jKi4GE621$j5WAekGuzwcsQEjAGlxfNXVlUYouI3i9g45XxwFOY/C";
+    };
   };
 
   security.sudo.extraConfig = ''

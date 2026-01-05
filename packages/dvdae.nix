@@ -1,22 +1,16 @@
 { pkgs, ... }:
 let
   version = "8.7.0";
-  flacPkgs = import (builtins.fetchGit {
-    name = "old-nixpkgs-with-flac-1.4";
-    url = "https://github.com/NixOS/nixpkgs/";
-    ref = "refs/heads/nixpkgs-unstable";
-    rev = "c5dd43934613ae0f8ff37c59f61c507c2e8f980d";
+  flacPkgs = import (fetchTarball {
+    name = "old-nixpkgs-with-flac-1-4";
+    url = "https://github.com/NixOS/nixpkgs/archive/c5dd43934613ae0f8ff37c59f61c507c2e8f980d.tar.gz";
+    sha256 = "1cpw3m45v7s7bm9mi750dkdyjgd2gp2vq0y7vr3j42ifw1i85gxv";
   }) { };
-  # If not working, clone (& checkout) manually and then replace with:
-  # flacPkgs = import /home/ali/nixpkgs-with-old-flac { };
-  libjpegPkgs = import (builtins.fetchGit {
+  libjpegPkgs = import (fetchTarball {
     name = "old-nixpkgs-with-libjpeg-8";
-    url = "https://github.com/NixOS/nixpkgs/";
-    ref = "refs/heads/nixpkgs-unstable";
-    rev = "59e940007106305c938332ef60962e672a4281f2";
+    url = "https://github.com/NixOS/nixpkgs/archive/59e940007106305c938332ef60962e672a4281f2.tar.gz";
+    sha256 = "1ajvsxavycfd42hr8csxr4qn5hfy2m53rrgrwbis150879givmpw";
   }) { };
-  # If not working, clone (& checkout) manually and then replace with:
-  # libjpegPkgs = import /home/ali/nixpkgs-with-old-jpeg { };
   dvd-audio-extractor = pkgs.stdenv.mkDerivation {
     pname = "dvd-audio-extractor";
     version = version;
@@ -76,7 +70,6 @@ let
       license = licenses.unfree;
       maintainers = [ maintainers.unlisted ];
       platforms = platforms.linux;
-      priority = "optional";
       mainProgram = "dvdae-gui";
     };
   };

@@ -48,7 +48,6 @@ pkgs.stdenv.mkDerivation {
     license = licenses.unfree;
     maintainers = [ maintainers.unlisted ];
     platforms = platforms.linux;
-    priority = "optional";
     mainProgram = "lyricsfinder";
   };
 }

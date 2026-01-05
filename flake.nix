@@ -3,6 +3,7 @@
 
   inputs = {
     nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
+    systems.url = "github:nix-systems/default";
     grub2-themes = {
       url = "github:vinceliuice/grub2-themes";
       inputs.nixpkgs.follows = "nixpkgs";
@@ -19,6 +20,7 @@
     nixvim = {
       url = "github:nix-community/nixvim";
       inputs.nixpkgs.follows = "nixpkgs";
+      inputs.systems.follows = "systems";
     };
     catppuccin = {
       url = "github:catppuccin/nix";
@@ -27,6 +29,7 @@
     nix-jetbrains-plugins = {
       url = "github:nix-community/nix-jetbrains-plugins";
       inputs.nixpkgs.follows = "nixpkgs";
+      inputs.systems.follows = "systems";
     };
   };
 
@@ -42,9 +45,7 @@
       ...
     }:
     {
-      config.nixpkgs.config.allowUnfree = true;
       nixosConfigurations.aliheydaripc = nixpkgs.lib.nixosSystem {
-        system = "x86_64-linux";
         specialArgs = { inherit nix-jetbrains-plugins; };
         modules = [
           ./configs/hardware.nix

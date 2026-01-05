@@ -3,7 +3,7 @@ let
   version = "v0.9.8-r16";
 in
 pkgs.stdenv.mkDerivation {
-  pname = "rtorrent-linux-arm64";
+  pname = "rtorrent-linux-amd64";
   version = version;
 
   src = pkgs.fetchurl {
@@ -28,6 +28,8 @@ pkgs.stdenv.mkDerivation {
     description = "Ncurses client for libtorrent, ideal for use with screen, tmux, or dtach (jesec's fork)";
     homepage = "https://github.com/jesec/rtorrent";
     license = licenses.gpl2;
+    maintainers = [ maintainers.unlisted ];
     platforms = platforms.linux;
+    mainProgram = "rtorrent";
   };
 }

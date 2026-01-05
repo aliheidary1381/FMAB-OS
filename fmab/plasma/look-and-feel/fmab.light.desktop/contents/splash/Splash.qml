@@ -40,7 +40,7 @@ Rectangle {
             anchors.centerIn: parent
 
             asynchronous: true
-            source: "images/state-alchemist.svg"
+            source: "images/flamel.svg"
 
             sourceSize.width: size
             sourceSize.height: size

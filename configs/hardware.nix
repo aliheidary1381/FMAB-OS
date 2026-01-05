@@ -36,9 +36,11 @@
   ];
   boot.extraModulePackages = [ ];
 
+  # boot.supportedFilesystems = [ "bcachefs" ]; # https://wiki.nixos.org/wiki/Bcachefs
+
   fileSystems."/" = {
     device = "/dev/disk/by-uuid/e639f2fd-6601-49a3-9c4a-b8ceaff10782";
-    fsType = "btrfs";
+    fsType = "btrfs"; # "bcachefs"
     options = [ "subvol=@" ];
   };
 
@@ -51,7 +53,7 @@
     ];
   };
 
-  fileSystems."/run/media/home/ali" = {
+  fileSystems."/mnt/hdd" = {
     device = "/dev/sda1";
     fsType = "exfat";
     options = [
@@ -63,44 +65,52 @@
     noCheck = true;
   };
   fileSystems."/home/ali/Desktop" = {
-    device = "/run/media/home/ali/Desktop";
+    device = "/mnt/hdd/Desktop";
     fsType = "none";
     options = [ "bind" ];
+    depends = [ "/mnt/hdd" ];
   };
   fileSystems."/home/ali/Documents" = {
-    device = "/run/media/home/ali/Documents";
+    device = "/mnt/hdd/Documents";
     fsType = "none";
     options = [ "bind" ];
+    depends = [ "/mnt/hdd" ];
   };
   fileSystems."/home/ali/Downloads" = {
-    device = "/run/media/home/ali/Downloads";
+    device = "/mnt/hdd/Downloads";
     fsType = "none";
     options = [ "bind" ];
+    depends = [ "/mnt/hdd" ];
   };
   fileSystems."/home/ali/Music" = {
-    device = "/run/media/home/ali/Music";
+    device = "/mnt/hdd/Music";
     fsType = "none";
     options = [ "bind" ];
+    depends = [ "/mnt/hdd" ];
   };
   fileSystems."/home/ali/Pictures" = {
-    device = "/run/media/home/ali/Pictures";
+    device = "/mnt/hdd/Pictures";
     fsType = "none";
     options = [ "bind" ];
+    depends = [ "/mnt/hdd" ];
   };
   fileSystems."/home/ali/Public" = {
-    device = "/run/media/home/ali/Public";
+    device = "/mnt/hdd/Public";
     fsType = "none";
     options = [ "bind" ];
+    depends = [ "/mnt/hdd" ];
   };
   fileSystems."/home/ali/Templates" = {
-    device = "/run/media/home/ali/Templates";
+    device = "/mnt/hdd/Templates";
     fsType = "none";
     options = [ "bind" ];
+    depends = [ "/mnt/hdd" ];
   };
   fileSystems."/home/ali/Videos" = {
-    device = "/run/media/home/ali/Videos";
+    device = "/mnt/hdd/Videos";
     fsType = "none";
     options = [ "bind" ];
+    depends = [ "/mnt/hdd" ];
   };
 
   swapDevices = [

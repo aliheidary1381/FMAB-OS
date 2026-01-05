@@ -63,7 +63,7 @@ in
     ali.packages.medmnist = medmnist;
     # ali.jetbrains.vmoptions-patch = jetbrains-vmoptions-patch;
 
-    nixpkgs.overlays = with nix-jetbrains-plugins.lib."x86_64-linux"; [
+    nixpkgs.overlays = with nix-jetbrains-plugins.lib."${pkgs.stdenv.hostPlatform.system}"; [
       (self: super: {
         goland =
           buildIdeWithPlugins super.jetbrains
@@ -172,7 +172,10 @@ in
               "com.intellij.bigdatatools.metastore.core"
               "com.intellij.bigdatatools.binary.files"
               "com.intellij.bigdatatools.rfs"
+              "com.intellij.bigdatatools.spark"
               "com.intellij.bigdatatools.kafka"
+              "com.intellij.bigdatatools.zeppelin"
+              "com.intellij.bigdatatools.flink"
               "R4Intellij"
             ];
         webstorm =
@@ -234,59 +237,6 @@ in
       #   };
       # })
     ];
-
-    systemd.services.rtorrent = {
-      description = "rTorrent service";
-      wants = [
-        "network-online.target"
-      ];
-      after = [
-        "network-online.target"
-        "local-fs.target"
-      ];
-      wantedBy = [ "multi-user.target" ];
-
-      serviceConfig = {
-        User = "ali";
-        Type = "simple";
-        KillMode = "process";
-        KillSignal = "SIGHUP";
-        ExecStart = "${pkgs.proxychains}/bin/proxychains4 ${pkgs.rtorrent}/bin/rtorrent -o network.scgi.open_local=/home/ali/rpc.socket,system.daemon.set=true,system.file.allocate.set=1"; # TODO: a better rpc.socket path
-        Restart = "on-failure";
-        RestartSec = 3;
-      };
-    };
-
-    systemd.services.flood = {
-      description = "Flood web UI";
-      after = [ "network.target" ];
-      wantedBy = [ "multi-user.target" ];
-      serviceConfig = {
-        User = "ali";
-        Type = "simple";
-        ExecStart = "${pkgs.flood}/bin/flood";
-        StandardOutput = "journal";
-        StandardError = "journal";
-        Restart = "on-failure";
-        RestartSec = 3;
-      };
-    };
-
-    systemd.services.stirling = {
-      description = "Stirling PDF web UI";
-      after = [
-        "syslog.target"
-        "network.target"
-      ];
-      wantedBy = [ "multi-user.target" ];
-      serviceConfig = {
-        User = "root";
-        Type = "simple";
-        ExecStart = "${pkgs.stirling-pdf}/bin/Stirling-PDF";
-        ExecStop = "${pkgs.coreutils}/bin/kill -15 $MAINPID";
-        SuccessExitStatus = 143;
-      };
-    };
   };
 
   options.ali = {

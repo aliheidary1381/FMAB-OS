@@ -1,11 +1,11 @@
 {
   programs.plasma = {
     enable = true;
-    workspace.lookAndFeel = "fmab.dark.desktop";
-    workspace.wallpaper = "/run/current-system/sw/share/wallpapers/fmab/contents/images_dark/1920x1080.png";
-    kscreenlocker.appearance.wallpaper = "/run/current-system/sw/share/wallpapers/fmab-lock/contents/images/1920x1080.png";
-    workspace.colorScheme = "CatppuccinFrappeYellow"; # Note: krita theme should be selected manually in the app
-    # workspace.splashScreen.theme = "fmab.light.desktop"; # automatically handled by lookAndFeel
+    # workspace.lookAndFeel = "fmab.dark.desktop";
+    # workspace.wallpaper = "/run/current-system/sw/share/wallpapers/fmab/contents/images_dark/1920x1080.png";
+    # kscreenlocker.appearance.wallpaper = "/run/current-system/sw/share/wallpapers/fmab-lock/contents/images/1920x1080.png";
+    # workspace.colorScheme = "CatppuccinFrappeYellow"; # Note: krita theme should be selected manually in the app
+    # # workspace.splashScreen.theme = "fmab.light.desktop"; # automatically handled by lookAndFeel
     desktop.icons.folderPreviewPopups = true;
     desktop.widgets = [
       {
