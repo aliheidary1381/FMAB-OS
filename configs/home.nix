@@ -1,10 +1,33 @@
 {
+  pkgs,
   config,
   lib,
   ...
 }:
 let
   inherit (config.catppuccin) sources;
+  myFonts = [
+    pkgs.corefonts
+    pkgs.vista-fonts
+    pkgs.wine64Packages.fonts
+    pkgs.gyre-fonts
+    pkgs.noto-fonts-lgc-plus
+    pkgs.noto-fonts-color-emoji
+    pkgs.dejavu_fonts
+    pkgs.freefont_ttf
+    pkgs.liberation_ttf
+    pkgs.ir-standard-fonts
+    config.ali.fonts.my-fonts
+    config.ali.fonts.parastoo
+    config.ali.fonts.estedad
+    config.ali.fonts.estedad-mad
+    config.ali.fonts.sahel
+    config.ali.fonts.gandom
+    config.ali.fonts.lalezar
+  ];
+
+  onlyoffice-dark = "${config.home.homeDirectory}/.local/share/onlyoffice/desktopeditors/uithemes/catppuccin-frappe.json";
+  # onlyoffice-light = "${config.home.homeDirectory}/.local/share/onlyoffice/desktopeditors/uithemes/catppuccin-latte.json";
 in
 {
   programs.git = {
@@ -48,7 +71,51 @@ in
   home.activation.streamripConfig = lib.hm.dag.entryAfter [ "writeBoundary" ] ''
     cp ${./streamrip.toml} "$HOME/.config/streamrip/config.toml" && chmod 600 "$HOME/.config/streamrip/config.toml"
   '';
-  # home.file.".config/streamrip/config.toml".source = ./streamrip-config.toml; # not writable
+
+  home.activation.copyFonts = lib.hm.dag.entryAfter [ "writeBoundary" ] ''
+    mkdir -p ~/.local/share/fonts
+    chown -R "$USER:$(id -gn)" ~/.local/share/fonts
+    rm -rf ~/.local/share/fonts/*
+    for fontPkg in ${builtins.concatStringsSep " " (map (pkg: "${pkg}/share/fonts") myFonts)}; do
+      if [ -d "$fontPkg"/truetype ]; then
+        cp -rL "$fontPkg"/truetype/*.[ot]tf ~/.local/share/fonts/
+      fi
+      if [ -d "$fontPkg"/opentype ]; then
+        cp -rL "$fontPkg"/opentype/*.otf ~/.local/share/fonts/
+      fi
+      if [ -d "$fontPkg"/wine ]; then
+        cp -rL "$fontPkg"/wine/*.ttf ~/.local/share/fonts/
+      fi
+      if [ -d "$fontPkg"/noto ]; then
+        cp -rL "$fontPkg"/noto/*.ttf ~/.local/share/fonts/
+      fi
+      if [ -d "$fontPkg"/ir-standard-fonts ]; then
+        cp -rL "$fontPkg"/ir-standard-fonts/*.ttf ~/.local/share/fonts/
+      fi
+    done
+    chmod 644 ~/.local/share/fonts/*
+    cp ~/.local/share/fonts/Times_New_Roman.ttf ~/.local/share/fonts/times.ttf
+    cp ~/.local/share/fonts/Courier_New.ttf ~/.local/share/fonts/cour.ttf
+    cp ~/.local/share/fonts/Arial.ttf ~/.local/share/fonts/arial.ttf
+    ${pkgs.fontconfig}/bin/fc-cache -f ~/.local/share/fonts
+  '';
+
+  home.activation.installZoteroExtensionForLibreOffice = lib.hm.dag.entryAfter [ "writeBoundary" ] ''
+    if ! ${pkgs.libreoffice}/bin/unopkg list | grep "org.Zotero.integration.openoffice"; then
+      ${pkgs.libreoffice}/bin/unopkg add ${pkgs.zotero}/usr/lib/zotero-bin-*/integration/libreoffice/Zotero_LibreOffice_Integration.oxt
+    fi
+  '';
+
+  # home.activation.onlyofficeTheme = lib.hm.dag.entryAfter [ "writeBoundary" ] ''
+  #   conf="$HOME/.config/onlyoffice/DesktopEditors.conf"
+  #   if [ -f "$conf" ]; then
+  #     if grep -q '^UITheme=' "$conf"; then
+  #       sed -i 's|^UITheme=.*|UITheme=${onlyoffice-dark}|' "$conf"
+  #     else
+  #       sed -i '/^\[General\]/a UITheme=${onlyoffice-dark}' "$conf"
+  #     fi
+  #   fi
+  # '';
 
   home.username = "ali";
   home.homeDirectory = "/home/ali";

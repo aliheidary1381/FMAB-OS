@@ -9,6 +9,10 @@
     "nix-command"
     "flakes"
   ];
+  nix.settings.substituters = [ "file:///var/cache/nix/local-cache" ];
+  nix.settings.trusted-substituters = [ "file:///var/cache/nix/local-cache" ];
+  # nix.settings.require-sigs = false;
+
   nixpkgs.config.allowUnfree = true;
 
   networking.hostName = "aliheydaripc";
@@ -113,8 +117,6 @@
     wireplumber.enable = true;
   };
 
-  services.blueman.enable = false; # using Bluedevil instead
-
   networking.nameservers = [
     # "178.22.122.100"
     # "185.51.200.2"
@@ -134,24 +136,6 @@
     ];
   };
 
-  services.cloudflare-warp.enable = true;
-
-  services.ollama.enable = true;
-  services.ollama.loadModels = [
-    "gemma3n:e2b-it-q4_K_M"
-    "qwen3:4b-instruct-2507-q4_K_M"
-    "qwen3:4b-thinking-2507-q4_K_M"
-    "qwen3-embedding:0.6b-q8_0"
-  ]; # "qwen3-coder:30b-a3b-q4_K_M" "qwen3-vl:2b-instruct-q4_K_M" "qwen3-vl:2b-thinking-q4_K_M"
-  services.open-webui.enable = true;
-  services.open-webui.port = 8085;
-  services.open-webui.environment = {
-    ANONYMIZED_TELEMETRY = "False";
-    DO_NOT_TRACK = "True";
-    SCARF_NO_ANALYTICS = "True";
-    OFFLINE_MODE = "True";
-  };
-
   programs.nix-index.enable = true;
 
   programs.proxychains = {
@@ -160,24 +144,45 @@
       type = "socks5";
       host = "192.168.122.66";
       port = 18888;
+      enable = false;
+    };
+    proxies.phone = {
+      type = "socks5";
+      host = "10.119.117.156";
+      port = 1080;
       enable = true;
     };
   };
 
   programs.firejail.enable = true;
 
-  programs.git.enable = true;
-
   programs.dconf.enable = true;
 
+  fonts.enableDefaultPackages = true; # installs dejavu_fonts freefont_ttf gyre-fonts liberation_ttf unifont noto-fonts-color-emoji
   fonts.packages =
     with pkgs;
     [
       # Note: services.desktopManager.plasma6.notoPackage installs noto-fonts
-      # Note: texliveFull installs gyre-fonts
       nerd-fonts.fira-code
+      mplus-outline-fonts.githubRelease
+      liberation-sans-narrow
+      carlito
+      aileron
+      gelasio
+      garamond-libre
+      caladea
+      ir-standard-fonts
     ]
     ++ [
+      (pkgs.texliveFull.withPackages (
+        ps: with ps; [
+          gfsdidot
+          palatino
+          gfsbaskerville
+          boisik
+          librebaskerville
+        ]
+      )).fonts
       # config.ali.fonts.my-fonts
       config.ali.fonts.parastoo
       config.ali.fonts.estedad
@@ -198,7 +203,7 @@
   users.groups.libvirtd.members = [ "ali" ];
   virtualisation.libvirtd = {
     enable = true;
-    package = pkgs.qemu_kvm;
+    qemu.package = pkgs.qemu_kvm;
     qemu.vhostUserPackages = [ pkgs.virtiofsd ];
   };
   virtualisation.spiceUSBRedirection.enable = true;

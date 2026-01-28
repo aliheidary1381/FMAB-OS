@@ -1,16 +1,18 @@
 { pkgs, ... }:
 let
   version = "8.7.0";
-  flacPkgs = import (fetchTarball {
+  flacSrc = fetchTarball {
     name = "old-nixpkgs-with-flac-1-4";
     url = "https://github.com/NixOS/nixpkgs/archive/c5dd43934613ae0f8ff37c59f61c507c2e8f980d.tar.gz";
     sha256 = "1cpw3m45v7s7bm9mi750dkdyjgd2gp2vq0y7vr3j42ifw1i85gxv";
-  }) { };
-  libjpegPkgs = import (fetchTarball {
+  };
+  libjpegSrc = fetchTarball {
     name = "old-nixpkgs-with-libjpeg-8";
     url = "https://github.com/NixOS/nixpkgs/archive/59e940007106305c938332ef60962e672a4281f2.tar.gz";
     sha256 = "1ajvsxavycfd42hr8csxr4qn5hfy2m53rrgrwbis150879givmpw";
-  }) { };
+  };
+  flacPkgs = import flacSrc { };
+  libjpegPkgs = import libjpegSrc { };
   dvd-audio-extractor = pkgs.stdenv.mkDerivation {
     pname = "dvd-audio-extractor";
     version = version;
@@ -75,6 +77,8 @@ let
   };
 in
 {
+  inherit flacPkgs flacSrc;
+  inherit libjpegPkgs libjpegSrc;
   dvd-audio-extractor = dvd-audio-extractor;
   wrapper = {
     # open with sudo or add this to your flake.nix: security.wrappers = dvdae.wrapper.security.wrappers;

@@ -65,20 +65,19 @@ unless they have a significant disadvantage.
   * Development environment includes Rust, Go, C, C++, JS, Python, R, OCaml, and even Prolog,
   plus a JuPyteR env that also includes the R kernel and Python with a lot of data-scientific
   libs out of the box. JetBrains software include plugins ootb.
-  * Lots of pre-installed software for music, image, and video playing and editing, and for
-  academic purposes. (see the [list here](./configs/environment.nix)).
+  * Lots of pre-installed software for music, image, and video playing and editing, for office,
+  and for academic purposes. (see the [list here](./configs/environment.nix)).
   * systemd, networkd, resolved, pipewire, btrfs filesystem, glibc, gnu coreutils,
   [core packages](https://nixos.org/manual/nixos/stable/options#opt-environment.corePackages),
   [default packages](https://nixos.org/manual/nixos/stable/options#opt-environment.defaultPackages),
   LTS kernel, etc.
 
-A clean install takes ~110GiB disk space.
+A clean install takes ~100GiB disk space (+10GiB for local LLMs).
 
 ### Web app addresses 🧑‍💻
 
   * Flood is at [localhost:3000](http://localhost:3000/)
   * Stirling PDF is at [localhost:8080](http://localhost:8080/)
-  * Open WebUI (for Ollama) is at [localhost:8085](http://localhost:8085/)
   * Jupyter Notebook is at [localhost:8888](http://localhost:8888/)
   * noVNC (for QEMU Windows) is at [localhost:8006](http://localhost:8006/)
   Note that it's only used for debugging and diagnostics. Windows apps are mainly

@@ -66,11 +66,13 @@
 
             home-manager.users.ali = {
               imports = [
+                ./packages/all.nix
                 ./configs/home.nix
                 ./configs/plasma.nix
                 ./configs/helix.nix
                 ./configs/zed.nix
                 ./configs/wave.nix
+                ./configs/onlyoffice.nix
                 catppuccin.homeModules.catppuccin
                 ./configs/equalization.nix
               ];

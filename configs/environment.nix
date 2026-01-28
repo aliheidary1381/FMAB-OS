@@ -7,7 +7,6 @@
 let
   lyrics-finder = config.ali.packages.lyrics-finder;
   dvdae = config.ali.packages.dvdae;
-  medmnist = config.ali.packages.medmnist;
 
   KDE =
     with pkgs.kdePackages;
@@ -46,6 +45,7 @@ let
     telegram-desktop
     motrix
     dopamine # what's wrong with KDE's built-in Elisa?
+    onlyoffice-desktopeditors
     unrar
     gnumake
     dos2unix
@@ -58,8 +58,10 @@ let
     harper
     fishPlugins.autopair
     efibootmgr
+    jre25_minimal
   ];
   expert = with pkgs; [
+    logseq
     libreoffice-qt
     gimp3-with-plugins
     inkscape-with-extensions
@@ -74,6 +76,7 @@ let
     # Add blender-hip for 3D graphics
   ];
   ai = with pkgs; [
+    jan
     mcp-nixos
     github-mcp-server
     # mcp-k8s-go
@@ -105,6 +108,7 @@ let
     zoxide
     imagemagick
     ffmpeg-full
+    tldr
   ];
   music = with pkgs; [
     streamrip
@@ -119,12 +123,14 @@ let
     sacd
   ];
   academia = with pkgs; [
+    zotero
+    sioyek # toggle_smooth_scroll_mode & auto toggle_dark_mode
     stirling-pdf
     ghostscript
     texliveFull
     texlivePackages.svg-inkscape
     texlab
-    # jabref # kbibtex  has reached EOL
+    # jabref
     kile
     (rWrapper.override {
       packages = with rPackages; [
@@ -143,12 +149,12 @@ let
   coding = with pkgs; [
     grpc
     protobuf
-    postman
+    bruno
     openssl
     heaptrack
     sqlc
     kdePackages.kcachegrind
-    datagrip
+    config.ali.jetbrains.datagrip
     # Add kexi for database management
     sqls
     yaml-language-server
@@ -171,12 +177,11 @@ let
     ]); # pkgs.opam is ditched in favour of nix
   prolog = with pkgs; [ swi-prolog ];
   python = with pkgs; [
-    pycharm
-    dataspell
+    config.ali.jetbrains.pycharm
+    config.ali.jetbrains.dataspell
     (pkgs.writeShellScriptBin "dataspell-with-jupyter-notebook" ''
       jupyter notebook & dataspell; pkill -f "jupyter-notebook"
     '')
-    black
     pyright
     basedpyright
     ruff
@@ -190,6 +195,10 @@ let
               cp -r ${rPackages.IRkernel}/library/IRkernel/kernelspec/* $out/share/jupyter/kernels/ir/
             '';
           });
+          torch = super.torch.override {
+            vulkanSupport = true;
+            buildDocs = true;
+          };
         };
       }).withPackages
       (
@@ -198,6 +207,7 @@ let
           python-lsp-server
           python-lsp-ruff
           pylsp-mypy
+          black
           tqdm
           brotli
           httpx
@@ -215,10 +225,16 @@ let
           keras # depends on tf
           wandb
           torch
+          torchsummary
           torchvision
           torch-geometric
           opencv4
           pillow
+          transformers
+          accelerate
+          datasets
+          evaluate
+          peft
           networkx
 
           matplotlib
@@ -230,7 +246,27 @@ let
           # dask
           rdkit
           pydicom
-          medmnist
+          # medmnist
+          (import ../packages/medmnist.nix {
+            inherit lib;
+            inherit (ps)
+              buildPythonPackage
+              fetchPypi
+              setuptools
+              numpy
+              pandas
+              scikit-learn
+              scikit-image
+              tqdm
+              pillow
+              fire
+              torch
+              torchvision
+              ;
+          })
+          monai
+          gensim
+          seqeval
           kagglehub
         ]
       )
@@ -242,7 +278,7 @@ let
       withNode = false;
     }))
     deno
-    webstorm
+    config.ali.jetbrains.webstorm
     typescript
     vscode-langservers-extracted
     typescript-language-server
@@ -254,14 +290,14 @@ let
   goPkgs = with pkgs; [
     go
     gopls
-    goland
+    config.ali.jetbrains.goland
   ];
   rust = with pkgs; [
     rustc
     cargo
     rustfmt
     clippy
-    rustrover
+    config.ali.jetbrains.rustrover
     rust-analyzer
   ];
   c = with pkgs; [
@@ -273,7 +309,7 @@ let
     ninja
     libclang
     lldb
-    clion
+    config.ali.jetbrains.clion
     cmake-language-server
     clang-tools
   ]; # pkgs.vcpkg is also ditched
@@ -315,6 +351,20 @@ in
   services.flood.enable = true;
   systemd.services.flood.serviceConfig.SupplementaryGroups = [ "rtorrent" ];
   services.stirling-pdf.enable = true;
+  services.cloudflare-warp.enable = true;
+  services.v2raya.enable = true;
+  services.v2raya.cliPackage = pkgs.xray;
+  services.sing-box.enable = true;
+
+  services.ollama.enable = true;
+  services.ollama.loadModels = [
+    "gemma3n:e2b-it-q4_K_M"
+    "qwen3:4b-instruct-2507-q4_K_M"
+    "qwen3:4b-thinking-2507-q4_K_M"
+    "qwen3-embedding:0.6b-q8_0"
+  ]; # "qwen3-coder:30b-a3b-q4_K_M" "qwen3-vl:2b-instruct-q4_K_M" "qwen3-vl:2b-thinking-q4_K_M"
+
+  security.wrappers = config.ali.security.dvdae;
 
   xdg.mime.defaultApplications = {
     "application/epub+zip" = "org.kde.okular.desktop";
@@ -323,9 +373,12 @@ in
     "application/vnd.oasis.opendocument.presentation" = "impress.desktop";
     "application/vnd.oasis.opendocument.spreadsheet" = "calc.desktop";
     "application/vnd.oasis.opendocument.text" = "writer.desktop";
-    "application/vnd.openxmlformats-officedocument.presentationml.presentation" = "impress.desktop";
-    "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet" = "calc.desktop";
-    "application/vnd.openxmlformats-officedocument.wordprocessingml.document" = "writer.desktop";
+    "application/vnd.openxmlformats-officedocument.presentationml.presentation" =
+      "onlyoffice-desktopeditors.desktop";
+    "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet" =
+      "onlyoffice-desktopeditors.desktop";
+    "application/vnd.openxmlformats-officedocument.wordprocessingml.document" =
+      "onlyoffice-desktopeditors.desktop";
     "application/vnd.pg.format" = "dev.zed.Zed.desktop";
     "application/vnd.rar" = "org.kde.ark.desktop";
     "application/vnd.sqlite3" = "base.desktop";
@@ -370,9 +423,12 @@ in
     "application/vnd.oasis.opendocument.presentation" = "impress.desktop";
     "application/vnd.oasis.opendocument.spreadsheet" = "calc.desktop";
     "application/vnd.oasis.opendocument.text" = "writer.desktop";
-    "application/vnd.openxmlformats-officedocument.presentationml.presentation" = "impress.desktop";
-    "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet" = "calc.desktop";
-    "application/vnd.openxmlformats-officedocument.wordprocessingml.document" = "writer.desktop";
+    "application/vnd.openxmlformats-officedocument.presentationml.presentation" =
+      "onlyoffice-desktopeditors.desktop";
+    "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet" =
+      "onlyoffice-desktopeditors.desktop";
+    "application/vnd.openxmlformats-officedocument.wordprocessingml.document" =
+      "onlyoffice-desktopeditors.desktop";
     "application/vnd.pg.format" = "dev.zed.Zed.desktop"; # subtitlecomposer
     "application/vnd.rar" = "org.kde.ark.desktop";
     "application/vnd.sqlite3" = [

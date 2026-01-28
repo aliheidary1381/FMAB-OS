@@ -17,6 +17,17 @@
         nix run nixpkgs#$argv[1] -- $argv[2..-1]
       end
 
+      function where
+        if test (count $argv) -ne 1
+            echo "Usage: where <nix package name>"
+            return 1
+        end
+        set store_derivation (nix-instantiate '<nixpkgs>' -A $argv[1] --quiet --quiet --quiet)
+        echo $store_derivation
+        nix-store --query --outputs $store_derivation # nix eval --raw nixpkgs#"$argv[1]".outPath
+
+      end
+
       function mp3
           if test (count $argv) -ne 1
               echo "Usage: mp3 <file.flac>"
