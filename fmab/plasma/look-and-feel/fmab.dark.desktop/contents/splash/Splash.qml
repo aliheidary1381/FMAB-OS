@@ -40,33 +40,50 @@ Rectangle {
             anchors.centerIn: parent
 
             asynchronous: true
-            source: "images/flamel.svg"
+            source: "images/Blood seal.svg"
 
             sourceSize.width: size
             sourceSize.height: size
         }
 
         // TODO: port to PlasmaComponents3.BusyIndicator
-        Image {
+        Item {
             id: busyIndicator
             //in the middle of the remaining space
-            y: parent.height - (parent.height - logo.y) / 2 - height/2
+            y: parent.height - (parent.height - logo.y) / 2 - height / 2
             anchors.horizontalCenter: parent.horizontalCenter
-            asynchronous: true
-            source: "images/busywidget.svg"
-            sourceSize.height: Kirigami.Units.gridUnit * 2
-            sourceSize.width: Kirigami.Units.gridUnit * 2
-            RotationAnimator on rotation {
-                id: rotationAnimator
-                from: 0
-                to: 360
-                // Not using a standard duration value because we don't want the
-                // animation to spin faster or slower based on the user's animation
-                // scaling preferences; it doesn't make sense in this context
-                duration: 2000
-                loops: Animation.Infinite
-                // Don't want it to animate at all if the user has disabled animations
-                running: Kirigami.Units.longDuration > 1
+
+            width: Kirigami.Units.gridUnit * 2
+            height: Kirigami.Units.gridUnit * 2
+
+            Image {
+                anchors.fill: parent
+                asynchronous: true
+                source: "images/Homunculus Ouroboros static.svg"
+                sourceSize.width: parent.width
+                sourceSize.height: parent.height
+            }
+
+            Image {
+                id: spinner
+                anchors.fill: parent
+                asynchronous: true
+                source: "images/Homunculus Ouroboros spin.svg"
+                sourceSize.width: parent.width
+                sourceSize.height: parent.height
+
+                RotationAnimator on rotation {
+                    id: rotationAnimator
+                    from: 0
+                    to: 360
+                    // Not using a standard duration value because we don't want the
+                    // animation to spin faster or slower based on the user's animation
+                    // scaling preferences; it doesn't make sense in this context
+                    duration: 2000
+                    loops: Animation.Infinite
+                    // Don't want it to animate at all if the user has disabled animations
+                    running: Kirigami.Units.longDuration > 1
+                }
             }
         }
         Row {
