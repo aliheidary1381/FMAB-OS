@@ -10,8 +10,7 @@ There's a custom theme that's consistent across KDE Plasma, SDDM, and even Plymo
 You can personalize it by just replacing my wallpapers with anything you wish.
 
 There's also a fairly comprehensive development environment for a variety of
-programming languages, and lots of built-in software
-(fully configured), and more.
+programming languages, lots of built-in software (fully configured), and more.
 
 <details>
 <summary>🖼️ Dark mode</summary>
@@ -53,15 +52,15 @@ unless they have a significant disadvantage.
   * Plymouth
   * SDDM
   * KDE Plasma (Qt6) desktop environment on Wayland
-  * Catppuccin pallete colours
+  * Catppuccin colour palletes
   * Wave terminal emulator
   * Fish shell
   * Helix editor (CLI)
   * Zed editor (GUI)
   * VMMs (WinBoat for Windows, Waydroid for Android, and Virt-manager for
-  everything else. They don't take much space unless they're initialized
+  everything else. They don't take much space unless they're initialized,
   i.e. unless you download the OSes).
-  * Ollama, Open WebUI, local Gemma and Qwen, with integrations for Zed IDE and Wave Terminal.
+  * Ollama, Jan AI, local Gemma and Qwen, with integrations for Zed IDE and Wave Terminal.
   * Development environment includes Rust, Go, C, C++, JS, Python, R, OCaml, and even Prolog,
   plus a JuPyteR env that also includes the R kernel and Python with a lot of data-scientific
   libs out of the box. JetBrains software include plugins ootb.

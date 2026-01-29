@@ -39,10 +39,10 @@ buildPythonPackage rec {
     torchvision
   ];
 
-  meta = {
+  meta = with lib; {
     description = "Standardized Datasets for 2D and 3D Biomedical Image Classification";
     homepage = "https://medmnist.com/";
-    license = lib.licenses.asl20;
+    license = licenses.asl20;
     maintainers = [ maintainers.unlisted ];
   };
 }

@@ -22,7 +22,7 @@ global.defaults.font.title = "TP Lost Land 30";
 
 global.assets = [];
 
-assets.logo          = "images/State alchemist.png";
+assets.logo          = "images/State-alchemist.png";
 assets.text_input    = "images/text-input.png";
 assets.spinner_base  = "images/spinner";
 
