@@ -107,6 +107,7 @@ and distributed in NA by Aniplex Inc.
   * Better starship prompts.
   * Move home-manager-managed stuff to global configs.
   * "Fixing" automatic theme switch for wave, nvim, helix, fish, starship, bat, fzf, lsd, and lazygit.
+  maybe with the `specialisation` option in home-manager?
   * Using LXC for Windscribe.
 
 ## Alternatives / Competitors 🏅

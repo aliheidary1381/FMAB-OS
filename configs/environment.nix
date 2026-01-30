@@ -367,6 +367,7 @@ in
   security.wrappers = config.ali.security.dvdae;
 
   xdg.mime.defaultApplications = {
+    # ~/.config/mimeapps.list
     "application/epub+zip" = "org.kde.okular.desktop";
     "application/json" = "dev.zed.Zed.desktop";
     "application/pdf" = "org.kde.okular.desktop";
@@ -429,7 +430,11 @@ in
       "onlyoffice-desktopeditors.desktop";
     "application/vnd.openxmlformats-officedocument.wordprocessingml.document" =
       "onlyoffice-desktopeditors.desktop";
-    "application/vnd.pg.format" = "dev.zed.Zed.desktop"; # subtitlecomposer
+    "application/vnd.pg.format" = [
+      "dev.zed.Zed.desktop"
+      "mediainfo-gui.desktop"
+      # subtitlecomposer
+    ];
     "application/vnd.rar" = "org.kde.ark.desktop";
     "application/vnd.sqlite3" = [
       "base.desktop"
@@ -453,31 +458,41 @@ in
     "application/yaml" = "dev.zed.Zed.desktop";
     "application/zip" = "org.kde.ark.desktop";
     "application/zip-compressed" = "org.kde.ark.desktop";
-    "audio/flac" = "dopamine.desktop";
-    "audio/mpeg" = "dopamine.desktop";
+    "audio/flac" = [
+      "dopamine.desktop"
+      "mediainfo-gui.desktop"
+    ];
+    "audio/mpeg" = [
+      "dopamine.desktop"
+      "mediainfo-gui.desktop"
+    ];
     # "font/otf" = ; # Where's KFontview?
     "image/jpeg" = [
       "org.kde.gwenview.desktop"
       "org.kde.krita.desktop"
       "org.kde.kolourpaint.desktop"
       "gimp.desktop"
+      "mediainfo-gui.desktop"
     ];
     "image/png" = [
       "org.kde.gwenview.desktop"
       "org.kde.krita.desktop"
       "org.kde.kolourpaint.desktop"
       "gimp.desktop"
+      "mediainfo-gui.desktop"
     ];
     "image/svg+xml" = [
       "org.kde.gwenview.desktop"
       "google-chrome.desktop"
       "org.inkscape.Inkscape.desktop"
+      "mediainfo-gui.desktop"
     ];
     "image/webp" = [
       "org.kde.gwenview.desktop"
       "org.kde.krita.desktop"
       "org.kde.kolourpaint.desktop"
       "gimp.desktop"
+      "mediainfo-gui.desktop"
     ];
     "text/css" = "dev.zed.Zed.desktop";
     "text/csv" = "dev.zed.Zed.desktop";
@@ -491,7 +506,13 @@ in
     "text/tab-separated-values" = "dev.zed.Zed.desktop";
     "text/x-c" = "dev.zed.Zed.desktop";
     "text/x-python" = "dev.zed.Zed.desktop";
-    "video/mp4" = "org.kde.haruna.desktop";
-    "video/x-matroska" = "org.kde.haruna.desktop";
+    "video/mp4" = [
+      "org.kde.haruna.desktop"
+      "mediainfo-gui.desktop"
+    ];
+    "video/x-matroska" = [
+      "org.kde.haruna.desktop"
+      "mediainfo-gui.desktop"
+    ];
   };
 }

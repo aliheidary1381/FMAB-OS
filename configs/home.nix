@@ -26,8 +26,8 @@ let
     config.ali.fonts.lalezar
   ];
 
-  onlyoffice-dark = "${config.home.homeDirectory}/.local/share/onlyoffice/desktopeditors/uithemes/catppuccin-frappe.json";
-  # onlyoffice-light = "${config.home.homeDirectory}/.local/share/onlyoffice/desktopeditors/uithemes/catppuccin-latte.json";
+  # onlyoffice-dark = "${config.xdg.dataHome}/onlyoffice/desktopeditors/uithemes/catppuccin-frappe.json";
+  # onlyoffice-light = "${config.xdg.dataHome}/onlyoffice/desktopeditors/uithemes/catppuccin-latte.json";
 in
 {
   programs.git = {
@@ -62,42 +62,31 @@ in
     eza.enable = true;
   };
 
-  home.file.".config/fish/themes/Catppuccin Frappe.theme".source =
+  # qt.kde.settings = {};
+  # qt.qt6ctSettings = {};
+
+  xdg.configFile."fish/themes/Catppuccin Frappe.theme".source =
     "${sources.fish}/Catppuccin Frappe.theme";
-  home.file.".config/fish/themes/Catppuccin Latte.theme".source =
+  xdg.configFile."fish/themes/Catppuccin Latte.theme".source =
     "${sources.fish}/Catppuccin Latte.theme";
   home.file.".jupyter/jupyter_notebook_config.py".source = ./jupyter_notebook.py;
 
   home.activation.streamripConfig = lib.hm.dag.entryAfter [ "writeBoundary" ] ''
-    cp ${./streamrip.toml} "$HOME/.config/streamrip/config.toml" && chmod 600 "$HOME/.config/streamrip/config.toml"
+    install -Dm600 ${./streamrip.toml} "${config.xdg.configHome}/streamrip/config.toml"
   '';
 
   home.activation.copyFonts = lib.hm.dag.entryAfter [ "writeBoundary" ] ''
+    rm -rf ${config.xdg.dataHome}/fonts
     mkdir -p ~/.local/share/fonts
-    chown -R "$USER:$(id -gn)" ~/.local/share/fonts
-    rm -rf ~/.local/share/fonts/*
+    chown -R "${config.home.username}:users" ${config.xdg.dataHome}/fonts
     for fontPkg in ${builtins.concatStringsSep " " (map (pkg: "${pkg}/share/fonts") myFonts)}; do
-      if [ -d "$fontPkg"/truetype ]; then
-        cp -rL "$fontPkg"/truetype/*.[ot]tf ~/.local/share/fonts/
-      fi
-      if [ -d "$fontPkg"/opentype ]; then
-        cp -rL "$fontPkg"/opentype/*.otf ~/.local/share/fonts/
-      fi
-      if [ -d "$fontPkg"/wine ]; then
-        cp -rL "$fontPkg"/wine/*.ttf ~/.local/share/fonts/
-      fi
-      if [ -d "$fontPkg"/noto ]; then
-        cp -rL "$fontPkg"/noto/*.ttf ~/.local/share/fonts/
-      fi
-      if [ -d "$fontPkg"/ir-standard-fonts ]; then
-        cp -rL "$fontPkg"/ir-standard-fonts/*.ttf ~/.local/share/fonts/
-      fi
+      cp -L "$fontPkg"/*/*.[ot]tf ${config.xdg.dataHome}/fonts/
     done
-    chmod 644 ~/.local/share/fonts/*
-    cp ~/.local/share/fonts/Times_New_Roman.ttf ~/.local/share/fonts/times.ttf
-    cp ~/.local/share/fonts/Courier_New.ttf ~/.local/share/fonts/cour.ttf
-    cp ~/.local/share/fonts/Arial.ttf ~/.local/share/fonts/arial.ttf
-    ${pkgs.fontconfig}/bin/fc-cache -f ~/.local/share/fonts
+    chmod 644 ${config.xdg.dataHome}/fonts/*
+    cp -L ${config.xdg.dataHome}/fonts/Times_New_Roman.ttf ${config.xdg.dataHome}/fonts/times.ttf
+    cp -L ${config.xdg.dataHome}/fonts/Courier_New.ttf ${config.xdg.dataHome}/fonts/cour.ttf
+    cp -L ${config.xdg.dataHome}/fonts/Arial.ttf ${config.xdg.dataHome}/fonts/arial.ttf
+    ${pkgs.fontconfig}/bin/fc-cache -f ${config.xdg.dataHome}/fonts
   '';
 
   home.activation.installZoteroExtensionForLibreOffice = lib.hm.dag.entryAfter [ "writeBoundary" ] ''
@@ -107,7 +96,7 @@ in
   '';
 
   # home.activation.onlyofficeTheme = lib.hm.dag.entryAfter [ "writeBoundary" ] ''
-  #   conf="$HOME/.config/onlyoffice/DesktopEditors.conf"
+  #   conf="${config.xdg.configHome}/onlyoffice/DesktopEditors.conf"
   #   if [ -f "$conf" ]; then
   #     if grep -q '^UITheme=' "$conf"; then
   #       sed -i 's|^UITheme=.*|UITheme=${onlyoffice-dark}|' "$conf"
@@ -119,12 +108,9 @@ in
 
   home.username = "ali";
   home.homeDirectory = "/home/ali";
-  home.file = {
-    ".face.icon" = {
-      source = ../fmab/sddm/faces/.face.icon;
-      executable = false;
-    };
-  };
+  home.file.".face.icon".source = ../fmab/sddm/faces/.face.icon;
+
+  # xdg.desktopEntries = {};
 
   # This value determines the Home Manager release that your configuration is
   # compatible with. This helps avoid breakage when a new Home Manager release

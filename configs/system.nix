@@ -11,7 +11,6 @@
   ];
   nix.settings.substituters = [ "file:///var/cache/nix/local-cache" ];
   nix.settings.trusted-substituters = [ "file:///var/cache/nix/local-cache" ];
-  # nix.settings.require-sigs = false;
 
   nixpkgs.config.allowUnfree = true;
 
@@ -37,15 +36,6 @@
   i18n.extraLocaleSettings = {
     LANG = "en_GB.UTF-8";
     LC_ALL = "en_GB.UTF-8";
-    # LC_ADDRESS = "en_US.UTF-8";
-    # LC_IDENTIFICATION = "en_US.UTF-8";
-    # LC_MEASUREMENT = "en_US.UTF-8";
-    # LC_MONETARY = "en_US.UTF-8";
-    # LC_NAME = "en_US.UTF-8";
-    # LC_NUMERIC = "en_US.UTF-8";
-    # LC_PAPER = "en_US.UTF-8";
-    # LC_TELEPHONE = "en_US.UTF-8";
-    # LC_TIME = "en_US.UTF-8";
   };
 
   # Bootloader.
@@ -53,7 +43,6 @@
     enable = true;
     efiSupport = true;
     device = "nodev";
-    # gfxmodeBios = lib.mkForce "1920x1080,auto";
   };
   boot.loader.efi.canTouchEfiVariables = true;
 
@@ -136,6 +125,8 @@
     ];
   };
 
+  # services.envfs.enable = true;
+  # programs.nix-ld.enable = true;
   programs.nix-index.enable = true;
 
   programs.proxychains = {
@@ -231,17 +222,19 @@
     };
   };
 
-  security.sudo.extraConfig = ''
-    %wheel ALL=(ALL) NOPASSWD: ALL
-  '';
+  # security.sudo.extraConfig = ''
+  #   %wheel ALL=(ALL) NOPASSWD: ALL
+  # '';
 
-  security.polkit.extraConfig = ''
-    polkit.addRule(function(action, subject) {
-      if (subject.isInGroup("wheel")) {
-        return polkit.Result.YES;
-      }
-    });
-  '';
+  # security.polkit.extraConfig = ''
+  #   polkit.addRule(function(action, subject) {
+  #     if (subject.isInGroup("wheel")) {
+  #       return polkit.Result.YES;
+  #     }
+  #   });
+  # '';
+
+  security.sudo.wheelNeedsPassword = false;
 
   # Some programs need SUID wrappers, can be configured further or are
   # started in user sessions.

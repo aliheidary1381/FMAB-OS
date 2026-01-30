@@ -1,5 +1,5 @@
 {
-  home.file.".config/waveterm/presets.json".text = builtins.toJSON {
+  xdg.configFile."waveterm/presets.json".text = builtins.toJSON {
     "bg@default" = {
       "display:name" = "Default";
       "display:order" = -1;
@@ -131,7 +131,7 @@
     };
   };
 
-  home.file.".config/waveterm/termthemes.json".text = builtins.toJSON {
+  xdg.configFile."waveterm/termthemes.json".text = builtins.toJSON {
     "default-dark" = {
       "display:name" = "Default Dark";
       "display:order" = 2;
@@ -360,7 +360,7 @@
     };
   };
 
-  home.file.".config/waveterm/settings.json".text = builtins.toJSON {
+  xdg.configFile."waveterm/settings.json".text = builtins.toJSON {
     "app:defaultnewblock" = "term";
     "autoupdate:enabled" = true;
     "autoupdate:installonquit" = true;
@@ -387,7 +387,7 @@
     "ai:preset" = "ai@gemma3n";
   };
 
-  home.file.".config/waveterm/presets/ai.json".text = builtins.toJSON {
+  xdg.configFile."waveterm/presets/ai.json".text = builtins.toJSON {
     "ai@gemma3n" = {
       "display:name" = "Gemma 3n (e2b-it-q4_K_M)";
       "display:order" = 1;

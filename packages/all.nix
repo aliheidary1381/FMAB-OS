@@ -5,6 +5,7 @@
   ...
 }:
 let
+  fmab-customizations = import ./fmab.nix { inherit pkgs; };
   rtorrent = import ./rtorrent.nix { inherit pkgs; };
   lyrics-finder = import ./lyricsfinder.nix { inherit pkgs; };
   dvdae = import ./dvdae.nix { inherit pkgs; };
@@ -43,8 +44,6 @@ let
   #   "--add-opens=java.base/jdk.internal.org.objectweb.asm=ALL-UNNAMED"
   #   "--add-opens=java.base/jdk.internal.org.objectweb.asm.tree=ALL-UNNAMED"
   # ];
-
-  fmab-customizations = import ./fmab.nix { inherit pkgs; };
 in
 {
   config = {
@@ -59,184 +58,167 @@ in
     ali.packages.rtorrent = rtorrent;
     ali.packages.lyrics-finder = lyrics-finder;
     ali.packages.dvdae = dvdae.dvd-audio-extractor;
-    security.wrappers = dvdae.wrapper.security.wrappers;
+    ali.security.dvdae = dvdae.wrapper.security.wrappers;
     ali.packages.medmnist = medmnist;
-    # ali.jetbrains.vmoptions-patch = jetbrains-vmoptions-patch;
-
-    nixpkgs.overlays = with nix-jetbrains-plugins.lib."${pkgs.stdenv.hostPlatform.system}"; [
-      (self: super: {
-        goland =
-          buildIdeWithPlugins super.jetbrains
-            super.jetbrains.goland
-            # (super.jetbrains.goland.override {
-            #   vmopts = jetbrains-vmoptions-patch;
-            # })
-            [
-              "org.jetbrains.junie"
-              "com.intellij.ml.llm"
-              "com.intellij.mcpServer"
-              "com.github.catppuccin.jetbrains"
-              "com.github.catppuccin.jetbrains_icons"
-              "nix-idea"
-              # "org.fe3dback.nixlsp"
-              "mobi.hsz.idea.gitignore"
-              "com.jetbrains.plugins.ini4idea"
-              "ru.adelf.idea.dotenv"
-              "org.toml.lang"
-              "net.seesharpsoft.intellij.plugins.csv"
-              "com.intellij.kubernetes"
-              "org.jetbrains.plugins.yaml"
-              "Docker"
-              "org.jetbrains.plugins.gitlab"
-              "org.jetbrains.plugins.github"
-              # "org.intellij.plugins.markdown"
-              "com.intellij.ideolog"
-              "idea.plugin.protoeditor"
-              # "com.intellij.grpc"
-              "com.intellij.microservices.ui"
-              "org.intellij.RegexpTester"
-            ];
-        clion =
-          buildIdeWithPlugins super.jetbrains
-            # (super.jetbrains.clion.override {
-            #   vmopts = jetbrains-vmoptions-patch;
-            # })
-            super.jetbrains.clion
-            [
-              "org.jetbrains.junie"
-              "com.intellij.ml.llm"
-              "com.intellij.mcpServer"
-              "com.github.catppuccin.jetbrains"
-              "com.github.catppuccin.jetbrains_icons"
-              "mobi.hsz.idea.gitignore"
-              "ru.adelf.idea.dotenv"
-              "org.jetbrains.plugins.gitlab"
-              "org.jetbrains.plugins.github"
-              # "org.intellij.plugins.markdown"
-              "com.intellij.ideolog"
-              "name.kropp.intellij.makefile"
-              "com.intellij.qt"
-              "com.intellij.lang.qml"
-            ];
-        datagrip =
-          buildIdeWithPlugins super.jetbrains
-            # (super.jetbrains.datagrip.override {
-            #   vmopts = jetbrains-vmoptions-patch;
-            # })
-            super.jetbrains.datagrip
-            [
-              "org.jetbrains.junie"
-              "com.intellij.ml.llm"
-              "com.intellij.mcpServer"
-              "com.github.catppuccin.jetbrains"
-              "com.github.catppuccin.jetbrains_icons"
-            ];
-        pycharm =
-          buildIdeWithPlugins super.jetbrains
-            # (super.jetbrains.pycharm.override {
-            #   vmopts = jetbrains-vmoptions-patch;
-            # })
-            super.jetbrains.pycharm
-            [
-              "org.jetbrains.junie"
-              "com.intellij.ml.llm"
-              "com.intellij.mcpServer"
-              "com.github.catppuccin.jetbrains"
-              "com.github.catppuccin.jetbrains_icons"
-              "mobi.hsz.idea.gitignore"
-              "ru.adelf.idea.dotenv"
-              "org.toml.lang"
-              "org.jetbrains.plugins.gitlab"
-              "org.jetbrains.plugins.github"
-              # "org.intellij.plugins.markdown"
-              "com.intellij.ideolog"
-              # "ru.meanmail.plugin.requirements"
-            ];
-        dataspell =
-          buildIdeWithPlugins super.jetbrains
-            # (super.jetbrains.dataspell.override {
-            #   vmopts = jetbrains-vmoptions-patch;
-            # })
-            super.jetbrains.dataspell
-            [
-              "org.jetbrains.junie"
-              "com.intellij.ml.llm"
-              "com.intellij.mcpServer"
-              "com.github.catppuccin.jetbrains"
-              "com.github.catppuccin.jetbrains_icons"
-              "ru.adelf.idea.dotenv"
-              # "org.intellij.plugins.markdown"
-              "com.intellij.ideolog"
-              "com.intellij.bigdatatools"
-              "com.intellij.bigdatatools.core"
-              "com.intellij.bigdatatools.metastore.core"
-              "com.intellij.bigdatatools.binary.files"
-              "com.intellij.bigdatatools.rfs"
-              "com.intellij.bigdatatools.spark"
-              "com.intellij.bigdatatools.kafka"
-              "com.intellij.bigdatatools.zeppelin"
-              "com.intellij.bigdatatools.flink"
-              "R4Intellij"
-            ];
-        webstorm =
-          buildIdeWithPlugins super.jetbrains
-            # (super.jetbrains.webstorm.override {
-            #   vmopts = jetbrains-vmoptions-patch;
-            # })
-            super.jetbrains.webstorm
-            [
-              "org.jetbrains.junie"
-              "com.intellij.ml.llm"
-              "com.intellij.mcpServer"
-              "com.github.catppuccin.jetbrains"
-              "com.github.catppuccin.jetbrains_icons"
-              "mobi.hsz.idea.gitignore"
-              "ru.adelf.idea.dotenv"
-              "org.jetbrains.plugins.gitlab"
-              "org.jetbrains.plugins.github"
-              # "org.intellij.plugins.markdown"
-              "com.intellij.ideolog"
-              "idea.plugin.protoeditor"
-              # "com.intellij.grpc"
-              "NodeJS"
-              "deno"
-              "intellij.vitejs"
-              "org.jetbrains.plugins.astro"
-              "dev.blachut.svelte.lang"
-              "mdx.js"
-              "intellij.prettierJS"
-            ];
-        rustrover =
-          buildIdeWithPlugins super.jetbrains
-            # (super.jetbrains.rust-rover.override {
-            #   vmopts = jetbrains-vmoptions-patch;
-            # })
-            super.jetbrains.rust-rover
-            [
-              "org.jetbrains.junie"
-              "com.intellij.ml.llm"
-              "com.intellij.mcpServer"
-              "com.github.catppuccin.jetbrains"
-              "com.github.catppuccin.jetbrains_icons"
-              "mobi.hsz.idea.gitignore"
-              "ru.adelf.idea.dotenv"
-              "org.toml.lang"
-              "org.jetbrains.plugins.gitlab"
-              "org.jetbrains.plugins.github"
-              # "org.intellij.plugins.markdown"
-              "com.intellij.ideolog"
-              "idea.plugin.protoeditor"
-              # "com.intellij.grpc"
-            ];
-      })
-      # (final: prev: {
-      #   python313Packages = prev.python313Packages // {
-      #     torch = prev.python313Packages.torch.override {
-      #       vulkanSupport = true;
-      #     };
-      #   };
-      # })
-    ];
+    ali.jetbrains = with nix-jetbrains-plugins.lib."${pkgs.stdenv.hostPlatform.system}"; {
+      # vmoptions-patch = jetbrains-vmoptions-patch;
+      goland =
+        buildIdeWithPlugins pkgs.jetbrains pkgs.jetbrains.goland
+          # (pkgs.jetbrains.goland.override {
+          #   vmopts = jetbrains-vmoptions-patch;
+          # })
+          [
+            "org.jetbrains.junie"
+            "com.intellij.ml.llm"
+            "com.intellij.mcpServer"
+            "com.github.catppuccin.jetbrains"
+            "com.github.catppuccin.jetbrains_icons"
+            "nix-idea"
+            # "org.fe3dback.nixlsp"
+            "mobi.hsz.idea.gitignore"
+            "com.jetbrains.plugins.ini4idea"
+            "ru.adelf.idea.dotenv"
+            "org.toml.lang"
+            "net.seesharpsoft.intellij.plugins.csv"
+            "com.intellij.kubernetes"
+            "org.jetbrains.plugins.yaml"
+            "Docker"
+            "org.jetbrains.plugins.gitlab"
+            "org.jetbrains.plugins.github"
+            # "org.intellij.plugins.markdown"
+            "com.intellij.ideolog"
+            "idea.plugin.protoeditor"
+            # "com.intellij.grpc"
+            "com.intellij.microservices.ui"
+            "org.intellij.RegexpTester"
+          ];
+      clion =
+        buildIdeWithPlugins pkgs.jetbrains pkgs.jetbrains.clion
+          # (pkgs.jetbrains.clion.override {
+          #   vmopts = jetbrains-vmoptions-patch;
+          # })
+          [
+            "org.jetbrains.junie"
+            "com.intellij.ml.llm"
+            "com.intellij.mcpServer"
+            "com.github.catppuccin.jetbrains"
+            "com.github.catppuccin.jetbrains_icons"
+            "mobi.hsz.idea.gitignore"
+            "ru.adelf.idea.dotenv"
+            "org.jetbrains.plugins.gitlab"
+            "org.jetbrains.plugins.github"
+            # "org.intellij.plugins.markdown"
+            "com.intellij.ideolog"
+            "name.kropp.intellij.makefile"
+            "com.intellij.qt"
+            "com.intellij.lang.qml"
+          ];
+      datagrip =
+        buildIdeWithPlugins pkgs.jetbrains pkgs.jetbrains.datagrip
+          # (pkgs.jetbrains.datagrip.override {
+          #   vmopts = jetbrains-vmoptions-patch;
+          # })
+          [
+            "org.jetbrains.junie"
+            "com.intellij.ml.llm"
+            "com.intellij.mcpServer"
+            "com.github.catppuccin.jetbrains"
+            "com.github.catppuccin.jetbrains_icons"
+          ];
+      pycharm =
+        buildIdeWithPlugins pkgs.jetbrains pkgs.jetbrains.pycharm
+          # (pkgs.jetbrains.pycharm.override {
+          #   vmopts = jetbrains-vmoptions-patch;
+          # })
+          [
+            "org.jetbrains.junie"
+            "com.intellij.ml.llm"
+            "com.intellij.mcpServer"
+            "com.github.catppuccin.jetbrains"
+            "com.github.catppuccin.jetbrains_icons"
+            "mobi.hsz.idea.gitignore"
+            "ru.adelf.idea.dotenv"
+            "org.toml.lang"
+            "org.jetbrains.plugins.gitlab"
+            "org.jetbrains.plugins.github"
+            # "org.intellij.plugins.markdown"
+            "com.intellij.ideolog"
+            # "ru.meanmail.plugin.requirements"
+          ];
+      dataspell =
+        buildIdeWithPlugins pkgs.jetbrains pkgs.jetbrains.dataspell
+          # (pkgs.jetbrains.dataspell.override {
+          #   vmopts = jetbrains-vmoptions-patch;
+          # })
+          [
+            "org.jetbrains.junie"
+            "com.intellij.ml.llm"
+            "com.intellij.mcpServer"
+            "com.github.catppuccin.jetbrains"
+            "com.github.catppuccin.jetbrains_icons"
+            "ru.adelf.idea.dotenv"
+            # "org.intellij.plugins.markdown"
+            "com.intellij.ideolog"
+            "com.intellij.bigdatatools"
+            "com.intellij.bigdatatools.core"
+            "com.intellij.bigdatatools.metastore.core"
+            "com.intellij.bigdatatools.binary.files"
+            "com.intellij.bigdatatools.rfs"
+            "com.intellij.bigdatatools.spark"
+            "com.intellij.bigdatatools.kafka"
+            "com.intellij.bigdatatools.zeppelin"
+            "com.intellij.bigdatatools.flink"
+            "R4Intellij"
+          ];
+      webstorm =
+        buildIdeWithPlugins pkgs.jetbrains pkgs.jetbrains.webstorm
+          # (pkgs.jetbrains.webstorm.override {
+          #   vmopts = jetbrains-vmoptions-patch;
+          # })
+          [
+            "org.jetbrains.junie"
+            "com.intellij.ml.llm"
+            "com.intellij.mcpServer"
+            "com.github.catppuccin.jetbrains"
+            "com.github.catppuccin.jetbrains_icons"
+            "mobi.hsz.idea.gitignore"
+            "ru.adelf.idea.dotenv"
+            "org.jetbrains.plugins.gitlab"
+            "org.jetbrains.plugins.github"
+            # "org.intellij.plugins.markdown"
+            "com.intellij.ideolog"
+            "idea.plugin.protoeditor"
+            # "com.intellij.grpc"
+            "NodeJS"
+            "deno"
+            "intellij.vitejs"
+            "org.jetbrains.plugins.astro"
+            "dev.blachut.svelte.lang"
+            "mdx.js"
+            "intellij.prettierJS"
+          ];
+      rustrover =
+        buildIdeWithPlugins pkgs.jetbrains pkgs.jetbrains.rust-rover
+          # (pkgs.jetbrains.rust-rover.override {
+          #   vmopts = jetbrains-vmoptions-patch;
+          # })
+          [
+            "org.jetbrains.junie"
+            "com.intellij.ml.llm"
+            "com.intellij.mcpServer"
+            "com.github.catppuccin.jetbrains"
+            "com.github.catppuccin.jetbrains_icons"
+            "mobi.hsz.idea.gitignore"
+            "ru.adelf.idea.dotenv"
+            "org.toml.lang"
+            "org.jetbrains.plugins.gitlab"
+            "org.jetbrains.plugins.github"
+            # "org.intellij.plugins.markdown"
+            "com.intellij.ideolog"
+            "idea.plugin.protoeditor"
+            # "com.intellij.grpc"
+          ];
+    };
   };
 
   options.ali = {
@@ -251,7 +233,15 @@ in
     packages.rtorrent = lib.mkOption { type = lib.types.package; };
     packages.lyrics-finder = lib.mkOption { type = lib.types.package; };
     packages.dvdae = lib.mkOption { type = lib.types.package; };
+    security.dvdae = lib.mkOption { type = lib.types.attrs; };
     packages.medmnist = lib.mkOption { type = lib.types.package; };
     # jetbrains.vmoptions-patch = lib.mkOption { type = lib.types.lines; };
+    jetbrains.goland = lib.mkOption { type = lib.types.package; };
+    jetbrains.clion = lib.mkOption { type = lib.types.package; };
+    jetbrains.datagrip = lib.mkOption { type = lib.types.package; };
+    jetbrains.pycharm = lib.mkOption { type = lib.types.package; };
+    jetbrains.dataspell = lib.mkOption { type = lib.types.package; };
+    jetbrains.webstorm = lib.mkOption { type = lib.types.package; };
+    jetbrains.rustrover = lib.mkOption { type = lib.types.package; };
   };
 }
