@@ -28,6 +28,13 @@ let
 
   # onlyoffice-dark = "${config.xdg.dataHome}/onlyoffice/desktopeditors/uithemes/catppuccin-frappe.json";
   # onlyoffice-light = "${config.xdg.dataHome}/onlyoffice/desktopeditors/uithemes/catppuccin-latte.json";
+
+  PhotoGIMP = pkgs.fetchFromGitHub {
+    owner = "Diolinux";
+    repo = "PhotoGIMP";
+    tag = "master";
+    hash = "sha256-OLEqtI2Hem2fTTL0KNf0aZsFfuwwhgE4etyRMcW5KiQ=";
+  };
 in
 {
   programs.git = {
@@ -72,17 +79,15 @@ in
   home.file.".jupyter/jupyter_notebook_config.py".source = ./jupyter_notebook.py;
 
   home.activation.streamripConfig = lib.hm.dag.entryAfter [ "writeBoundary" ] ''
-    install -Dm600 ${./streamrip.toml} "${config.xdg.configHome}/streamrip/config.toml"
+    install -D --mode=600 --owner=${config.home.username} --group=users ${./streamrip.toml} "${config.xdg.configHome}/streamrip/config.toml"
   '';
 
   home.activation.copyFonts = lib.hm.dag.entryAfter [ "writeBoundary" ] ''
     rm -rf ${config.xdg.dataHome}/fonts
-    mkdir -p ~/.local/share/fonts
-    chown -R "${config.home.username}:users" ${config.xdg.dataHome}/fonts
+    mkdir ${config.xdg.dataHome}/fonts
     for fontPkg in ${builtins.concatStringsSep " " (map (pkg: "${pkg}/share/fonts") myFonts)}; do
-      cp -L "$fontPkg"/*/*.[ot]tf ${config.xdg.dataHome}/fonts/
+      install --mode=644 --owner=${config.home.username} --group=users "$fontPkg"/*/*.[ot]tf ${config.xdg.dataHome}/fonts/
     done
-    chmod 644 ${config.xdg.dataHome}/fonts/*
     cp -L ${config.xdg.dataHome}/fonts/Times_New_Roman.ttf ${config.xdg.dataHome}/fonts/times.ttf
     cp -L ${config.xdg.dataHome}/fonts/Courier_New.ttf ${config.xdg.dataHome}/fonts/cour.ttf
     cp -L ${config.xdg.dataHome}/fonts/Arial.ttf ${config.xdg.dataHome}/fonts/arial.ttf
@@ -93,6 +98,30 @@ in
     if ! ${pkgs.libreoffice}/bin/unopkg list | grep "org.Zotero.integration.openoffice"; then
       ${pkgs.libreoffice}/bin/unopkg add ${pkgs.zotero}/usr/lib/zotero-bin-*/integration/libreoffice/Zotero_LibreOffice_Integration.oxt
     fi
+  '';
+
+  home.activation.installPhotoGIMPPatch = lib.hm.dag.entryAfter [ "writeBoundary" ] ''
+    set -euo pipefail
+
+    src="${PhotoGIMP}/.config/GIMP"
+    dst="${config.xdg.configHome}/GIMP"
+
+    rm -rf "$dst"
+    mkdir -p "$dst"
+
+    find "$src" -mindepth 1 -print0 | while IFS= read -r -d $'\0' path; do
+        rel="$(printf "%s" "$path" | sed "s|^$src/||")"
+        target="$dst/$rel"
+
+        if [ -d "$path" ]; then
+            mkdir -p "$target"
+            chown "${config.home.username}:users" "$target"
+            chmod 755 "$target"
+        else
+            install -D --mode=644 --owner="${config.home.username}" --group=users "$path" "$target"
+        fi
+    done
+    rm -rf "${config.xdg.configHome}/GIMP/3.0/splashes"
   '';
 
   # home.activation.onlyofficeTheme = lib.hm.dag.entryAfter [ "writeBoundary" ] ''

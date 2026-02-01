@@ -5,9 +5,6 @@
 }:
 
 let
-  lyrics-finder = config.ali.packages.lyrics-finder;
-  dvdae = config.ali.packages.dvdae;
-
   KDE =
     with pkgs.kdePackages;
     [
@@ -29,7 +26,8 @@ let
       kcharselect
       # qrca was not available
       qtlanguageserver
-      # neochat had deprecated dependencies
+      ktorrent
+      # francis
     ]
     ++ (with pkgs; [
       # systemdgenie
@@ -40,6 +38,7 @@ let
     ])
     ++ [ config.ali.packages.fmab-customizations ];
   basic = with pkgs; [
+    qalculate-qt
     google-chrome
     cloudflare-warp
     telegram-desktop
@@ -59,6 +58,7 @@ let
     fishPlugins.autopair
     efibootmgr
     jre25_minimal
+    raylib-games
   ];
   expert = with pkgs; [
     logseq
@@ -67,10 +67,8 @@ let
     inkscape-with-extensions
     inkscape-extensions.textext
     media-downloader
-    flood
     winboat
     libguestfs-with-appliance
-    yt-dlp
     screenkey
     # Add subtitlecomposer for subtitle editing, kdePackages.kdenlive for video editing, and davinci-resolve-studio for more advanced editing
     # Add blender-hip for 3D graphics
@@ -112,41 +110,56 @@ let
   ];
   music = with pkgs; [
     streamrip
-    lyrics-finder
+    config.ali.packages.lyrics-finder
     kid3
     puddletag
     ocenaudio
     mediainfo-gui
     mkvtoolnix
     makemkv
-    dvdae
+    config.ali.packages.dvdae
     sacd
   ];
+  edutation = with pkgs.kdePackages; [
+    kwordquiz
+    minuet
+    kmplot
+    kig
+    kturtle
+    rocs
+    kalgebra
+    step
+    kalzium
+    kgeography
+  ];
   academia = with pkgs; [
-    zotero
     sioyek # toggle_smooth_scroll_mode & auto toggle_dark_mode
-    stirling-pdf
+    # kdePackages.Karp ?
+    zotero
+    # jabref
     ghostscript
     texliveFull
     texlivePackages.svg-inkscape
     texlab
-    # jabref
     kile
-    (rWrapper.override {
-      packages = with rPackages; [
-        IRkernel
-        languageserver
-      ];
-    })
-    (pkgs.writeShellScriptBin "r-languageserver" ''
+    labplot
+    config.ali.packages.R
+    (writeShellScriptBin "r-languageserver" ''
       exec R --slave -e 'languageserver::run()'
     '')
-    kdePackages.cantor
-    labplot
-    # sage
+    (kdePackages.cantor.overrideAttrs (old: {
+      buildInputs = (old.buildInputs or [ ]) ++ [
+        config.ali.packages.python
+      ];
+    }))
+    # kdePackages.RKWard ?
     # positron-bin
+    # sage
+    # mathematica
   ];
   coding = with pkgs; [
+    # luajit
+    # julia
     grpc
     protobuf
     bruno
@@ -161,6 +174,8 @@ let
     package-version-server
     taplo
     marksman
+    # kdePackages.Licentia ?
+    # kdePackages.KRegexpEditor ?
   ];
   ocamlPkgs =
     with pkgs;
@@ -186,91 +201,7 @@ let
     basedpyright
     ruff
     pyrefly
-    (
-      (python313.override {
-        packageOverrides = self: super: {
-          ipykernel = super.ipykernel.overrideAttrs (old: {
-            postInstall = ''
-              mkdir -p $out/share/jupyter/kernels/ir
-              cp -r ${rPackages.IRkernel}/library/IRkernel/kernelspec/* $out/share/jupyter/kernels/ir/
-            '';
-          });
-          torch = super.torch.override {
-            vulkanSupport = true;
-            buildDocs = true;
-          };
-        };
-      }).withPackages
-      (
-        # ps is python313Packages
-        ps: with ps; [
-          python-lsp-server
-          python-lsp-ruff
-          pylsp-mypy
-          black
-          tqdm
-          brotli
-          httpx
-          socksio
-
-          numpy
-          scipy
-          pandas
-          pyarrow
-          jupyterlab
-          notebook
-          xgboost
-          scikit-learn
-          scikit-image
-          keras # depends on tf
-          wandb
-          torch
-          torchsummary
-          torchvision
-          torch-geometric
-          opencv4
-          pillow
-          transformers
-          accelerate
-          datasets
-          evaluate
-          peft
-          networkx
-
-          matplotlib
-          seaborn
-          # hvplot
-          # plotly
-          # dash
-          # streamlit
-          # dask
-          rdkit
-          pydicom
-          # medmnist
-          (import ../packages/medmnist.nix {
-            inherit lib;
-            inherit (ps)
-              buildPythonPackage
-              fetchPypi
-              setuptools
-              numpy
-              pandas
-              scikit-learn
-              scikit-image
-              tqdm
-              pillow
-              fire
-              torch
-              torchvision
-              ;
-          })
-          monai
-          gensim
-          seqeval
-          kagglehub
-        ]
-      )
-    )
+    config.ali.packages.python
   ]; # uv & pkgs.python313Packages.pip is also ditched
   javascript = with pkgs; [
     nodejs-slim_24 # = nodejs with no npm
@@ -334,9 +265,11 @@ in
     ++ rust
     ++ c;
   environment.sessionVariables = {
-    GOPATH = "/home/ali/.go";
-    GOMODCACHE = "/home/ali/.go/pkg/mod";
+    GOPATH = "/home/ali/.local/share/go";
+    GOMODCACHE = "/home/ali/.local/share/go/pkg/mod";
   };
+  programs.firejail.enable = true;
+  programs.mtr.enable = true;
   services.rtorrent = {
     enable = true;
     package = config.ali.packages.rtorrent;

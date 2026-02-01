@@ -103,6 +103,7 @@ and distributed in NA by Aniplex Inc.
 
 ## Future plans / TODO 🔮
 
+  * Migrate to `plasma-login-manager` whenever it becomes available on NixOS.
   * Replacing BTRFS with BCacheFS.
   * Better starship prompts.
   * Move home-manager-managed stuff to global configs.

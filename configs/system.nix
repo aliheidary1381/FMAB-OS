@@ -145,10 +145,6 @@
     };
   };
 
-  programs.firejail.enable = true;
-
-  programs.dconf.enable = true;
-
   fonts.enableDefaultPackages = true; # installs dejavu_fonts freefont_ttf gyre-fonts liberation_ttf unifont noto-fonts-color-emoji
   fonts.packages =
     with pkgs;
@@ -222,32 +218,7 @@
     };
   };
 
-  # security.sudo.extraConfig = ''
-  #   %wheel ALL=(ALL) NOPASSWD: ALL
-  # '';
-
-  # security.polkit.extraConfig = ''
-  #   polkit.addRule(function(action, subject) {
-  #     if (subject.isInGroup("wheel")) {
-  #       return polkit.Result.YES;
-  #     }
-  #   });
-  # '';
-
   security.sudo.wheelNeedsPassword = false;
-
-  # Some programs need SUID wrappers, can be configured further or are
-  # started in user sessions.
-  # programs.mtr.enable = true;
-  # programs.gnupg.agent = {
-  #   enable = true;
-  #   enableSSHSupport = true;
-  # };
-
-  # List services that you want to enable:
-
-  # Enable the OpenSSH daemon.
-  # services.openssh.enable = true;
 
   # Open ports in the firewall.
   # networking.firewall.allowedTCPPorts = [ ... ];

@@ -16,23 +16,6 @@ let
   gandom = import ./fonts/gandom.nix { inherit pkgs; };
   sahel = import ./fonts/sahel.nix { inherit pkgs; };
   lalezar = import ./fonts/lalezar.nix { inherit pkgs; };
-  medmnist = import ./medmnist.nix {
-    inherit lib;
-    inherit (pkgs.python313Packages)
-      buildPythonPackage
-      fetchPypi
-      setuptools
-      numpy
-      pandas
-      scikit-learn
-      scikit-image
-      tqdm
-      pillow
-      fire
-      torch
-      torchvision
-      ;
-  };
   # jetbrains-plugin = pkgs.stdenv.mkDerivation {
   #   name = "jetbrains-java-agent-net-filter";
   #   version = "2024.0";
@@ -59,7 +42,98 @@ in
     ali.packages.lyrics-finder = lyrics-finder;
     ali.packages.dvdae = dvdae.dvd-audio-extractor;
     ali.security.dvdae = dvdae.wrapper.security.wrappers;
-    ali.packages.medmnist = medmnist;
+    ali.packages.python = (
+      (pkgs.python313.override {
+        packageOverrides = self: super: {
+          ipykernel = super.ipykernel.overrideAttrs (old: {
+            postInstall = ''
+              mkdir -p $out/share/jupyter/kernels/ir
+              cp -r ${pkgs.rPackages.IRkernel}/library/IRkernel/kernelspec/* $out/share/jupyter/kernels/ir/
+            '';
+          });
+          torch = super.torch.override {
+            vulkanSupport = true;
+            buildDocs = true;
+          };
+        };
+      }).withPackages
+        (
+          # ps is python313Packages
+          ps: with ps; [
+            python-lsp-server
+            python-lsp-ruff
+            pylsp-mypy
+            black
+            tqdm
+            brotli
+            httpx
+            socksio
+
+            numpy
+            scipy
+            pandas
+            pyarrow
+            jupyterlab
+            notebook
+            xgboost
+            scikit-learn
+            scikit-image
+            keras # depends on tf
+            wandb
+            torch
+            torchsummary
+            torchvision
+            torch-geometric
+            opencv4
+            pillow
+            transformers
+            accelerate
+            datasets
+            evaluate
+            peft
+            networkx
+
+            matplotlib
+            seaborn
+            # hvplot
+            # plotly
+            # dash
+            # streamlit
+            # dask
+            rdkit
+            pydicom
+            (import ../packages/medmnist.nix {
+              inherit lib;
+              inherit (ps)
+                buildPythonPackage
+                fetchPypi
+                setuptools
+                numpy
+                pandas
+                scikit-learn
+                scikit-image
+                tqdm
+                pillow
+                fire
+                torch
+                torchvision
+                ;
+            })
+            monai
+            gensim
+            seqeval
+            kagglehub
+          ]
+        )
+    );
+    ali.packages.R = (
+      pkgs.rWrapper.override {
+        packages = with pkgs.rPackages; [
+          IRkernel
+          languageserver
+        ];
+      }
+    );
     ali.jetbrains = with nix-jetbrains-plugins.lib."${pkgs.stdenv.hostPlatform.system}"; {
       # vmoptions-patch = jetbrains-vmoptions-patch;
       goland =
@@ -234,7 +308,8 @@ in
     packages.lyrics-finder = lib.mkOption { type = lib.types.package; };
     packages.dvdae = lib.mkOption { type = lib.types.package; };
     security.dvdae = lib.mkOption { type = lib.types.attrs; };
-    packages.medmnist = lib.mkOption { type = lib.types.package; };
+    packages.python = lib.mkOption { type = lib.types.package; };
+    packages.R = lib.mkOption { type = lib.types.package; };
     # jetbrains.vmoptions-patch = lib.mkOption { type = lib.types.lines; };
     jetbrains.goland = lib.mkOption { type = lib.types.package; };
     jetbrains.clion = lib.mkOption { type = lib.types.package; };
