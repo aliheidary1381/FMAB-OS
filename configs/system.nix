@@ -183,18 +183,6 @@
     # sansSerif = [ "IRANSansX Light" ];
   };
 
-  systemd.targets.machines.enable = true; # For nspawn Linux containers
-  virtualisation.docker.enable = true; # For WinBoat Windows containers
-  virtualisation.waydroid.enable = true; # For WayDroid Android containers https://wiki.nixos.org/wiki/Waydroid https://docs.waydro.id/usage/
-  programs.virt-manager.enable = true;
-  users.groups.libvirtd.members = [ "ali" ];
-  virtualisation.libvirtd = {
-    enable = true;
-    qemu.package = pkgs.qemu_kvm;
-    qemu.vhostUserPackages = [ pkgs.virtiofsd ];
-  };
-  virtualisation.spiceUSBRedirection.enable = true;
-
   users.users = {
     ali = {
       home = "/home/ali";
@@ -205,7 +193,7 @@
       extraGroups = [
         "networkmanager"
         "wheel"
-        "docker"
+        "podman"
         "libvirtd"
       ];
     };

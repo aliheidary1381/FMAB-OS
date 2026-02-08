@@ -55,6 +55,7 @@
           ./configs/nvim.nix
           ./configs/shell.nix
           ./configs/environment.nix
+          ./configs/default_apps.nix
           ./packages/all.nix
           catppuccin.nixosModules.catppuccin
           home-manager.nixosModules.home-manager

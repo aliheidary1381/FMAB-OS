@@ -66,7 +66,7 @@ unless they have a significant disadvantage.
   libs out of the box. JetBrains software include plugins ootb.
   * Lots of pre-installed software for music, image, and video playing and editing, for office,
   and for academic purposes. (see the [list here](./configs/environment.nix)).
-  * systemd, networkd, resolved, pipewire, btrfs filesystem, glibc, gnu coreutils,
+  * systemd, networkd, resolved, pipewire, btrfs filesystem, glibc,
   [core packages](https://nixos.org/manual/nixos/stable/options#opt-environment.corePackages),
   [default packages](https://nixos.org/manual/nixos/stable/options#opt-environment.defaultPackages),
   LTS kernel, etc.
@@ -105,6 +105,7 @@ and distributed in NA by Aniplex Inc.
 
   * Migrate to `plasma-login-manager` whenever it becomes available on NixOS.
   * Replacing BTRFS with BCacheFS.
+  * Check if WinBoat crashes if I replace Docker with Podman.
   * Better starship prompts.
   * Move home-manager-managed stuff to global configs.
   * "Fixing" automatic theme switch for wave, nvim, helix, fish, starship, bat, fzf, lsd, and lazygit.

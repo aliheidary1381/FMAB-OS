@@ -84,6 +84,7 @@ let
   shell_tools = with pkgs; [
     waveterm # TODO: add tabby also
     wget
+    unzip
     jq
     sl
     cowsay
@@ -107,6 +108,7 @@ let
     imagemagick
     ffmpeg-full
     tldr
+    pass
   ];
   music = with pkgs; [
     streamrip
@@ -176,6 +178,18 @@ let
     marksman
     # kdePackages.Licentia ?
     # kdePackages.KRegexpEditor ?
+  ];
+  platform = with pkgs; [
+    runc
+    kubectl
+    kubernetes-helm
+    freelens-bin
+    podman
+    podman-desktop
+    dive
+    skopeo
+    docker-compose
+    minikube
   ];
   ocamlPkgs =
     with pkgs;
@@ -257,6 +271,7 @@ in
     ++ music
     ++ academia
     ++ coding
+    ++ platform
     ++ ocamlPkgs
     ++ prolog
     ++ python
@@ -268,6 +283,36 @@ in
     GOPATH = "/home/ali/.local/share/go";
     GOMODCACHE = "/home/ali/.local/share/go/pkg/mod";
   };
+
+  virtualisation.containers.enable = true;
+  virtualisation.containers.registries.search = [
+    "quay.io"
+    "public.ecr.aws"
+    "ghcr.io"
+    "docker.arvancloud.ir"
+    "docker.mobinhost.com"
+    "focker.ir"
+    "docker.kernel.ir"
+  ];
+  virtualisation.podman = {
+    enable = true;
+    dockerCompat = true; # For WinBoat Windows containers
+    dockerSocket.enable = true;
+    defaultNetwork.settings.dns_enabled = true;
+  };
+  virtualisation.oci-containers.backend = "podman";
+  systemd.targets.machines.enable = true; # For nspawn Linux containers
+  virtualisation.waydroid.enable = true; # For WayDroid Android containers https://wiki.nixos.org/wiki/Waydroid https://docs.waydro.id/usage/
+  programs.virt-manager.enable = true;
+  users.groups.libvirtd.members = [ "ali" ];
+  virtualisation.libvirtd = {
+    enable = true;
+    qemu.package = pkgs.qemu_kvm;
+    qemu.vhostUserPackages = [ pkgs.virtiofsd ];
+  };
+  virtualisation.spiceUSBRedirection.enable = true;
+
+  programs.gnupg.agent.enable = true;
   programs.firejail.enable = true;
   programs.mtr.enable = true;
   services.rtorrent = {
@@ -298,154 +343,4 @@ in
   ]; # "qwen3-coder:30b-a3b-q4_K_M" "qwen3-vl:2b-instruct-q4_K_M" "qwen3-vl:2b-thinking-q4_K_M"
 
   security.wrappers = config.ali.security.dvdae;
-
-  xdg.mime.defaultApplications = {
-    # ~/.config/mimeapps.list
-    "application/epub+zip" = "org.kde.okular.desktop";
-    "application/json" = "dev.zed.Zed.desktop";
-    "application/pdf" = "org.kde.okular.desktop";
-    "application/vnd.oasis.opendocument.presentation" = "impress.desktop";
-    "application/vnd.oasis.opendocument.spreadsheet" = "calc.desktop";
-    "application/vnd.oasis.opendocument.text" = "writer.desktop";
-    "application/vnd.openxmlformats-officedocument.presentationml.presentation" =
-      "onlyoffice-desktopeditors.desktop";
-    "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet" =
-      "onlyoffice-desktopeditors.desktop";
-    "application/vnd.openxmlformats-officedocument.wordprocessingml.document" =
-      "onlyoffice-desktopeditors.desktop";
-    "application/vnd.pg.format" = "dev.zed.Zed.desktop";
-    "application/vnd.rar" = "org.kde.ark.desktop";
-    "application/vnd.sqlite3" = "base.desktop";
-    "application/x-7z-compressed" = "org.kde.ark.desktop";
-    "application/x-bittorrent" = "chrome-nhadonnpnhmghdaakodelnkkljdempbk-Default.desktop";
-    "application/x-bzip" = "org.kde.ark.desktop";
-    "application/x-bzip2" = "org.kde.ark.desktop";
-    "application/x-debian-package" = "org.kde.ark.desktop";
-    "application/x-gzip" = "org.kde.ark.desktop";
-    # "application/x-ms-application" = ;
-    "application/x-rar-compressed" = "org.kde.ark.desktop";
-    "application/x-shellscript" = "dev.zed.Zed.desktop";
-    "application/x-tar" = "org.kde.ark.desktop";
-    "application/x-tex" = "org.kde.kile.desktop";
-    "application/x-zip-compressed" = "org.kde.ark.desktop";
-    "application/yaml" = "dev.zed.Zed.desktop";
-    "application/zip" = "org.kde.ark.desktop";
-    "application/zip-compressed" = "org.kde.ark.desktop";
-    "audio/flac" = "dopamine.desktop";
-    "audio/mpeg" = "dopamine.desktop";
-    # "font/otf" = ; # Where's KFontview?
-    "image/jpeg" = "org.kde.gwenview.desktop";
-    "image/png" = "org.kde.gwenview.desktop";
-    "image/svg+xml" = "org.kde.gwenview.desktop";
-    "image/webp" = "org.kde.gwenview.desktop";
-    "text/css" = "dev.zed.Zed.desktop";
-    "text/csv" = "dev.zed.Zed.desktop";
-    "text/html" = "dev.zed.Zed.desktop";
-    "text/javascript" = "dev.zed.Zed.desktop";
-    "text/markdown" = "dev.zed.Zed.desktop";
-    "text/plain" = "dev.zed.Zed.desktop";
-    "text/tab-separated-values" = "dev.zed.Zed.desktop";
-    "text/x-c" = "dev.zed.Zed.desktop";
-    "text/x-python" = "dev.zed.Zed.desktop";
-    "video/mp4" = "org.kde.haruna.desktop";
-    "video/x-matroska" = "org.kde.haruna.desktop";
-  };
-  xdg.mime.addedAssociations = {
-    "application/epub+zip" = "org.kde.okular.desktop";
-    "application/json" = "dev.zed.Zed.desktop";
-    "application/pdf" = "org.kde.okular.desktop";
-    "application/vnd.oasis.opendocument.presentation" = "impress.desktop";
-    "application/vnd.oasis.opendocument.spreadsheet" = "calc.desktop";
-    "application/vnd.oasis.opendocument.text" = "writer.desktop";
-    "application/vnd.openxmlformats-officedocument.presentationml.presentation" =
-      "onlyoffice-desktopeditors.desktop";
-    "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet" =
-      "onlyoffice-desktopeditors.desktop";
-    "application/vnd.openxmlformats-officedocument.wordprocessingml.document" =
-      "onlyoffice-desktopeditors.desktop";
-    "application/vnd.pg.format" = [
-      "dev.zed.Zed.desktop"
-      "mediainfo-gui.desktop"
-      # subtitlecomposer
-    ];
-    "application/vnd.rar" = "org.kde.ark.desktop";
-    "application/vnd.sqlite3" = [
-      "base.desktop"
-      "dev.zed.Zed.desktop"
-    ];
-    "application/x-7z-compressed" = "org.kde.ark.desktop";
-    "application/x-bittorrent" = "chrome-nhadonnpnhmghdaakodelnkkljdempbk-Default.desktop";
-    "application/x-bzip" = "org.kde.ark.desktop";
-    "application/x-bzip2" = "org.kde.ark.desktop";
-    "application/x-debian-package" = "org.kde.ark.desktop";
-    "application/x-gzip" = "org.kde.ark.desktop";
-    # "application/x-ms-application" = ;
-    "application/x-rar-compressed" = "org.kde.ark.desktop";
-    "application/x-shellscript" = "dev.zed.Zed.desktop";
-    "application/x-tar" = "org.kde.ark.desktop";
-    "application/x-tex" = [
-      "org.kde.kile.desktop"
-      "dev.zed.Zed.desktop"
-    ];
-    "application/x-zip-compressed" = "org.kde.ark.desktop";
-    "application/yaml" = "dev.zed.Zed.desktop";
-    "application/zip" = "org.kde.ark.desktop";
-    "application/zip-compressed" = "org.kde.ark.desktop";
-    "audio/flac" = [
-      "dopamine.desktop"
-      "mediainfo-gui.desktop"
-    ];
-    "audio/mpeg" = [
-      "dopamine.desktop"
-      "mediainfo-gui.desktop"
-    ];
-    # "font/otf" = ; # Where's KFontview?
-    "image/jpeg" = [
-      "org.kde.gwenview.desktop"
-      "org.kde.krita.desktop"
-      "org.kde.kolourpaint.desktop"
-      "gimp.desktop"
-      "mediainfo-gui.desktop"
-    ];
-    "image/png" = [
-      "org.kde.gwenview.desktop"
-      "org.kde.krita.desktop"
-      "org.kde.kolourpaint.desktop"
-      "gimp.desktop"
-      "mediainfo-gui.desktop"
-    ];
-    "image/svg+xml" = [
-      "org.kde.gwenview.desktop"
-      "google-chrome.desktop"
-      "org.inkscape.Inkscape.desktop"
-      "mediainfo-gui.desktop"
-    ];
-    "image/webp" = [
-      "org.kde.gwenview.desktop"
-      "org.kde.krita.desktop"
-      "org.kde.kolourpaint.desktop"
-      "gimp.desktop"
-      "mediainfo-gui.desktop"
-    ];
-    "text/css" = "dev.zed.Zed.desktop";
-    "text/csv" = "dev.zed.Zed.desktop";
-    "text/html" = [
-      "dev.zed.Zed.desktop"
-      "google-chrome.desktop"
-    ];
-    "text/javascript" = "dev.zed.Zed.desktop";
-    "text/markdown" = "dev.zed.Zed.desktop";
-    "text/plain" = "dev.zed.Zed.desktop";
-    "text/tab-separated-values" = "dev.zed.Zed.desktop";
-    "text/x-c" = "dev.zed.Zed.desktop";
-    "text/x-python" = "dev.zed.Zed.desktop";
-    "video/mp4" = [
-      "org.kde.haruna.desktop"
-      "mediainfo-gui.desktop"
-    ];
-    "video/x-matroska" = [
-      "org.kde.haruna.desktop"
-      "mediainfo-gui.desktop"
-    ];
-  };
 }

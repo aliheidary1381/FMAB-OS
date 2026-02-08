@@ -5,39 +5,7 @@
 {
   programs.fish = {
     enable = true;
-    shellInit = ''
-      set -g fish_greeting ""
-      fish_config theme choose "Catppuccin Frappe"
-
-      function run
-        if test (count $argv) -eq 0
-          echo "Usage: run <package>"
-          return 1
-        end
-        nix run nixpkgs#$argv[1] -- $argv[2..-1]
-      end
-
-      function where
-        if test (count $argv) -ne 1
-            echo "Usage: where <nix package name>"
-            return 1
-        end
-        set store_derivation (nix-instantiate '<nixpkgs>' -A $argv[1] --quiet --quiet --quiet)
-        echo $store_derivation
-        nix-store --query --outputs $store_derivation # nix eval --raw nixpkgs#"$argv[1]".outPath
-
-      end
-
-      function mp3
-          if test (count $argv) -ne 1
-              echo "Usage: mp3 <file.flac>"
-              return 1
-          end
-          set infile $argv[1]
-          set outfile (string replace -r '\.flac$' '.mp3' -- $infile)
-          ffmpeg -hide_banner -loglevel warning -stats -i "$infile" -map 0 -codec:v copy -codec:a libmp3lame -id3v2_version 3 -qscale:a 0 "$outfile"
-      end
-    '';
+    shellInit = builtins.readFile ./init.fish;
     shellAliases = {
       build = "sudo nixos-rebuild switch --flake /home/ali/Documents/NixOS-config --impure";
       boot = "sudo nixos-rebuild boot --flake /home/ali/Documents/NixOS-config --impure";
