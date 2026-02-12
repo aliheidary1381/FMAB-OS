@@ -4,13 +4,13 @@
 
 # FMA:B OS ❄️
 
-Here you can find good stuff to copy-paste into your own personal NixOS configuration.
+A curated collection of high‑quality, ready‑to‑use components for building your own NixOS configuration.
 
-There's a custom theme that's consistent across KDE Plasma, SDDM, and even Plymouth.
-You can personalize it by just replacing my wallpapers with anything you wish.
+This setup includes a cohesive custom theme applied across KDE Plasma, SDDM, and Plymouth.
+You can easily personalize it by swapping in your own wallpapers.
 
-There's also a fairly comprehensive development environment for a variety of
-programming languages, lots of built-in software (fully configured), and more.
+It also provides a comprehensive development environment covering many programming languages,
+a wide range of preconfigured software, and several virtualization options.
 
 <details>
 <summary>🖼️ Dark mode</summary>
@@ -45,33 +45,34 @@ programming languages, lots of built-in software (fully configured), and more.
 
 ## Main components 🫀
 
-I tried my best to stick with KDE-native (or at least Qt6-native FOSS) apps,
-unless they have a significant disadvantage.
+I’ve tried to stick to KDE‑native (or at least Qt6‑native FOSS) applications
+unless there was a strong reason not to.
 
-  * GRUB bootloader
-  * Plymouth
-  * SDDM
-  * KDE Plasma (Qt6) desktop environment on Wayland
-  * Catppuccin colour palletes
-  * Wave terminal emulator
-  * Fish shell
-  * Helix editor (CLI)
-  * Zed editor (GUI)
-  * VMMs (WinBoat for Windows, Waydroid for Android, and Virt-manager for
-  everything else. They don't take much space unless they're initialized,
-  i.e. unless you download the OSes).
-  * Ollama, Jan AI, local Gemma and Qwen, with integrations for Zed IDE and Wave Terminal.
-  * Development environment includes Rust, Go, C, C++, JS, Python, R, OCaml, and even Prolog,
-  plus a JuPyteR env that also includes the R kernel and Python with a lot of data-scientific
-  libs out of the box. JetBrains software include plugins ootb.
-  * Lots of pre-installed software for music, image, and video playing and editing, for office,
-  and for academic purposes. (see the [list here](./configs/environment.nix)).
+  * *GRUB* bootloader
+  * *Plymouth*
+  * *SDDM*
+  * *KDE Plasma* (Qt6) desktop environment on *Wayland*
+  * *Catppuccin* colour palletes
+  * *Wave* terminal emulator
+  * *Fish* shell
+  * *Helix* CLI editor
+  * *Zed* GUI editor
+  * *Virtualization:* Podman for containers, WinBoat for Windows, Waydroid for Android,
+  and Virt-manager & systemd-nspawn for everything else.
+  These take almost no space until initialized (i.e., until you download the guest OSes).
+  * *Local AI:* Ollama, Jan AI, local Gemma and Qwen models, with integrations for Zed IDE
+  and Wave Terminal.
+  * *Development environment:* Rust, Go, C, C++, JS, Python, R, OCaml, and even Prolog,
+  plus a JuPyteR env with Python and R kernels and many data-science libs preinstalled.
+  JetBrains IDEs include plugins out of the box.
+  * *Pre-installed software* for music, image, and video playing and editing, office work,
+  and academic use. (see the [full list here](./configs/environment.nix)).
   * systemd, networkd, resolved, pipewire, btrfs filesystem, glibc,
   [core packages](https://nixos.org/manual/nixos/stable/options#opt-environment.corePackages),
   [default packages](https://nixos.org/manual/nixos/stable/options#opt-environment.defaultPackages),
   LTS kernel, etc.
 
-A clean install takes ~100GiB disk space (+10GiB for local LLMs).
+A clean installation uses roughly 100GiB of disk space (+10GiB for local LLMs).
 
 ### Web app addresses 🧑‍💻
 
@@ -79,40 +80,33 @@ A clean install takes ~100GiB disk space (+10GiB for local LLMs).
   * Stirling PDF is at [localhost:8080](http://localhost:8080/)
   * Jupyter Notebook is at [localhost:8888](http://localhost:8888/)
   * noVNC (for QEMU Windows) is at [localhost:8006](http://localhost:8006/)
-  Note that it's only used for debugging and diagnostics. Windows apps are mainly
-  accessed from the WinBoat app.
+  noVNC is mainly used for debugging and diagnostics. Windows apps are normally accessed through
+  the WinBoat app.
 
-## Background images acknowledgements 🙌
+## Background image acknowledgements 🙌
 
 Wallpaper by [cyph1n](https://www.deviantart.com/cyph1n/art/Restricted-Memories-Collaboration-494282818)
 
-All images are taken from album covers of _Fullmetal Alchemist:
-Brotherhood (Original Soundtrack)_ or the _Final Best_ BoxSet (which
-includes singles for all 5 OPs and EDs), with some tweaks with the
-help of KDE Krita (Photoshop alternative) and Google Gemini's Nano Banana.
+All images are sourced from album covers of _Fullmetal Alchemist:
+Brotherhood (Original Soundtrack)_ and the _Final Best_ BoxSet (which
+includes all 5 OP and ED singles).
 
-I do not own these material.
+Some light editing was done using KDE Krita and Google Gemini's Nano Banana.
 
-All rights are reserved for their creators: Akira Senju (OST composer),
-Sony Music Entertainment Japan (OST copyright holder), Milan Records
-(OST distributor).
+I do not own these materials.
 
-Characters & artwork by Hiromu Arakawa (manga artist), and Bones Inc.
-(anime studio). Licensed by Crunchyroll from Sony Group Corporation,
-and distributed in NA by Aniplex Inc.
+All rights belong to their respective creators: _Akira Senju_ (OST composer),
+_Sony Music Entertainment Japan_ (OST copyright holder), _Milan Records_ (OST distributor).
+Characters & artwork by _Hiromu Arakawa_ (manga artist), and _Bones Inc._ (anime studio).
+Licensed by _Crunchyroll_ from Sony Group Corporation, and distributed in NA by _Aniplex Inc._
 
 ## Future plans / TODO 🔮
 
-  * Migrate to `plasma-login-manager` whenever it becomes available on NixOS.
+  * Migrate to `plasma-login-manager` once it becomes available on NixOS.
   * Replacing BTRFS with BCacheFS.
-  * Check if WinBoat crashes if I replace Docker with Podman.
-  * Better starship prompts.
-  * Move home-manager-managed stuff to global configs.
-  * "Fixing" automatic theme switch for wave, nvim, helix, fish, starship, bat, fzf, lsd, and lazygit.
-  maybe with the `specialisation` option in home-manager?
   * Using LXC for Windscribe.
 
 ## Alternatives / Competitors 🏅
 
   * [Nixy](https://github.com/anotherhadi/nixy) is based on Hyprland, with Caelestia-shell theme and
-  Base16 colour pallete. It also features fully configured *arrs home media server. Check it out!
+  Base16 colour pallete. It also includes a fully configured *arrs home media server. Check it out!

@@ -1,3 +1,4 @@
+{ config, ... }:
 {
   xdg.configFile."waveterm/presets.json".text = builtins.toJSON {
     "bg@default" = {
@@ -113,16 +114,16 @@
       "bg" = "linear-gradient(135deg, #00d9d9, #ff55aa, #1e1e2f, #2f3b57, #ff99ff)";
       "bg:opacity" = 0.6;
     };
-    "bg@catpuccin-frappe" = {
-      "display:name" = "Catpuccin Frappe";
+    "bg@catppuccin-frappe" = {
+      "display:name" = "Catppuccin Frappe";
       "display:order" = 0;
       "bg:*" = true;
       "bg:opacity" = 0.6;
       "bg:activebordercolor" = "#e5c890"; # accent = yellow
       "bg" = "#303446";
     };
-    "bg@catpuccin-latte" = {
-      "display:name" = "Catpuccin Latte";
+    "bg@catppuccin-latte" = {
+      "display:name" = "Catppuccin Latte";
       "display:order" = 1;
       "bg:*" = true;
       "bg:opacity" = 0.6;
@@ -308,8 +309,8 @@
       "background" = "#191724";
       "cursor" = "#524f67";
     };
-    "catpuccin-frappe" = {
-      "display:name" = "Catpuccin Frappe";
+    "catppuccin-frappe" = {
+      "display:name" = "Catppuccin Frappe";
       "display:order" = 0;
       "black" = "#51576d";
       "red" = "#e78284";
@@ -333,8 +334,8 @@
       "background" = "#303446";
       "cursor" = "#f2d5cf";
     };
-    "catpuccin-latte" = {
-      "display:name" = "Catpuccin Latte";
+    "catppuccin-latte" = {
+      "display:name" = "Catppuccin Latte";
       "display:order" = 1;
       "black" = "#bcc0cc";
       "red" = "#d20f39";
@@ -362,9 +363,7 @@
 
   xdg.configFile."waveterm/settings.json".text = builtins.toJSON {
     "app:defaultnewblock" = "term";
-    "autoupdate:enabled" = true;
-    "autoupdate:installonquit" = true;
-    "autoupdate:intervalms" = 3600000;
+    "autoupdate:enabled" = false;
     "conn:askbeforewshinstall" = true;
     "conn:wshenabled" = true;
     "editor:minimapenabled" = true;
@@ -381,8 +380,8 @@
     "window:savelastwindow" = true;
     "telemetry:enabled" = true;
     "term:copyonselect" = true;
-    "tab:preset" = "catpuccin-frappe";
-    "term:theme" = "catpuccin-frappe";
+    "tab:preset" = "catppuccin-${config.catppuccin.flavor}";
+    "term:theme" = "catppuccin-${config.catppuccin.flavor}";
     "term:fontsize" = 16;
     "ai:preset" = "ai@gemma3n";
   };

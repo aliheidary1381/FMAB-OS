@@ -1,3 +1,4 @@
+{ config, ... }:
 {
   programs.nixvim = {
     enable = true;
@@ -9,7 +10,7 @@
       relativenumber = true;
     };
     colorschemes.catppuccin.enable = true;
-    colorschemes.catppuccin.settings.flavour = "frappe";
+    colorschemes.catppuccin.settings.flavour = config.catppuccin.flavor;
     withNodeJs = true;
     dependencies = {
       coreutils.enable = true;

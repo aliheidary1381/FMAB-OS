@@ -1,11 +1,14 @@
 {
   pkgs,
+  lib,
+  config,
   ...
 }:
 {
   programs.fish = {
     enable = true;
     shellInit = builtins.readFile ./init.fish;
+    interactiveShellInit = ''fish_config theme choose "Catppuccin ${lib.strings.toSentenceCase config.catppuccin.flavor}"'';
     shellAliases = {
       build = "sudo nixos-rebuild switch --flake /home/ali/Documents/NixOS-config --impure";
       boot = "sudo nixos-rebuild boot --flake /home/ali/Documents/NixOS-config --impure";
@@ -15,18 +18,19 @@
       cp = "cp -i";
       mv = "mv -i";
       tree = ''broot --tree --cmd ":print_tree"'';
+      light = "sudo /nix/var/nix/profiles/system/specialisation/light/bin/switch-to-configuration test";
+      dark = "sudo /nix/var/nix/profiles/system/specialisation/dark/bin/switch-to-configuration test";
     };
   };
 
   programs.starship = {
-    # TODO
     # https://starship.rs/config # https://www.nerdfonts.com/cheat-sheet
     enable = true;
     presets = [ "nerd-font-symbols" ];
     settings = {
-      format = " $os$shell$username[█](bg:peach fg:red)$directory[█](bg:yellow fg:peach)$git_branch$git_status[█](fg:yellow bg:green)$c$rust$golang$nodejs$php$java$kotlin$haskell$python[█](fg:green bg:sapphire)$conda[█](fg:sapphire) ";
-      right_format = "$character$cmd_duration[█](fg:lavender bg:yellow)$time ";
-      palette = "catppuccin_frappe";
+      format = " $hostname$os$shell[ ](bg:maroon)$sudo$username[█](bg:mauve fg:maroon)$container$netns$nix_shell$c$cpp$cmake$rust$golang$nodejs$deno$python$rlang$helm[█](bg:yellow fg:mauve)$directory[█](bg:rosewater fg:yellow)$package[█](fg:rosewater bg:peach)$git_branch$git_status[█](fg:peach) ";
+      right_format = "$character$status$cmd_duration$jobs[█](fg:lavender bg:pink)$localip[█](fg:flamingo bg:lavender)$time ";
+      palette = "catppuccin_${config.catppuccin.flavor}";
       palettes.catppuccin_frappe = {
         rosewater = "#f2d5cf";
         flamingo = "#eebebe";
@@ -37,10 +41,10 @@
         peach = "#ef9f76";
         yellow = "#e5c890";
         green = "#a6d189";
-        teal = "#81c8be";
-        sky = "#99d1db";
-        sapphire = "#85c1dc";
-        blue = "#8caaee";
+        teal = "#81c8be"; # not used
+        sky = "#99d1db"; # not used
+        sapphire = "#85c1dc"; # not used
+        blue = "#8caaee"; # not used
         lavender = "#babbf1";
         text = "#c6d0f5";
         subtext1 = "#b5bfe2";
@@ -86,40 +90,54 @@
       c = {
         disabled = false;
         symbol = "";
-        style = "fg:crust bg:green";
-        format = "[ $symbol ($version)]($style)";
+        style = "fg:crust bg:mauve";
+        format = "[ $symbol($version)]($style)";
       };
       cpp = {
         disabled = false;
         symbol = "";
-        style = "fg:crust bg:green";
-        format = "[ $symbol ($version)]($style)";
+        style = "fg:crust bg:mauve";
+        format = "[ $symbol($version)]($style)";
       };
       character = {
         disabled = false;
         format = "$symbol";
-        success_symbol = "[](fg:green)[ ✔ ](fg:crust bg:green)[█](fg:yellow bg:green)";
-        error_symbol = "[](fg:red)[  ](fg:crust bg:red)[█](fg:yellow bg:red)";
-        vimcmd_symbol = "[](fg:yellow)[  ](fg:crust bg:yellow)";
-        vimcmd_replace_one_symbol = "[](fg:yellow)[  replace_one ](fg:crust bg:yellow)";
-        vimcmd_replace_symbol = "[](fg:yellow)[  replace ](fg:crust bg:yellow)";
-        vimcmd_visual_symbol = "[](fg:yellow)[  visual ](fg:crust bg:yellow)";
+        success_symbol = "[](fg:green)[ ✔ ](fg:crust bg:green)[█](fg:pink bg:green)";
+        error_symbol = "[█](fg:red)"; # leave it to status
+        vimcmd_symbol = "[](fg:yellow)[  ](fg:crust bg:yellow)[█](fg:pink bg:yellow)";
+        vimcmd_replace_one_symbol = "[](fg:yellow)[  replace_one ](fg:crust bg:yellow)[█](fg:pink bg:yellow)";
+        vimcmd_replace_symbol = "[](fg:yellow)[  replace ](fg:crust bg:yellow)[█](fg:pink bg:yellow)";
+        vimcmd_visual_symbol = "[](fg:yellow)[  visual ](fg:crust bg:yellow)[█](fg:pink bg:yellow)";
       };
-      #               cmake = {};
+      cmake = {
+        disabled = false;
+        symbol = "";
+        style = "fg:crust bg:mauve";
+        format = "[ $symbol($version)]($style)";
+      };
       cmd_duration = {
         show_milliseconds = true;
-        format = "[took 󰔟$duration ]($style)";
-        style = "fg:crust bg:yellow";
+        format = "[󰔟$duration ]($style)";
+        style = "fg:crust bg:pink";
         disabled = false;
         show_notifications = true;
         min_time_to_notify = 45000;
-
       };
-      #               container = {};
-      #               deno = {};
+      container = {
+        disabled = false;
+        symbol = ""; # 
+        style = "fg:crust bg:mauve";
+        format = "[ $symbol$name]($style)";
+      };
+      deno = {
+        disabled = false;
+        symbol = "";
+        style = "fg:crust bg:mauve";
+        format = "[ $symbol($version)]($style)";
+      };
       directory = {
         disabled = false;
-        style = "fg:crust bg:peach";
+        style = "fg:crust bg:yellow";
         format = "[ $path]($style)";
         fish_style_pwd_dir_length = 1;
         truncation_length = 3;
@@ -146,48 +164,78 @@
           "NixOS-config" = "";
         };
       };
-      docker_context = {
-        disabled = false;
-        symbol = "";
-        style = "fg:crust bg:sapphire";
-        format = "[ $symbol ($context)]($style)";
-      };
+      # docker_context = {};
       git_branch = {
         disabled = false;
         symbol = "";
-        style = "fg:crust bg:yellow";
-        format = "[ $symbol $branch]($style)";
+        style = "fg:crust bg:peach";
+        format = "[ $symbol$branch]($style)";
       };
-      #               git_commit = {};
-      #               git_metrics = {};
-      #               git_state = {};
       git_status = {
         disabled = false;
-        style = "fg:crust bg:yellow";
+        style = "fg:crust bg:peach";
         format = "[ ($all_status $ahead_behind)]($style)";
       };
       golang = {
         disabled = false;
         symbol = "";
-        style = "fg:crust bg:green";
-        format = "[ $symbol ($version)]($style)";
+        style = "fg:crust bg:mauve";
+        format = "[ $symbol($version)]($style)";
       };
-      #               hostname = {};
-      #               jobs = {};
-      #               kubernetes = {};
-      #               localip = {};
-      #               netns = {};
-      #               nix_shell = {};
+      helm = {
+        disabled = false;
+        symbol = "";
+        style = "fg:crust bg:mauve";
+        format = "[ $symbol($version)]($style)";
+      };
+      hostname = {
+        disabled = false;
+        ssh_only = false;
+        ssh_symbol = "";
+        trim_at = "";
+        style = "bg:maroon fg:crust";
+        format = "[ $hostname]($style)";
+      };
+      jobs = {
+        disabled = false;
+        symbol = "\[\]";
+        format = "[$symbol$number ]($style)";
+        style = "fg:crust bg:pink";
+      };
+      # kubernetes = {};
+      localip = {
+        disabled = false;
+        ssh_only = false;
+        style = "bg:lavender fg:crust";
+        format = "[󰩠$localipv4 ]($style)";
+      };
+      netns = {
+        disabled = false;
+        symbol = "󰛳";
+        style = "fg:crust bg:mauve";
+        format = "[$symbol$name]($style)";
+      };
+      nix_shell = {
+        disabled = false;
+        symbol = "󱄅";
+        style = "bg:mauve fg:crust";
+        format = "[ $symbol($name)]($style)";
+      };
       nodejs = {
         disabled = false;
         symbol = "";
-        style = "fg:crust bg:green";
-        format = "[ $symbol ($version)]($style)";
+        style = "fg:crust bg:mauve";
+        format = "[ $symbol($version)]($style)";
       };
-      #               ocaml = {};
+      ocaml = {
+        disabled = false;
+        symbol = "";
+        style = "fg:crust bg:mauve";
+        format = "[ $symbol($version)( \($switch_indicator$switch_name\))]($style)";
+      };
       os = {
         disabled = false;
-        style = "fg:crust bg:red";
+        style = "fg:crust bg:maroon";
         format = "[ $symbol]($style)";
         symbols = {
           Windows = "";
@@ -212,44 +260,65 @@
           NixOS = "";
         };
       };
-      #               package = {};
+      package = {
+        disabled = false;
+        symbol = ""; # 󰏖 
+        style = "fg:crust bg:rosewater";
+        format = "[ $symbol($version)]($style)";
+      };
       python = {
         disabled = false;
         symbol = "";
-        style = "fg:crust bg:green";
-        format = "[ $symbol ($version)(\(#$virtualenv\))]($style)";
+        style = "fg:crust bg:mauve";
+        format = "[ $symbol($version)(\(#$virtualenv\))]($style)";
+      };
+      rlang = {
+        disabled = false;
+        symbol = "";
+        style = "fg:crust bg:mauve";
+        format = "[ $symbol($version)]($style)";
       };
       rust = {
         disabled = false;
         symbol = "";
-        style = "fg:crust bg:green";
-        format = "[ $symbol( $version)]($style)";
+        style = "fg:crust bg:mauve";
+        format = "[ $symbol($version)]($style)";
       };
       shell = {
         disabled = false;
-        style = "fg:crust bg:red";
+        style = "fg:crust bg:maroon";
         format = "[ $indicator]($style)";
         fish_indicator = "󰈺";
         bash_indicator = "";
       };
-      #               status = {
-      #                 disabled = false;
-      #                 style = "bg:mauve fg:crust";
-      #                 format = "[✘ $status ]($style)";
-      #               };
-      #               sudo = {};
+      status = {
+        disabled = false;
+        map_symbol = true;
+        symbol = "";
+        not_executable_symbol = ""; # 󰷆
+        not_found_symbol = "󰮗"; # 󰍉
+        sigint_symbol = ""; # 󰈆
+        signal_symbol = "";
+        style = "bg:red fg:crust";
+        format = "[$symbol$status:( $common_meaning)($maybe_int)( SIG$signal_name) ]($style)[█](fg:pink bg:red)";
+      };
+      sudo = {
+        disabled = false;
+        style = "bg:maroon fg:crust";
+        format = "[🥪 ]($style)";
+      };
       time = {
         disabled = false;
         time_format = "%R";
-        style = "fg:crust bg:lavender";
-        format = "[at $time ]($style)";
+        style = "fg:crust bg:flamingo";
+        format = "[$time ]($style)";
       };
       username = {
         disabled = false;
         show_always = true;
-        style_user = "bg:red fg:crust";
-        style_root = "bg:red fg:crust";
-        format = "[ $user]($style)";
+        style_user = "bg:maroon fg:crust";
+        style_root = "bg:maroon fg:crust bold blink";
+        format = "[$user]($style)";
       };
     };
   };

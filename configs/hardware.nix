@@ -24,8 +24,6 @@
 
   boot.kernelModules = [
     "kvm-intel"
-    "ip_tables"
-    "iptable_nat"
   ];
   boot.kernelParams = [
     "quiet"

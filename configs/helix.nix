@@ -1,8 +1,9 @@
+{config, ...}:
 {
   programs.helix = {
     enable = true;
     settings = {
-      theme = "catppuccin_frappe";
+      theme = "catppuccin_${config.catppuccin.flavor}";
       editor = {
         color-modes = true;
         true-color = true;

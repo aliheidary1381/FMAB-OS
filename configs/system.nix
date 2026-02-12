@@ -25,6 +25,10 @@
   networking.useNetworkd = true;
   systemd.services.systemd-networkd-wait-online.enable = lib.mkForce false;
 
+  # Enable firewall
+  networking.nftables.enable = true;
+  services.firewalld.enable = true;
+
   # Set your time zone.
   time.timeZone = "Asia/Tehran";
   location.latitude = 35.43;
@@ -83,11 +87,22 @@
 
   catppuccin = {
     enable = true;
-    flavor = "frappe";
+    flavor = lib.mkDefault "frappe";
     accent = "yellow";
     grub.enable = false;
     plymouth.enable = false;
     sddm.enable = false;
+  };
+
+  specialisation = {
+    dark.configuration = {
+      catppuccin.flavor = "frappe";
+      home-manager.users.ali.catppuccin.flavor = "frappe";
+    };
+    light.configuration = {
+      catppuccin.flavor = "latte";
+      home-manager.users.ali.catppuccin.flavor = "latte";
+    };
   };
 
   services.colord.enable = true;
@@ -207,12 +222,6 @@
   };
 
   security.sudo.wheelNeedsPassword = false;
-
-  # Open ports in the firewall.
-  # networking.firewall.allowedTCPPorts = [ ... ];
-  # networking.firewall.allowedUDPPorts = [ ... ];
-  # Or disable the firewall altogether.
-  # networking.firewall.enable = false;
 
   # This value determines the NixOS release from which the default
   # settings for stateful data, like file locations and database versions

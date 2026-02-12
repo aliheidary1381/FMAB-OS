@@ -53,10 +53,11 @@ in
   programs.fzf.enable = true;
   programs.zoxide.enable = true;
   programs.broot.enable = true;
+  programs.sioyek.enable = true;
 
   catppuccin = {
     enable = true;
-    flavor = "frappe";
+    flavor = lib.mkDefault "frappe";
     accent = "yellow";
     helix.enable = false; # No need. It's built-in
     zed.enable = false; # No need. It's configured
@@ -67,6 +68,8 @@ in
     lazygit.enable = true;
     lsd.enable = true;
     eza.enable = true;
+    # broot.enable = true;
+    sioyek.enable = true;
   };
 
   # qt.kde.settings = {};

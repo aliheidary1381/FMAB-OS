@@ -1,5 +1,4 @@
 set -g fish_greeting ""
-fish_config theme choose "Catppuccin Frappe"
 
 function run
   if test (count $argv) -eq 0
