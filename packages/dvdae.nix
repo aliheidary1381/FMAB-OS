@@ -11,8 +11,12 @@ let
     url = "https://github.com/NixOS/nixpkgs/archive/59e940007106305c938332ef60962e672a4281f2.tar.gz";
     sha256 = "1ajvsxavycfd42hr8csxr4qn5hfy2m53rrgrwbis150879givmpw";
   };
-  flacPkgs = import flacSrc { };
-  libjpegPkgs = import libjpegSrc { };
+  flacPkgs = import flacSrc {
+    system = pkgs.stdenv.hostPlatform.system;
+  };
+  libjpegPkgs = import libjpegSrc {
+    system = pkgs.stdenv.hostPlatform.system;
+  };
   dvd-audio-extractor = pkgs.stdenv.mkDerivation {
     pname = "dvd-audio-extractor";
     version = version;

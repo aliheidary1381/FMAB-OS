@@ -1,8 +1,0 @@
-[Plymouth Theme]
-Name=FMAB
-Description=A FMA:B Splash
-ModuleName=script
-
-[script]
-ImageDir=/share/plymouth/themes/fmab
-ScriptFile=/share/plymouth/themes/fmab/fmab.script

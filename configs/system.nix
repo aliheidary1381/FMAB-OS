@@ -66,7 +66,7 @@
       config.ali.packages.fmab-customizations
     ];
     font = "${config.ali.fonts.my-fonts}/share/fonts/truetype/lost-land.ttf";
-    theme = "fmab"; # available: matrix, breeze, breeze-text, catppuccin-frappe, catppuccin-latte, catppuccin-macchiato, catppuccin-mocha, details, fade-in, glow, script, solar, spinfinity, spinner, text, tribar
+    theme = "fmab.${config.catppuccin.flavor}"; # available: matrix, breeze, breeze-text, catppuccin-frappe, catppuccin-latte, catppuccin-macchiato, catppuccin-mocha, details, fade-in, glow, script, solar, spinfinity, spinner, text, tribar
   };
 
   # Configure display manager & desktop manager.
@@ -97,11 +97,9 @@
   specialisation = {
     dark.configuration = {
       catppuccin.flavor = "frappe";
-      home-manager.users.ali.catppuccin.flavor = "frappe";
     };
     light.configuration = {
       catppuccin.flavor = "latte";
-      home-manager.users.ali.catppuccin.flavor = "latte";
     };
   };
 

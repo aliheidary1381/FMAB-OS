@@ -205,8 +205,10 @@ pkgs.runCommand "fmab-customizations" { } ''
   cp ${../fmab/icons/dark.svg} $out/share/icons/fmab-dark/places/96/start-here-kde-plasma.svg
   cp -r ${../fmab}/* $out/share/
   chmod -R u+w $out/share
-  sed -i "s|ImageDir=.*|ImageDir=$out/share/plymouth/themes/fmab|" $out/share/plymouth/themes/fmab/fmab.plymouth
-  sed -i "s|ScriptFile=.*|ScriptFile=$out/share/plymouth/themes/fmab/fmab.script|" $out/share/plymouth/themes/fmab/fmab.plymouth
+  sed -i "s|ImageDir=.*|ImageDir=$out/share/plymouth/themes/fmab.frappe|" $out/share/plymouth/themes/fmab.frappe/fmab.frappe.plymouth
+  sed -i "s|ImageDir=.*|ImageDir=$out/share/plymouth/themes/fmab.latte|" $out/share/plymouth/themes/fmab.latte/fmab.latte.plymouth
+  sed -i "s|ScriptFile=.*|ScriptFile=$out/share/plymouth/themes/fmab.frappe/fmab.frappe.script|" $out/share/plymouth/themes/fmab.frappe/fmab.frappe.plymouth
+  sed -i "s|ScriptFile=.*|ScriptFile=$out/share/plymouth/themes/fmab.latte/fmab.latte.script|" $out/share/plymouth/themes/fmab.latte/fmab.latte.plymouth
   sed -i "s|logo=.*|logo=$out/share/sddm/themes/fmab/default-logo.svg|" $out/share/sddm/themes/fmab/theme.conf
   sed -i "s|background=.*|background=$out/share/wallpapers/fmab-lock/contents/images/1920x1080.png|" $out/share/sddm/themes/fmab/theme.conf
 ''

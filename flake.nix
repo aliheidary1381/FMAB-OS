@@ -44,40 +44,52 @@
       nix-jetbrains-plugins,
       ...
     }:
+    let
+      system = "x86_64-linux";
+      pkgs = import nixpkgs {
+        inherit system;
+        config.allowUnfree = true;
+      };
+    in
     {
       nixosConfigurations.aliheydaripc = nixpkgs.lib.nixosSystem {
         specialArgs = { inherit nix-jetbrains-plugins; };
         modules = [
-          ./configs/hardware.nix
-          ./configs/system.nix
           grub2-themes.nixosModules.default
           nixvim.nixosModules.nixvim
-          ./configs/nvim.nix
-          ./configs/shell.nix
-          ./configs/environment.nix
-          ./configs/default_apps.nix
-          ./packages/all.nix
           catppuccin.nixosModules.catppuccin
-          home-manager.nixosModules.home-manager
           {
-            home-manager.useGlobalPkgs = true;
-            home-manager.useUserPackages = true;
-            home-manager.backupFileExtension = "backup";
-            home-manager.sharedModules = [ plasma-manager.homeModules.plasma-manager ];
-
-            home-manager.users.ali = {
-              imports = [
-                ./packages/all.nix
-                ./configs/home.nix
-                ./configs/plasma.nix
-                ./configs/helix.nix
-                ./configs/zed.nix
-                ./configs/wave.nix
-                ./configs/onlyoffice.nix
-                catppuccin.homeModules.catppuccin
-                ./configs/equalization.nix
-              ];
-            };
+            imports = [
+              ./configs/hardware.nix
+              ./configs/system.nix
+              ./configs/nvim.nix
+              ./configs/shell.nix
+              ./configs/starship.nix
+              ./configs/environment.nix
+              ./configs/default_apps.nix
+              ./packages/all.nix
+            ];
+          }
+        ];
+      };
+      homeConfigurations.ali = home-manager.lib.homeManagerConfiguration {
+        inherit pkgs;
+        modules = [
+          plasma-manager.homeModules.plasma-manager
+          nixvim.homeModules.nixvim
+          catppuccin.homeModules.catppuccin
+          {
+            imports = [
+              ./packages/all.nix
+              ./configs/home.nix
+              ./configs/starship.nix
+              ./configs/plasma.nix
+              ./configs/helix.nix
+              ./configs/zed.nix
+              ./configs/wave.nix
+              ./configs/onlyoffice.nix
+              ./configs/equalization.nix
+            ];
           }
         ];
       };

@@ -3,7 +3,6 @@
   pkgs,
   ...
 }:
-
 let
   KDE =
     with pkgs.kdePackages;
@@ -38,6 +37,7 @@ let
     ])
     ++ [ config.ali.packages.fmab-customizations ];
   basic = with pkgs; [
+    home-manager
     qalculate-qt
     google-chrome
     cloudflare-warp
@@ -77,7 +77,7 @@ let
     jan
     mcp-nixos
     github-mcp-server
-    # mcp-k8s-go
+    mcp-k8s-go
     # mcp-grafana
     # playwright-mcp
   ];
@@ -244,6 +244,7 @@ let
     clippy
     config.ali.jetbrains.rustrover
     rust-analyzer
+    crates-lsp
   ];
   c = with pkgs; [
     libgcc

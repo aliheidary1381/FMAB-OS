@@ -54,6 +54,7 @@ in
   programs.zoxide.enable = true;
   programs.broot.enable = true;
   programs.sioyek.enable = true;
+  programs.mcp.enable = true;
 
   catppuccin = {
     enable = true;
@@ -72,13 +73,45 @@ in
     sioyek.enable = true;
   };
 
-  # qt.kde.settings = {};
-  # qt.qt6ctSettings = {};
+  specialisation = {
+    dark.configuration = {
+      catppuccin.flavor = "frappe";
+    };
+    light.configuration = {
+      catppuccin.flavor = "latte";
+    };
+  };
+
+  systemd.user.services.kde-theme-sync = {
+    Unit = {
+      Description = "Sync Home Manager Specialisation with KDE Theme";
+      After = [ "graphical-session.target" ];
+    };
+
+    Service = {
+      ExecStart = "${pkgs.fish}/bin/fish ${./auto-theme-switch-hook.fish}";
+      Restart = "on-failure";
+      RestartSec = "5s";
+      Environment = "PATH=${pkgs.fish}/bin:${pkgs.dbus}/bin:${pkgs.gawk}/bin:${pkgs.coreutils}/bin:${pkgs.gnused}/bin:${pkgs.nix}/bin";
+    };
+
+    Install = {
+      WantedBy = [ "graphical-session.target" ];
+    };
+  };
 
   xdg.configFile."fish/themes/Catppuccin Frappe.theme".source =
     "${sources.fish}/Catppuccin Frappe.theme";
   xdg.configFile."fish/themes/Catppuccin Latte.theme".source =
     "${sources.fish}/Catppuccin Latte.theme";
+  programs.fish.shellInitLast = ''fish_config theme choose "Catppuccin ${lib.strings.toSentenceCase config.catppuccin.flavor}"'';
+  # programs.nixvim.colorschemes.catppuccin.settings.flavour = config.catppuccin.flavor;
+
+  xdg.configFile."home-manager".source = /etc/nixos;
+
+  # qt.kde.settings = {};
+  # qt.qt6ctSettings = {};
+
   home.file.".jupyter/jupyter_notebook_config.py".source = ./jupyter_notebook.py;
 
   home.activation.streamripConfig = lib.hm.dag.entryAfter [ "writeBoundary" ] ''
