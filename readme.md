@@ -39,7 +39,7 @@ a wide range of preconfigured software, and several virtualization options.
 
 ![Screenshot](./fmab/grub/fullscreenpreview.png "GRUB")
 
-![Screenshot](./fmab/plymouth/themes/fmab/fullscreenpreview.png "Splash screen")
+![Screenshot](./fmab/plymouth/themes/fmab.frappe/fullscreenpreview.png "Splash screen")
 
 </details>
 
