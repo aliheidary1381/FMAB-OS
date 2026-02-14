@@ -118,7 +118,7 @@
       "display:name" = "Catppuccin Frappe";
       "display:order" = 0;
       "bg:*" = true;
-      "bg:opacity" = 0.6;
+      "bg:opacity" = 1.0;
       "bg:activebordercolor" = "#e5c890"; # accent = yellow
       "bg" = "#303446";
     };
@@ -126,7 +126,7 @@
       "display:name" = "Catppuccin Latte";
       "display:order" = 1;
       "bg:*" = true;
-      "bg:opacity" = 0.6;
+      "bg:opacity" = 1.0;
       "bg:activebordercolor" = "#df8e1d"; # accent = yellow
       "bg" = "#eff1f5";
     };

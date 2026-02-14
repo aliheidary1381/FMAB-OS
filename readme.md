@@ -48,24 +48,24 @@ a wide range of preconfigured software, and several virtualization options.
 I’ve tried to stick to KDE‑native (or at least Qt6‑native FOSS) applications
 unless there was a strong reason not to.
 
-  * *GRUB* bootloader
-  * *Plymouth*
-  * *SDDM*
-  * *KDE Plasma* (Qt6) desktop environment on *Wayland*
-  * *Catppuccin* colour palletes
-  * *Wave* terminal emulator
-  * *Fish* shell
-  * *Helix* CLI editor
-  * *Zed* GUI editor
-  * *Virtualization:* Podman for containers, WinBoat for Windows, Waydroid for Android,
+  * **GRUB** bootloader
+  * **Plymouth**
+  * **SDDM**
+  * **KDE Plasma** (Qt6) desktop environment on **Wayland**
+  * **Catppuccin** colour palletes
+  * **Wave** terminal emulator
+  * **Fish** shell
+  * **Helix** CLI editor
+  * **Zed** GUI editor
+  * **Virtualization:** Podman for containers, WinBoat for Windows, Waydroid for Android,
   and Virt-manager & systemd-nspawn for everything else.
   These take almost no space until initialized (i.e., until you download the guest OSes).
-  * *Local AI:* Ollama, Jan AI, local Gemma and Qwen models, with integrations for Zed IDE
+  * **Local AI:** Ollama, Jan AI, local Gemma and Qwen models, with integrations for Zed IDE
   and Wave Terminal.
-  * *Development environment:* Rust, Go, C, C++, JS, Python, R, OCaml, and even Prolog,
+  * **Development environment:** Rust, Go, C, C++, JS, Python, R, OCaml, and even Prolog,
   plus a JuPyteR env with Python and R kernels and many data-science libs preinstalled.
   JetBrains IDEs include plugins out of the box.
-  * *Pre-installed software* for music, image, and video playing and editing, office work,
+  * **Pre-installed software** for music, image, and video playing and editing, office work,
   and academic use. (see the [full list here](./configs/environment.nix)).
   * systemd, networkd, resolved, pipewire, btrfs filesystem, glibc,
   [core packages](https://nixos.org/manual/nixos/stable/options#opt-environment.corePackages),
@@ -79,6 +79,7 @@ A clean installation uses roughly 100GiB of disk space (+10GiB for local LLMs).
   * Flood is at [localhost:3000](http://localhost:3000/)
   * Stirling PDF is at [localhost:8080](http://localhost:8080/)
   * Jupyter Notebook is at [localhost:8888](http://localhost:8888/)
+  * v2rayA at [localhost:2017](http://localhost:2017/)
   * noVNC (for QEMU Windows) is at [localhost:8006](http://localhost:8006/)
   noVNC is mainly used for debugging and diagnostics. Windows apps are normally accessed through
   the WinBoat app.

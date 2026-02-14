@@ -4,7 +4,7 @@
     # https://starship.rs/config # https://www.nerdfonts.com/cheat-sheet
     enable = true;
     settings = {
-      format = " $hostname$os$shell[ ](bg:maroon)$sudo$username[█](bg:mauve fg:maroon)$container$netns$nix_shell$c$cpp$cmake$rust$golang$nodejs$deno$python$rlang$helm[█](bg:yellow fg:mauve)$directory[█](bg:rosewater fg:yellow)$package[█](fg:rosewater bg:peach)$git_branch$git_status[█](fg:peach)";
+      format = " $hostname$os$shell[ ](bg:maroon)$sudo$username[█](bg:mauve fg:maroon)$container$netns$nix_shell$c$cpp$cmake$rust$golang$nodejs$deno$python$rlang$helm[█](bg:yellow fg:mauve)$directory[█](bg:rosewater fg:yellow)$package[█](fg:rosewater bg:peach)$git_branch$git_status[█](fg:peach) ";
       right_format = "$character$status$cmd_duration$jobs[█](fg:lavender bg:pink)$localip[█](fg:flamingo bg:lavender)$time ";
       palette = "catppuccin_${config.catppuccin.flavor}";
       palettes.catppuccin_frappe = {

@@ -118,6 +118,10 @@ in
     install -D --mode=600 --owner=${config.home.username} --group=users ${./streamrip.toml} "${config.xdg.configHome}/streamrip/config.toml"
   '';
 
+  home.activation.tabbyConfig = lib.hm.dag.entryAfter [ "writeBoundary" ] ''
+    install -D --mode=644 --owner=${config.home.username} --group=users ${./tabby.yaml} "${config.xdg.configHome}/tabby/config.yaml"
+  '';
+
   home.activation.copyFonts = lib.hm.dag.entryAfter [ "writeBoundary" ] ''
     rm -rf ${config.xdg.dataHome}/fonts
     mkdir ${config.xdg.dataHome}/fonts

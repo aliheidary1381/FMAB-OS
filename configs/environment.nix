@@ -24,9 +24,10 @@ let
       kcolorchooser
       kcharselect
       # qrca was not available
-      qtlanguageserver
       ktorrent
       # francis
+      qtlanguageserver
+      qtdeclarative
     ]
     ++ (with pkgs; [
       # systemdgenie
@@ -82,7 +83,8 @@ let
     # playwright-mcp
   ];
   shell_tools = with pkgs; [
-    waveterm # TODO: add tabby also
+    waveterm
+    config.ali.packages.tabby-terminal
     wget
     unzip
     jq

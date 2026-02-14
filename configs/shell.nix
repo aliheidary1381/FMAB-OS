@@ -19,8 +19,6 @@
       cp = "cp -i";
       mv = "mv -i";
       tree = ''broot --tree --cmd ":print_tree"'';
-      light = "sudo /nix/var/nix/profiles/system/specialisation/light/bin/switch-to-configuration test";
-      dark = "sudo /nix/var/nix/profiles/system/specialisation/dark/bin/switch-to-configuration test";
     };
   };
 

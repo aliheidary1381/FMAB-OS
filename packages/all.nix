@@ -9,6 +9,7 @@ let
   rtorrent = import ./rtorrent.nix { inherit pkgs; };
   lyrics-finder = import ./lyricsfinder.nix { inherit pkgs; };
   dvdae = import ./dvdae.nix { inherit pkgs; };
+  tabby-terminal = import ./tabby-terminal.nix { inherit pkgs; };
   # my-fonts = import ./fonts/proprietary.nix { inherit pkgs; };
   parastoo = import ./fonts/parastoo.nix { inherit pkgs; };
   estedad = import ./fonts/estedad.nix { inherit pkgs; };
@@ -42,6 +43,7 @@ in
     ali.packages.lyrics-finder = lyrics-finder;
     ali.packages.dvdae = dvdae.dvd-audio-extractor;
     ali.security.dvdae = dvdae.wrapper.security.wrappers;
+    ali.packages.tabby-terminal = tabby-terminal;
     ali.packages.python = (
       (pkgs.python313.override {
         packageOverrides = self: super: {
@@ -308,6 +310,7 @@ in
     packages.lyrics-finder = lib.mkOption { type = lib.types.package; };
     packages.dvdae = lib.mkOption { type = lib.types.package; };
     security.dvdae = lib.mkOption { type = lib.types.attrs; };
+    packages.tabby-terminal = lib.mkOption { type = lib.types.package; };
     packages.python = lib.mkOption { type = lib.types.package; };
     packages.R = lib.mkOption { type = lib.types.package; };
     # jetbrains.vmoptions-patch = lib.mkOption { type = lib.types.lines; };

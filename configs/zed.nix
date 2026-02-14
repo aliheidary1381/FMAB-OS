@@ -48,7 +48,6 @@
       # "postgres-language-server"
       "crates-lsp"
       "pyrefly"
-      # TODO: snippets
       "mcp-server-context7"
       # "postgres-context-server"
       "mcp-server-github"
