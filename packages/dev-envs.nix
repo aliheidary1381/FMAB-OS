@@ -62,6 +62,7 @@
           # gensim # to do
           seqeval
           kagglehub
+          # gymnasium
         ]
       )
   );

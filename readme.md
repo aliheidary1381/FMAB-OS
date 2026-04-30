@@ -6,7 +6,7 @@
 
 A curated collection of high‑quality, ready‑to‑use components for building your own NixOS configuration.
 
-This setup includes a cohesive custom theme applied across KDE Plasma, SDDM, and Plymouth.
+This setup includes a cohesive custom theme applied across KDE Plasma and Plymouth.
 You can easily personalize it by swapping in your own wallpapers.
 
 It also provides a comprehensive development environment covering many programming languages,
@@ -74,13 +74,11 @@ A clean installation uses roughly 100GiB of disk space (+10GiB for local LLMs).
 ### Web app addresses 🧑‍💻
 
   * Flood is at [localhost:3000](http://localhost:3000/)
-  * Stirling PDF is at [localhost:8080](http://localhost:8080/)
   * Jupyter Notebook is at [localhost:8888](http://localhost:8888/)
   * v2rayA at [localhost:2017](http://localhost:2017/)
   * noVNC (for QEMU Windows) is at [localhost:8006](http://localhost:8006/)
   noVNC is mainly used for debugging and diagnostics. Windows apps are normally accessed through
   the WinBoat app.
-
 
 ### Virtualization
 

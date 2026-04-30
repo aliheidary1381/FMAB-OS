@@ -53,7 +53,6 @@ let
     dopamine # what's wrong with KDE's built-in Elisa?
     onlyoffice-desktopeditors
     packet
-    rquickshare
     unrar
     p7zip
     gnumake
@@ -76,11 +75,7 @@ let
     stirling-pdf-desktop
     gimp3-with-plugins
     inkscape-with-extensions
-    (media-downloader.overrideAttrs (old: {
-      extraPackages = (old.extraPackages or [ ]) ++ [
-        deno
-      ];
-    }))
+    media-downloader
     winboat
     libguestfs-with-appliance
     virt-viewer
@@ -225,7 +220,7 @@ let
   prolog = with pkgs; [ swi-prolog ];
   python = with pkgs; [
     # config.ali.jetbrains.pycharm
-    # config.ali.jetbrains.dataspell
+    config.ali.jetbrains.dataspell
     pyright
     basedpyright
     ruff

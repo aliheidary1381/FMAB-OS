@@ -183,7 +183,7 @@ in
 
   home.username = "ali";
   home.homeDirectory = "/home/ali";
-  home.file.".face.icon".source = ../../fmab/sddm/faces/.face.icon;
+  home.file.".face.icon".source = ../../fmab/assets/2-cleaned.png;
   # home.file."Pictures/Wallpapers/FMAB-1.jpg".source = ../../fmab/assets/1-fullscreen.jpg;
   # home.file."Pictures/Wallpapers/FMAB-2.jpg".source = ../../fmab/assets/3-fullscreen.jpg;
   # home.file."Pictures/Wallpapers/FMAB-3.png".source = ../../fmab/assets/4-fullscreen.png;

@@ -44,6 +44,13 @@
       nix-jetbrains-plugins,
       ...
     }:
+    let
+      system = "x86_64-linux";
+      pkgs = import nixpkgs {
+        inherit system;
+        config.allowUnfree = true;
+      };
+    in
     {
       nixosConfigurations.aliheydaripc = nixpkgs.lib.nixosSystem {
         specialArgs = {
@@ -69,7 +76,7 @@
         ];
       };
       homeConfigurations.ali = home-manager.lib.homeManagerConfiguration {
-        pkgs = nixpkgs.pkgs;
+        inherit pkgs;
         modules = [
           plasma-manager.homeModules.plasma-manager
           nixvim.homeModules.nixvim

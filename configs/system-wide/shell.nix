@@ -8,7 +8,7 @@
     shellInit = builtins.readFile ./init.fish;
     shellAliases = {
       build = "sudo nixos-rebuild switch";
-      build-hm = "home-manager switch --impure";
+      build-hm = "home-manager switch --impure --flake /etc/nixos";
       boot = "sudo nixos-rebuild boot";
       gc = "sudo nix-env --delete-generations old && nix-collect-garbage -d && sudo journalctl --rotate && sudo journalctl --vacuum-time=1s";
       config = "nix config show";
