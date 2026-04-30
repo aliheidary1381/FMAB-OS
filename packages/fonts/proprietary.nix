@@ -21,7 +21,7 @@ pkgs.stdenv.mkDerivation {
     install -Dm644 Parastoo/static/Parastoo-Regular.ttf $out/share/fonts/truetype/parastoo-regular.ttf
     install -Dm644 Parastoo/static/Parastoo-SemiBold.ttf $out/share/fonts/truetype/parastoo-semibold.ttf
     install -Dm644 LostLand/Lost-Land.ttf $out/share/fonts/truetype/lost-land.ttf
-  ''; # TODO: add azarmehr, hafez, bonyadekoodak, ahang, gramophone, kahroba
+  ''; # to do: add azarmehr, hafez, bonyadekoodak, ahang, gramophone, kahroba
   meta = {
     description = "My personal set of unfree fonts.";
     license = pkgs.lib.licenses.unfree;

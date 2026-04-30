@@ -50,24 +50,21 @@ unless there was a strong reason not to.
 
   * **GRUB** bootloader
   * **Plymouth**
-  * **SDDM**
-  * **KDE Plasma** (Qt6) desktop environment on **Wayland**
+  * **KDE Plasma** (**Qt6**) desktop environment on **Wayland**,
+  plus _Plasma Login Manager_ as the display manager
   * **Catppuccin** colour palletes
   * **Wave** terminal emulator
-  * **Fish** shell
+  * **Fish** shell with customized prompt using **Starship**
   * **Helix** CLI editor
   * **Zed** GUI editor
-  * **Virtualization:** Podman for containers, WinBoat for Windows, Waydroid for Android,
-  and Virt-manager & systemd-nspawn for everything else.
-  These take almost no space until initialized (i.e., until you download the guest OSes).
-  * **Local AI:** Ollama, Jan AI, local Gemma and Qwen models, with integrations for Zed IDE
+  * **Local AI:** Ollama, Jan AI, local Qwen models, with integrations for Zed IDE
   and Wave Terminal.
   * **Development environment:** Rust, Go, C, C++, JS, Python, R, OCaml, and even Prolog,
   plus a JuPyteR env with Python and R kernels and many data-science libs preinstalled.
   JetBrains IDEs include plugins out of the box.
   * **Pre-installed software** for music, image, and video playing and editing, office work,
-  and academic use. (see the [full list here](./configs/environment.nix)).
-  * systemd, networkd, resolved, pipewire, btrfs filesystem, glibc,
+  and academic use. (see the [full list here](./configs/system-wide/environment.nix)).
+  * systemd, networkd, resolved, nftables, networkmanager, pipewire, btrfs filesystem, glibc,
   [core packages](https://nixos.org/manual/nixos/stable/options#opt-environment.corePackages),
   [default packages](https://nixos.org/manual/nixos/stable/options#opt-environment.defaultPackages),
   LTS kernel, etc.
@@ -83,6 +80,30 @@ A clean installation uses roughly 100GiB of disk space (+10GiB for local LLMs).
   * noVNC (for QEMU Windows) is at [localhost:8006](http://localhost:8006/)
   noVNC is mainly used for debugging and diagnostics. Windows apps are normally accessed through
   the WinBoat app.
+
+
+### Virtualization
+
+  * Podman Desktop for containers
+  * WinBoat for Windows
+  * Waydroid for Android
+  * Virt-manager for everything else
+  * systemd-nspawn is also available.
+
+Obviously, these take almost no space until initialized (i.e., until you download the guest OSes).
+
+`~/Downloads` is shared from the host OS filesystem by default on WinBoat and Virt-manager.
+
+To sync your host's clipboard with Virt-manager, you need to install `spice-vdagent` and `qemu-guest-agent`
+on your guest OS.
+
+I also recommend turning on OpenGL on Display SPICE in Virt-manager.
+
+### Secondary DE
+
+I have also added an additional Wayland compositors (window manager) just for fun.
+To use it, open a secondary tty by `Ctrl`+`Alt`+`F2` or `F3`, and then type either
+`niri-with-noctalia` or `niri-with-dms` to open Niri + Noctalia or Niri + DankMaterialShell.
 
 ## Background image acknowledgements 🙌
 
@@ -103,8 +124,8 @@ Licensed by _Crunchyroll_ from Sony Group Corporation, and distributed in NA by 
 
 ## Future plans / TODO 🔮
 
-  * Migrate to `plasma-login-manager` once it becomes available on NixOS.
   * Replacing BTRFS with BCacheFS.
+  * `services.undervolt.enable`
   * Using LXC for Windscribe.
 
 ## Alternatives / Competitors 🏅

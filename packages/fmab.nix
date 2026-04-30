@@ -3,12 +3,6 @@ pkgs.runCommand "fmab-customizations" { } ''
   mkdir -p $out/share/icons
   cp -Lr ${pkgs.kdePackages.breeze-icons}/share/icons/breeze $out/share/icons/fmab
   cp -Lr ${pkgs.kdePackages.breeze-icons}/share/icons/breeze-dark $out/share/icons/fmab-dark
-  chmod 644 $out/share/icons/fmab/apps/22/plasma-symbolic.svg
-  chmod 644 $out/share/icons/fmab/apps/22@2x/plasma-symbolic.svg
-  chmod 644 $out/share/icons/fmab/apps/22@3x/plasma-symbolic.svg
-  chmod 644 $out/share/icons/fmab/apps/24/plasma-symbolic.svg
-  chmod 644 $out/share/icons/fmab/apps/24@2x/plasma-symbolic.svg
-  chmod 644 $out/share/icons/fmab/apps/24@3x/plasma-symbolic.svg
   chmod 644 $out/share/icons/fmab/places/16/start-here-kde.svg
   chmod 644 $out/share/icons/fmab/places/16/start-here-kde-plasma.svg
   chmod 644 $out/share/icons/fmab/places/16/start-here-kde-plasma-symbolic.svg
@@ -53,12 +47,6 @@ pkgs.runCommand "fmab-customizations" { } ''
   chmod 644 $out/share/icons/fmab/places/64/start-here-kde-plasma.svg
   chmod 644 $out/share/icons/fmab/places/96/start-here-kde.svg
   chmod 644 $out/share/icons/fmab/places/96/start-here-kde-plasma.svg
-  chmod 644 $out/share/icons/fmab-dark/apps/22/plasma-symbolic.svg
-  chmod 644 $out/share/icons/fmab-dark/apps/22@2x/plasma-symbolic.svg
-  chmod 644 $out/share/icons/fmab-dark/apps/22@3x/plasma-symbolic.svg
-  chmod 644 $out/share/icons/fmab-dark/apps/24/plasma-symbolic.svg
-  chmod 644 $out/share/icons/fmab-dark/apps/24@2x/plasma-symbolic.svg
-  chmod 644 $out/share/icons/fmab-dark/apps/24@3x/plasma-symbolic.svg
   chmod 644 $out/share/icons/fmab-dark/places/16/start-here-kde.svg
   chmod 644 $out/share/icons/fmab-dark/places/16/start-here-kde-plasma.svg
   chmod 644 $out/share/icons/fmab-dark/places/16/start-here-kde-plasma-symbolic.svg
@@ -103,12 +91,6 @@ pkgs.runCommand "fmab-customizations" { } ''
   chmod 644 $out/share/icons/fmab-dark/places/64/start-here-kde-plasma.svg
   chmod 644 $out/share/icons/fmab-dark/places/96/start-here-kde.svg
   chmod 644 $out/share/icons/fmab-dark/places/96/start-here-kde-plasma.svg
-  cp ${../fmab/icons/light.svg} $out/share/icons/fmab/apps/22/plasma-symbolic.svg
-  cp ${../fmab/icons/light.svg} $out/share/icons/fmab/apps/22@2x/plasma-symbolic.svg
-  cp ${../fmab/icons/light.svg} $out/share/icons/fmab/apps/22@3x/plasma-symbolic.svg
-  cp ${../fmab/icons/light.svg} $out/share/icons/fmab/apps/24/plasma-symbolic.svg
-  cp ${../fmab/icons/light.svg} $out/share/icons/fmab/apps/24@2x/plasma-symbolic.svg
-  cp ${../fmab/icons/light.svg} $out/share/icons/fmab/apps/24@3x/plasma-symbolic.svg
   cp ${../fmab/icons/light.svg} $out/share/icons/fmab/places/16/start-here-kde.svg
   cp ${../fmab/icons/light.svg} $out/share/icons/fmab/places/16/start-here-kde-plasma.svg
   cp ${../fmab/icons/light.svg} $out/share/icons/fmab/places/16/start-here-kde-plasma-symbolic.svg
@@ -153,12 +135,6 @@ pkgs.runCommand "fmab-customizations" { } ''
   cp ${../fmab/icons/light.svg} $out/share/icons/fmab/places/64/start-here-kde-plasma.svg
   cp ${../fmab/icons/light.svg} $out/share/icons/fmab/places/96/start-here-kde.svg
   cp ${../fmab/icons/light.svg} $out/share/icons/fmab/places/96/start-here-kde-plasma.svg
-  cp ${../fmab/icons/dark.svg} $out/share/icons/fmab-dark/apps/22/plasma-symbolic.svg
-  cp ${../fmab/icons/dark.svg} $out/share/icons/fmab-dark/apps/22@2x/plasma-symbolic.svg
-  cp ${../fmab/icons/dark.svg} $out/share/icons/fmab-dark/apps/22@3x/plasma-symbolic.svg
-  cp ${../fmab/icons/dark.svg} $out/share/icons/fmab-dark/apps/24/plasma-symbolic.svg
-  cp ${../fmab/icons/dark.svg} $out/share/icons/fmab-dark/apps/24@2x/plasma-symbolic.svg
-  cp ${../fmab/icons/dark.svg} $out/share/icons/fmab-dark/apps/24@3x/plasma-symbolic.svg
   cp ${../fmab/icons/dark.svg} $out/share/icons/fmab-dark/places/16/start-here-kde.svg
   cp ${../fmab/icons/dark.svg} $out/share/icons/fmab-dark/places/16/start-here-kde-plasma.svg
   cp ${../fmab/icons/dark.svg} $out/share/icons/fmab-dark/places/16/start-here-kde-plasma-symbolic.svg
@@ -209,7 +185,5 @@ pkgs.runCommand "fmab-customizations" { } ''
   sed -i "s|ImageDir=.*|ImageDir=$out/share/plymouth/themes/fmab.latte|" $out/share/plymouth/themes/fmab.latte/fmab.latte.plymouth
   sed -i "s|ScriptFile=.*|ScriptFile=$out/share/plymouth/themes/fmab.frappe/fmab.frappe.script|" $out/share/plymouth/themes/fmab.frappe/fmab.frappe.plymouth
   sed -i "s|ScriptFile=.*|ScriptFile=$out/share/plymouth/themes/fmab.latte/fmab.latte.script|" $out/share/plymouth/themes/fmab.latte/fmab.latte.plymouth
-  sed -i "s|logo=.*|logo=$out/share/sddm/themes/fmab/default-logo.svg|" $out/share/sddm/themes/fmab/theme.conf
-  sed -i "s|background=.*|background=$out/share/wallpapers/fmab-lock/contents/images/1920x1080.png|" $out/share/sddm/themes/fmab/theme.conf
 ''
 # if icon change is not working, replace ${kdePackages.libplasma}/share/plasma/desktoptheme/*/icons/start.svgz

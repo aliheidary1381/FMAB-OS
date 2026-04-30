@@ -35,14 +35,14 @@ pkgs.stdenv.mkDerivation rec {
     libnotify
     libsecret
     libappindicator-gtk3
-    xorg.libX11
-    xorg.libXcomposite
-    xorg.libXdamage
-    xorg.libXext
-    xorg.libXfixes
-    xorg.libXrandr
-    xorg.libxcb
-    xorg.libXtst
+    libx11
+    libxcomposite
+    libxdamage
+    libxext
+    libxfixes
+    libxrandr
+    libxcb
+    libXtst
   ];
 
   unpackPhase = ''

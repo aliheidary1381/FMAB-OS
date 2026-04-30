@@ -44,36 +44,32 @@
       nix-jetbrains-plugins,
       ...
     }:
-    let
-      system = "x86_64-linux";
-      pkgs = import nixpkgs {
-        inherit system;
-        config.allowUnfree = true;
-      };
-    in
     {
       nixosConfigurations.aliheydaripc = nixpkgs.lib.nixosSystem {
-        specialArgs = { inherit nix-jetbrains-plugins; };
+        specialArgs = {
+          inherit nix-jetbrains-plugins;
+        };
         modules = [
           grub2-themes.nixosModules.default
           nixvim.nixosModules.nixvim
           catppuccin.nixosModules.catppuccin
           {
             imports = [
-              ./configs/hardware.nix
-              ./configs/system.nix
-              ./configs/nvim.nix
-              ./configs/shell.nix
-              ./configs/starship.nix
-              ./configs/environment.nix
-              ./configs/default_apps.nix
+              ./configs/system-wide/hardware.nix
+              ./configs/system-wide/system.nix
+              ./configs/system-wide/nvim.nix
+              ./configs/system-wide/shell.nix
+              ./configs/system-wide/starship.nix
+              ./configs/system-wide/environment.nix
+              ./configs/system-wide/default_apps.nix
               ./packages/all.nix
+              ./packages/jetbrains.nix
             ];
           }
         ];
       };
       homeConfigurations.ali = home-manager.lib.homeManagerConfiguration {
-        inherit pkgs;
+        pkgs = nixpkgs.pkgs;
         modules = [
           plasma-manager.homeModules.plasma-manager
           nixvim.homeModules.nixvim
@@ -81,14 +77,15 @@
           {
             imports = [
               ./packages/all.nix
-              ./configs/home.nix
-              ./configs/starship.nix
-              ./configs/plasma.nix
-              ./configs/helix.nix
-              ./configs/zed.nix
-              ./configs/wave.nix
-              ./configs/onlyoffice.nix
-              ./configs/equalization.nix
+              ./configs/home-manager/home.nix
+              ./configs/system-wide/starship.nix
+              ./configs/home-manager/niri.nix
+              ./configs/home-manager/plasma.nix
+              ./configs/home-manager/helix.nix
+              ./configs/home-manager/zed.nix
+              ./configs/home-manager/wave.nix
+              ./configs/home-manager/onlyoffice.nix
+              ./configs/home-manager/equalization.nix
             ];
           }
         ];

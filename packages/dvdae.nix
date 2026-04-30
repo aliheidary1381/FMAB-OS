@@ -1,6 +1,6 @@
 { pkgs, ... }:
 let
-  version = "8.7.0";
+  version = "8.8.0";
   flacSrc = fetchTarball {
     name = "old-nixpkgs-with-flac-1-4";
     url = "https://github.com/NixOS/nixpkgs/archive/c5dd43934613ae0f8ff37c59f61c507c2e8f980d.tar.gz";
@@ -22,8 +22,8 @@ let
     version = version;
 
     src = pkgs.fetchurl {
-      url = "https://www.dvdae.com/dvdae/dvdae_8.7.0_amd64.deb";
-      sha256 = "0945ps2312qiz3qb1arnkql6wnlzsiawgjzm1fahw0ppgn434b4p";
+      url = "https://www.dvdae.com/dvdae/dvdae_8.8.0_amd64.deb";
+      hash = "sha256-uU7881b9gZrA0QnU6UT3pnDwAJfHK+BE5uGl6diEIlY=";
     };
 
     nativeBuildInputs = with pkgs; [
@@ -39,8 +39,8 @@ let
       alsa-lib
       lame
       flacPkgs.flac
-      xorg.libX11
-      xorg.libSM
+      libx11
+      libsm
       libxkbcommon
       gtk3
       cairo
