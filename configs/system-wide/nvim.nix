@@ -51,7 +51,7 @@
       trouble.enable = true;
       todo-comments.enable = true;
       conform-nvim.enable = true;
-      # lint.enable = true; # to do
+      lint.enable = true; # to do
       lspconfig.enable = true;
       treesitter.enable = true;
       ts-autotag.enable = true;

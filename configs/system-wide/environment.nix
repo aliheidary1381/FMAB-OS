@@ -180,7 +180,7 @@ let
     heaptrack
     sqlc
     kdePackages.kcachegrind
-    # config.ali.jetbrains.datagrip
+    config.ali.jetbrains.datagrip
     # Add kexi for database management
     sqls
     yaml-language-server
@@ -219,7 +219,7 @@ let
     ]); # pkgs.opam is ditched in favour of nix
   prolog = with pkgs; [ swi-prolog ];
   python = with pkgs; [
-    # config.ali.jetbrains.pycharm
+    config.ali.jetbrains.pycharm
     config.ali.jetbrains.dataspell
     pyright
     basedpyright
@@ -233,7 +233,7 @@ let
       withNode = false;
     }))
     deno
-    # config.ali.jetbrains.webstorm
+    config.ali.jetbrains.webstorm
     typescript
     vscode-langservers-extracted
     typescript-language-server
@@ -245,14 +245,14 @@ let
   goPkgs = with pkgs; [
     go
     gopls
-    # config.ali.jetbrains.goland
+    config.ali.jetbrains.goland
   ];
   rust = with pkgs; [
     rustc
     cargo
     rustfmt
     clippy
-    # config.ali.jetbrains.rustrover
+    config.ali.jetbrains.rustrover
     rust-analyzer
     crates-lsp
   ];
@@ -265,7 +265,7 @@ let
     ninja
     libclang
     lldb
-    # config.ali.jetbrains.clion
+    config.ali.jetbrains.clion
     cmake-language-server
     clang-tools
   ]; # pkgs.vcpkg is also ditched

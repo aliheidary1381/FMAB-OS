@@ -1,3 +1,4 @@
+{ pkgs, ... }:
 {
   programs.zed-editor = {
     enable = true;
@@ -59,6 +60,39 @@
       "mcp-server-markitdown"
       # "svelte-mcp"
       # "bun-docs-mcp"
+    ];
+    extraPackages = with pkgs; [
+      kdePackages.qtlanguageserver
+      nil
+      nixd
+      harper
+      texlab
+      sqls
+      yaml-language-server
+      tombi
+      package-version-server
+      taplo
+      marksman
+      ocamlPackages.ocaml-lsp
+      ocamlPackages.ocamlformat
+      ocamlPackages.merlin
+      pyright
+      basedpyright
+      ruff
+      pyrefly
+      vscode-langservers-extracted
+      typescript-language-server
+      biome
+      eslint
+      vtsls
+      tailwindcss-language-server
+      gopls
+      rustfmt
+      clippy
+      rust-analyzer
+      crates-lsp
+      cmake-language-server
+      clang-tools
     ];
     userSettings = {
       theme = {

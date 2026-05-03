@@ -47,11 +47,6 @@
       # "1.1.1.1"
       # "8.8.8.8"
     ];
-    # hosts = {
-    #   "18.245.46.59" = [
-    #     "download.jetbrains.com"
-    #   ];
-    # };
   };
   services.xl2tpd.enable = true; # Needed for networkmanager-l2tp IPsec Settings...
   services.strongswan = { # Needed for networkmanager-l2tp IPsec Settings...

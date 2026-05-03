@@ -75,7 +75,7 @@ Rectangle {
                 RotationAnimator on rotation {
                     id: rotationAnimator
                     from: 0
-                    to: 360
+                    to: -360
                     // Not using a standard duration value because we don't want the
                     // animation to spin faster or slower based on the user's animation
                     // scaling preferences; it doesn't make sense in this context

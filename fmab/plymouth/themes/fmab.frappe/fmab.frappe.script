@@ -361,7 +361,7 @@ Spinner = fun() {
     spinner.count = 360;
     spinner.current_idx = 0;
     spinner.last_time = 0;
-    spinner.steps = 3.0; // We render degrees in increments of 10 to save disk.
+    spinner.steps = 3.0; // We render degrees in increments of 3 to save disk.
     spinner.duration = 2.0; // Seconds per rotation.
     for (i = 0; i <= spinner.count; ++i) {
         if (i % spinner.steps != 0) {

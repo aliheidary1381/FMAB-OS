@@ -10,7 +10,7 @@
       build = "sudo nixos-rebuild switch";
       build-hm = "home-manager switch --impure --flake /etc/nixos";
       boot = "sudo nixos-rebuild boot";
-      gc = "sudo nix-env --delete-generations old && nix-collect-garbage -d && sudo journalctl --rotate && sudo journalctl --vacuum-time=1s";
+      gc = "sudo nix-env -p /nix/var/nix/profiles/system --delete-generations old && sudo nix-env --delete-generations old && nix-collect-garbage -d && sudo journalctl --rotate && sudo journalctl --vacuum-time=1s && rm -rf ~/.MakeMKV && rm -rf ~/.dvdae && gtrash find --rm --force";
       config = "nix config show";
       proxy = "proxychains4 fish";
       update = "pushd /etc/nixos/ && nix flake update; popd";
