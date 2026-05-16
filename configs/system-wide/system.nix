@@ -16,6 +16,7 @@
     persistent = false;
   };
   nixpkgs.config.allowUnfree = true;
+  nixpkgs.config.permittedInsecurePackages = [ "olm-3.2.16" ]; # for neochat
 
   networking = {
     hostName = "aliheydaripc"; # system.name follows this
@@ -47,6 +48,9 @@
       # "1.1.1.1"
       # "8.8.8.8"
     ];
+    hosts = {
+      "192.168.0.1" = [ "login.modares.ac.ir" ];
+    };
   };
   services.xl2tpd.enable = true; # Needed for networkmanager-l2tp IPsec Settings...
   services.strongswan = { # Needed for networkmanager-l2tp IPsec Settings...
@@ -72,6 +76,7 @@
       ];
     };
   };
+  # programs.captive-browser.enable = true;
 
   time.timeZone = "Asia/Tehran";
   location.latitude = 35.43;

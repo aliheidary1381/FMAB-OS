@@ -102,33 +102,37 @@ in
           "org.jetbrains.plugins.github"
           # "org.intellij.plugins.markdown"
           "com.intellij.ideolog"
+          "com.jetbrains.plugins.webDeployment"
           # "ru.meanmail.plugin.requirements"
         ];
     dataspell =
-      buildIdeWithPlugins pkgs
-        (pkgs.jetbrains.dataspell.override {
-          vmopts = jetbrains-vmoptions-patch;
-        })
-        [
-          "org.jetbrains.junie"
-          "com.intellij.ml.llm"
-          "com.intellij.mcpServer"
-          "com.github.catppuccin.jetbrains"
-          "com.github.catppuccin.jetbrains_icons"
-          "ru.adelf.idea.dotenv"
-          # "org.intellij.plugins.markdown"
-          "com.intellij.ideolog"
-          "com.intellij.bigdatatools"
-          "com.intellij.bigdatatools.core"
-          "com.intellij.bigdatatools.metastore.core"
-          "com.intellij.bigdatatools.binary.files"
-          "com.intellij.bigdatatools.rfs"
-          "com.intellij.bigdatatools.spark"
-          "com.intellij.bigdatatools.kafka"
-          "com.intellij.bigdatatools.zeppelin"
-          "com.intellij.bigdatatools.flink"
-          # "R4Intellij"
-        ];
+      (pkgs.jetbrains.dataspell.override {
+        vmopts = jetbrains-vmoptions-patch;
+      });
+      # buildIdeWithPlugins pkgs
+      #   (pkgs.jetbrains.dataspell.override {
+      #     vmopts = jetbrains-vmoptions-patch;
+      #   })
+      #   [
+      #     "org.jetbrains.junie"
+      #     "com.intellij.ml.llm"
+      #     "com.intellij.mcpServer"
+      #     "com.github.catppuccin.jetbrains"
+      #     "com.github.catppuccin.jetbrains_icons"
+      #     "ru.adelf.idea.dotenv"
+      #     # "org.intellij.plugins.markdown"
+      #     "com.intellij.ideolog"
+      #     "com.intellij.bigdatatools"
+      #     "com.intellij.bigdatatools.core"
+      #     "com.intellij.bigdatatools.metastore.core"
+      #     "com.intellij.bigdatatools.binary.files"
+      #     "com.intellij.bigdatatools.rfs"
+      #     "com.intellij.bigdatatools.spark"
+      #     "com.intellij.bigdatatools.kafka"
+      #     "com.intellij.bigdatatools.zeppelin"
+      #     "com.intellij.bigdatatools.flink"
+      #     # "R4Intellij"
+      #   ];
     webstorm =
       buildIdeWithPlugins pkgs
         (pkgs.jetbrains.webstorm.override {

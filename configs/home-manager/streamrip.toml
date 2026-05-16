@@ -36,7 +36,7 @@ password_or_token = ""
 # Do not change
 app_id = ""
 # Do not change
-secrets = [ "" ]
+secrets = [""]
 
 [tidal]
 # 0: 256kbps AAC, 1: 320kbps AAC, 2: 16/44.1 "HiFi" FLAC, 3: 24/44.1 "MQA" FLAC
@@ -62,7 +62,7 @@ quality = 2
 # An authentication cookie that allows streamrip to use your Deezer account
 # See https://github.com/nathom/streamrip/wiki/Finding-Your-Deezer-ARL-Cookie
 # for instructions on how to find this
-arl = "52d4fab654533f06cf7604ac36f5a49644747f4ecd272824b7a195d64a01e38aa01696acee3186717329e075939beed15571c68418cbcdc232cf2659738224d7ad462ea495cd61ebaf6210ed30f686ab2bf3e08b30058dc7c1692c4b9ba66b81"
+arl = ""
 # This allows for free 320kbps MP3 downloads from Deezer
 # If an arl is provided, deezloader is never used
 use_deezloader = false
@@ -142,7 +142,6 @@ save_artwork = false
 # If this is set to a value > 0, max(width, height) of the saved art will be set to this value in pixels
 # Proportions of the image will remain the same
 saved_max_width = -1
-
 
 [metadata]
 # Sets the value of the 'ALBUM' field in the metadata to the playlist's name.

@@ -49,7 +49,7 @@ let
     }))
     cloudflare-warp
     telegram-desktop
-    motrix
+    varia
     dopamine # what's wrong with KDE's built-in Elisa?
     onlyoffice-desktopeditors
     packet
@@ -70,12 +70,12 @@ let
     raylib-games
   ];
   expert = with pkgs; [
+    kdePackages.neochat # Note: Insecure. Should use cinny-desktop instead.
     logseq
     libreoffice-qt
     stirling-pdf-desktop
     gimp3-with-plugins
     inkscape-with-extensions
-    media-downloader
     winboat
     libguestfs-with-appliance
     virt-viewer
@@ -85,6 +85,7 @@ let
   ];
   ai = with pkgs; [
     jan
+    # upscayl
     # mcp-nixos
     github-mcp-server
     mcp-k8s-go
@@ -123,6 +124,7 @@ let
   ];
   music = with pkgs; [
     streamrip
+    yt-dlp
     config.ali.packages.lyrics-finder
     kid3
     puddletag

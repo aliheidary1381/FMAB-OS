@@ -107,11 +107,7 @@ in
     };
   };
 
-  xdg.configFile."fish/themes/Catppuccin Frappe.theme".source =
-    "${sources.fish}/Catppuccin Frappe.theme";
-  xdg.configFile."fish/themes/Catppuccin Latte.theme".source =
-    "${sources.fish}/Catppuccin Latte.theme";
-  programs.fish.shellInitLast = ''fish_config theme choose "Catppuccin ${lib.strings.toSentenceCase config.catppuccin.flavor}"'';
+  programs.fish.shellInitLast = ''fish_config theme choose "catppuccin-frappe" --color-theme=${if config.catppuccin.flavor == "latte" then "light" else "dark"}'';
   # programs.nixvim.colorschemes.catppuccin.settings.flavour = config.catppuccin.flavor;
   xdg.configFile."okularpartrc".source = ./okularpartrc.${config.catppuccin.flavor};
 
