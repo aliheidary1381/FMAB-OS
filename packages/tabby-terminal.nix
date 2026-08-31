@@ -1,21 +1,42 @@
-{ pkgs, ... }:
-
-pkgs.stdenv.mkDerivation rec {
-  pname = "tabby";
+{ pkgs }: with pkgs;
+let
   version = "1.0.230";
 
-  src = pkgs.fetchurl {
-    url = "https://github.com/Eugeny/${pname}/releases/download/v${version}/${pname}-${version}-linux-x64.deb";
-    hash = "sha256-ZDyUIADOS2vvfRX485ae7Q7fhtGG24vsDRRMnlAqnQk=";
+  platformInfo = {
+    "x86_64-linux" = {
+      url = "https://github.com/Eugeny/tabby/releases/download/v${version}/tabby-${version}-linux-x64.deb";
+      hash = "sha256-ZDyUIADOS2vvfRX485ae7Q7fhtGG24vsDRRMnlAqnQk=";
+    };
+    "aarch64-linux" = {
+      url = "https://github.com/Eugeny/tabby/releases/download/v${version}/tabby-${version}-linux-arm64.deb";
+      hash = "sha256-HjSW9oaFVI7Pb+dYX0Yd6wFQX9DkZ6nKic3KZ+6RSmQ=";
+    };
   };
 
-  nativeBuildInputs = with pkgs; [
+  selectedPlatform =
+    platformInfo.${stdenv.hostPlatform.system}
+      or (throw "Unsupported platform: ${stdenv.hostPlatform.system}");
+in
+
+stdenv.mkDerivation {
+  pname = "tabby";
+  inherit version;
+
+  src = fetchurl {
+    url = selectedPlatform.url;
+    hash = selectedPlatform.hash;
+  };
+
+  strictDeps = true;
+  __structuredAttrs = true;
+
+  nativeBuildInputs = [
     dpkg
     autoPatchelfHook
     wrapGAppsHook3
   ];
 
-  buildInputs = with pkgs; [
+  buildInputs = [
     glib
     gtk3
     gsettings-desktop-schemas
@@ -29,6 +50,7 @@ pkgs.stdenv.mkDerivation rec {
     atk
     libdrm
     mesa
+    libglvnd
     libxkbcommon
     alsa-lib
     expat
@@ -42,7 +64,7 @@ pkgs.stdenv.mkDerivation rec {
     libxfixes
     libxrandr
     libxcb
-    libXtst
+    libxtst
   ];
 
   unpackPhase = ''
@@ -61,7 +83,6 @@ pkgs.stdenv.mkDerivation rec {
     cp -r usr/share/applications $out/share/
     cp -r usr/share/icons $out/share/
 
-    # Create launcher
     mkdir -p $out/bin
     ln -s $out/opt/Tabby/tabby $out/bin/tabby
 
@@ -69,26 +90,28 @@ pkgs.stdenv.mkDerivation rec {
   '';
 
   postInstall = ''
-    rm -f $out/opt/Tabby/resources/app.asar.unpacked/node_modules/@serialport/bindings-cpp/prebuilds/linux-x64/node.napi.musl.node
-    substituteInPlace $out/share/applications/tabby.desktop --replace "/opt/Tabby/tabby" "$out/bin/tabby"
+    rm $out/opt/Tabby/resources/app.asar.unpacked/node_modules/@serialport/bindings-cpp/prebuilds/linux-x64/node.napi.musl.node
+    substituteInPlace $out/share/applications/tabby.desktop --replace "/opt/Tabby/tabby" "tabby"
   '';
 
-  postFixup = ''
-    wrapProgram $out/bin/tabby \
-      --prefix LD_LIBRARY_PATH : ${
-        pkgs.lib.makeLibraryPath [
-          pkgs.mesa
-          pkgs.libglvnd
-        ]
-      }
-  '';
+  gappsWrapperArgs = [
+    "--prefix LD_LIBRARY_PATH : ${
+      lib.makeLibraryPath [
+        mesa
+        libglvnd
+      ]
+    }"
+  ];
 
-  meta = with pkgs.lib; {
-    description = "A terminal for a modern age";
-    homepage = "https://github.com/Eugeny/tabby#readme";
-    license = licenses.mit;
-    maintainers = [ maintainers.unlisted ];
-    platforms = platforms.linux;
+  meta = {
+    description = "Terminal for a modern age";
+    homepage = "https://tabby.sh/";
+    license = lib.licenses.mit;
+    maintainers = [ lib.maintainers.aliheidary1381 ];
+    platforms = [
+      "x86_64-linux"
+      "aarch64-linux"
+    ];
     mainProgram = "tabby";
   };
 }

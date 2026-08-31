@@ -5,14 +5,14 @@
     desktop.widgets = [
       {
         plasmusicToolbar = {
-          background = "transparentShadow";
+          background = "standard";
           position = {
-            horizontal = 51;
-            vertical = 300;
+            horizontal = 1106;
+            vertical = 379;
           };
           size = {
-            height = 400;
-            width = 250;
+            height = 496;
+            width = 304;
           };
         };
       }

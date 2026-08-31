@@ -1,0 +1,63 @@
+@@ -16,22 +16,15 @@
+ 
+ // -------------------------------- Assets ---------------------------------- //
+ 
+-global.title.text = "Plasma 6.7.2 ";
+-global.defaults.font.default = "Noto Sans 12";
+-global.defaults.font.title = "Noto Sans 14";
++global.title.text = "Don't forget 3.oct.11";
++global.defaults.font.default = "TP Lost Land 24";
++global.defaults.font.title = "TP Lost Land 30";
+ 
+ global.assets = [];
+-if (Window.GetBitsPerPixel() == 4) {
+-    assets.logo          = "images/16bit/plasma.logo.png";
+-    assets.text_input    = "images/16bit/text-input.png";
+-
+-    assets.spinner_base  = "images/16bit/spinner";
+-} else {
+-    assets.logo          = "images/plasma.logo.png";
+-    assets.text_input    = "images/text-input.png";
+ 
+-    assets.spinner_base  = "images/spinner";
+-}
++assets.logo          = "images/State-alchemist.png";
++assets.text_input    = "images/text-input.png";
++assets.spinner_base  = "images/spinner";
+ 
+ // -------------------------------- Colors ---------------------------------- //
+ /**
+@@ -57,13 +50,16 @@
+ colors.neon_blue = Color(0.1608, 0.5020, 0.7255);
+ colors.neon_green = Color(0.1020, 0.7373, 0.6118);
+ 
++colors.catppuccin_latte_base = Color(0.9373, 0.9451, 0.9608);
++colors.catppuccin_latte_text = Color(0.2980, 0.3098, 0.4118);
++
+ global.palette = [];
+-palette.background.top = colors.black;
+-palette.background.bottom = colors.black;
+-palette.text.normal = colors.cardboard_grey;
+-palette.text.tinted = colors.cardboard_grey;
+-palette.text.action = colors.cardboard_grey;
+-palette.text.contrast = colors.charcoal_grey; // Inverse essentially
++palette.background.top = colors.catppuccin_latte_base;
++palette.background.bottom = colors.catppuccin_latte_base;
++palette.text.normal = colors.catppuccin_latte_text;
++palette.text.tinted = colors.catppuccin_latte_text;
++palette.text.action = colors.catppuccin_latte_text;
++palette.text.contrast = colors.catppuccin_latte_text; // Inverse essentially
+ 
+ /**
+  * Helper overload to apply background colors from global.palette to the Window
+@@ -365,8 +361,8 @@
+     spinner.count = 360;
+     spinner.current_idx = 0;
+     spinner.last_time = 0;
+-    spinner.steps = 10.0; // We render degrees in increments of 10 to save disk.
+-    spinner.duration = 1.5; // Seconds per rotation.
++    spinner.steps = 3.0; // We render degrees in increments of 3 to save disk.
++    spinner.duration = 2.0; // Seconds per rotation.
+     for (i = 0; i <= spinner.count; ++i) {
+         if (i % spinner.steps != 0) {
+             continue;

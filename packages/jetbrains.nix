@@ -7,13 +7,13 @@
 let
   jetbrains-plugin = pkgs.stdenv.mkDerivation {
     name = "jetbrains-java-agent-net-filter";
-    version = "2025.12.10";
+    version = "2026.01.01";
     src = ../proprietary/ja-netfilter-all;
     installPhase = "cp -r $src $out";
   };
   jetbrains-vmoptions-patch = lib.concatStringsSep "\n" [
-    # "-javaagent:${jetbrains-plugin}/ja-netfilter.jar=jetbrains"
-    "-javaagent:${jetbrains-plugin}/enc-sniarbtej-2025.12.10.jar=id=sniarbtej,user=Downloadly.ir,exp=2048-10-24,force=true"
+    # "-javaagent:${jetbrains-plugin}/ja-netfilter.jar=jetbrains" # https://gitee.com/ja-netfilter/ja-netfilter
+    "-javaagent:${jetbrains-plugin}/enc-sniarbtej-2026.01.01.jar=id=sniarbtej,user=ali,exp=2048-10-24,force=true" # https://t.me/sniarbtejchannel
     "--add-opens=java.base/jdk.internal.org.objectweb.asm=ALL-UNNAMED"
     "--add-opens=java.base/jdk.internal.org.objectweb.asm.tree=ALL-UNNAMED"
   ];
@@ -78,7 +78,6 @@ in
           vmopts = jetbrains-vmoptions-patch;
         })
         [
-          "org.jetbrains.junie"
           "com.intellij.ml.llm"
           "com.intellij.mcpServer"
           "com.github.catppuccin.jetbrains"
@@ -104,35 +103,18 @@ in
           "com.intellij.ideolog"
           "com.jetbrains.plugins.webDeployment"
           # "ru.meanmail.plugin.requirements"
+          "com.intellij.bigdatatools"
+          "com.intellij.bigdatatools.core"
+          "intellij.bigdatatools.coreUi"
+          "com.intellij.bigdatatools.metastore.core"
+          "com.intellij.bigdatatools.binary.files"
+          "com.intellij.bigdatatools.rfs"
+          "com.intellij.bigdatatools.spark"
+          "com.intellij.bigdatatools.kafka"
+          "com.intellij.bigdatatools.zeppelin"
+          "com.intellij.bigdatatools.flink"
+          # "R4Intellij"
         ];
-    dataspell =
-      (pkgs.jetbrains.dataspell.override {
-        vmopts = jetbrains-vmoptions-patch;
-      });
-      # buildIdeWithPlugins pkgs
-      #   (pkgs.jetbrains.dataspell.override {
-      #     vmopts = jetbrains-vmoptions-patch;
-      #   })
-      #   [
-      #     "org.jetbrains.junie"
-      #     "com.intellij.ml.llm"
-      #     "com.intellij.mcpServer"
-      #     "com.github.catppuccin.jetbrains"
-      #     "com.github.catppuccin.jetbrains_icons"
-      #     "ru.adelf.idea.dotenv"
-      #     # "org.intellij.plugins.markdown"
-      #     "com.intellij.ideolog"
-      #     "com.intellij.bigdatatools"
-      #     "com.intellij.bigdatatools.core"
-      #     "com.intellij.bigdatatools.metastore.core"
-      #     "com.intellij.bigdatatools.binary.files"
-      #     "com.intellij.bigdatatools.rfs"
-      #     "com.intellij.bigdatatools.spark"
-      #     "com.intellij.bigdatatools.kafka"
-      #     "com.intellij.bigdatatools.zeppelin"
-      #     "com.intellij.bigdatatools.flink"
-      #     # "R4Intellij"
-      #   ];
     webstorm =
       buildIdeWithPlugins pkgs
         (pkgs.jetbrains.webstorm.override {
@@ -188,7 +170,6 @@ in
     clion = lib.mkOption { type = lib.types.package; };
     datagrip = lib.mkOption { type = lib.types.package; };
     pycharm = lib.mkOption { type = lib.types.package; };
-    dataspell = lib.mkOption { type = lib.types.package; };
     webstorm = lib.mkOption { type = lib.types.package; };
     rustrover = lib.mkOption { type = lib.types.package; };
   };

@@ -64,8 +64,8 @@ unless there was a strong reason not to.
   JetBrains IDEs include plugins out of the box.
   * **Pre-installed software** for music, image, and video playing and editing, office work,
   and academic use. (see the [full list here](./configs/system-wide/environment.nix)).
-  * systemd, networkd, resolved, nftables, networkmanager, pipewire, btrfs filesystem, glibc,
-  [core packages](https://nixos.org/manual/nixos/stable/options#opt-environment.corePackages),
+  * systemd, networkd, resolved, nftables, networkmanager, pipewire, btrfs, dbus-broker,
+  glibc, [core packages](https://nixos.org/manual/nixos/stable/options#opt-environment.corePackages),
   [default packages](https://nixos.org/manual/nixos/stable/options#opt-environment.defaultPackages),
   LTS kernel, etc.
 
@@ -83,18 +83,17 @@ A clean installation uses roughly 100GiB of disk space (+10GiB for local LLMs).
 ### Virtualization
 
   * Podman Desktop for containers
-  * WinBoat for Windows
+  * Bottles/Proton/Wine for Windows
   * Waydroid for Android
   * Virt-manager for everything else
-  * systemd-nspawn is also available.
+  * systemd-nspawn (for Linux) and WinBoat (for Windows) are also available.
 
 Obviously, these take almost no space until initialized (i.e., until you download the guest OSes).
 
 `~/Downloads` is shared from the host OS filesystem by default on WinBoat and Virt-manager.
 
-To sync your host's clipboard with Virt-manager, you need to install `spice-vdagent` and `qemu-guest-agent`
-on your guest OS.
-
+To sync your host's clipboard with Virt-manager, you need to install
+`spice-vdagent` and `qemu-guest-agent` on your guest OS.
 I also recommend turning on OpenGL on Display SPICE in Virt-manager.
 
 ### Secondary DE
@@ -124,7 +123,6 @@ Licensed by _Crunchyroll_ from Sony Group Corporation, and distributed in NA by 
 
   * Replacing BTRFS with BCacheFS.
   * `services.undervolt.enable`
-  * Using LXC for Windscribe.
 
 ## Alternatives / Competitors 🏅
 

@@ -23,7 +23,7 @@
 
 c = get_config()
 
-c.ServerApp.root_dir = "~/Codes/DataSpellProjects"
+c.ServerApp.root_dir = "Codes/PycharmProjects/JupyterNotebooks"
 
 c.JupyterNotebookApp.open_browser = False
 
@@ -32,6 +32,7 @@ c.ServerApp.password = ""
 c.ServerApp.allow_remote_access = False
 c.ServerApp.ip = "localhost"
 c.ServerApp.port = 8888
+c.ServerApp.port_retries = 0
 
 c.ServerApp.jpserver_extensions = {
     "notebook": True,

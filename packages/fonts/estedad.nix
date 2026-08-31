@@ -1,26 +1,17 @@
 { pkgs }:
-pkgs.stdenv.mkDerivation rec {
+pkgs.stdenv.mkDerivation {
   pname = "estedad-font";
-  version = "8.5";
+  version = "8.6";
 
-  src = pkgs.fetchzip {
-    url = "https://github.com/aminabedi68/Estedad/releases/download/${version}/Estedad-v${version}.zip";
-    hash = "sha256-q/YHeGs117klJhhKHxfXaORFnHMBOy9GJlKQQwFLmWI=";
+  src = pkgs.fetchFromGitHub {
+    owner = "aminabedi68";
+    repo = "Estedad";
+    rev = "master";
+    hash = "sha256-Tjcwmf/SLhjjX2Rb8IPa//hz1rTCR0ihL0GRJLgaVkY=";
   };
 
-  installPhase = ''
-    ls
-    install -Dm644 Estedad\[wght\].ttf $out/share/fonts/truetype/estedad.ttf
-    install -Dm644 Statics/ttf/Estedad-Black.ttf $out/share/fonts/truetype/estedad-black.ttf
-    install -Dm644 Statics/ttf/Estedad-Bold.ttf $out/share/fonts/truetype/estedad-bold.ttf
-    install -Dm644 Statics/ttf/Estedad-ExtraBold.ttf $out/share/fonts/truetype/estedad-extrabold.ttf
-    install -Dm644 Statics/ttf/Estedad-ExtraLight.ttf $out/share/fonts/truetype/estedad-extralight.ttf
-    install -Dm644 Statics/ttf/Estedad-Light.ttf $out/share/fonts/truetype/estedad-light.ttf
-    install -Dm644 Statics/ttf/Estedad-Medium.ttf $out/share/fonts/truetype/estedad-medium.ttf
-    install -Dm644 Statics/ttf/Estedad-Regular.ttf $out/share/fonts/truetype/estedad-regular.ttf
-    install -Dm644 Statics/ttf/Estedad-SemiBold.ttf $out/share/fonts/truetype/estedad-semibold.ttf
-    install -Dm644 Statics/ttf/Estedad-Thin.ttf $out/share/fonts/truetype/estedad-thin.ttf
-  '';
+  nativeBuildInputs = [ pkgs.installFonts ];
+  dontInstallWebfonts = true;
 
   meta = with pkgs.lib; {
     description = "Sans Serif Arabic-Latin text typeface.";

@@ -65,12 +65,9 @@ in
 
   catppuccin = {
     enable = true;
+    autoEnable = false;
     flavor = lib.mkDefault "frappe";
     accent = "yellow";
-    helix.enable = false; # No need. It's built-in
-    zed.enable = false; # No need. It's configured
-    starship.enable = false; # No need. It's configured
-    fish.enable = false; # No need. It's configured
     bat.enable = true;
     fzf.enable = true;
     lazygit.enable = true;
@@ -108,7 +105,6 @@ in
   };
 
   programs.fish.shellInitLast = ''fish_config theme choose "catppuccin-frappe" --color-theme=${if config.catppuccin.flavor == "latte" then "light" else "dark"}'';
-  # programs.nixvim.colorschemes.catppuccin.settings.flavour = config.catppuccin.flavor;
   xdg.configFile."okularpartrc".source = ./okularpartrc.${config.catppuccin.flavor};
 
   xdg.configFile."home-manager".source = /etc/nixos;
@@ -179,11 +175,7 @@ in
 
   home.username = "ali";
   home.homeDirectory = "/home/ali";
-  home.file.".face.icon".source = ../../fmab/assets/2-cleaned.png;
-  # home.file."Pictures/Wallpapers/FMAB-1.jpg".source = ../../fmab/assets/1-fullscreen.jpg;
-  # home.file."Pictures/Wallpapers/FMAB-2.jpg".source = ../../fmab/assets/3-fullscreen.jpg;
-  # home.file."Pictures/Wallpapers/FMAB-3.png".source = ../../fmab/assets/4-fullscreen.png;
-  # home.file."Pictures/Wallpapers/FMAB-4.png".source = ../../fmab/assets/5.png;
+  home.file.".face.icon".source = ../../proprietary/fmab/assets/2-cleaned.png;
 
   # This value determines the Home Manager release that your configuration is
   # compatible with. This helps avoid breakage when a new Home Manager release

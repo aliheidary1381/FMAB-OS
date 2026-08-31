@@ -10,9 +10,8 @@ pkgs.stdenv.mkDerivation {
     hash = "sha256-xjgAfzDUY7wZxVVDj89+aS4R6oVTkDIpiAaVDDysuUE=";
   };
 
-  installPhase = ''
-    install -Dm644 Fonts/misc/Non-latin/Estedad-Mad-NL.ttf $out/share/fonts/truetype/estedad-mad.ttf
-  '';
+  nativeBuildInputs = [ pkgs.installFonts ];
+  dontInstallWebfonts = true;
 
   meta = with pkgs.lib; {
     description = "An English-Arabic font.";

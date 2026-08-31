@@ -1,6 +1,7 @@
 {
   config,
   pkgs,
+  chaotic,
   ...
 }:
 let
@@ -46,11 +47,11 @@ let
     qalculate-qt
     (google-chrome.overrideAttrs (oldAttrs: {
       plasmaSupport = true;
-    }))
+    })) # Unfree
     cloudflare-warp
     telegram-desktop
-    varia
-    dopamine # what's wrong with KDE's built-in Elisa?
+    config.ali.packages.varia # Firelink
+    dopamine
     onlyoffice-desktopeditors
     packet
     unrar
@@ -60,7 +61,9 @@ let
     file
     binutils
     patchelf
+    nix-tree
     nixpkgs-review
+    gh
     nil
     nixd
     harper
@@ -69,13 +72,17 @@ let
     jre25_minimal
     raylib-games
   ];
-  expert = with pkgs; [
-    kdePackages.neochat # Note: Insecure. Should use cinny-desktop instead.
+  pro = with pkgs; [
+    kdePackages.neochat # cinny-desktop
     logseq
     libreoffice-qt
+    pdfarranger
     stirling-pdf-desktop
     gimp3-with-plugins
     inkscape-with-extensions
+    (bottles.override {
+      removeWarningPopup = true;
+    }) # faugus-launcher # https://github.com/reakjra/omikuji
     winboat
     libguestfs-with-appliance
     virt-viewer
@@ -86,6 +93,7 @@ let
   ai = with pkgs; [
     jan
     # upscayl
+    # affine
     # mcp-nixos
     github-mcp-server
     mcp-k8s-go
@@ -123,18 +131,18 @@ let
     pass
   ];
   music = with pkgs; [
-    streamrip
+    streamrip # MediaHarbor didn't work for me
     yt-dlp
-    config.ali.packages.lyrics-finder
     kid3
     puddletag
-    # ocenaudio # TODO
+    ocenaudio # Unfree
     mediainfo-gui
     mkvtoolnix
-    makemkv
-    config.ali.packages.dvdae
-    config.ali.packages.flacon
+    makemkv # Unfree
+    config.ali.packages.dvdae # Unfree
+    flacon
     sacd
+    lrcget
   ];
   edutation = with pkgs.kdePackages; [
     kwordquiz
@@ -162,19 +170,20 @@ let
     (writeShellScriptBin "r-languageserver" ''
       exec R --slave -e 'languageserver::run()'
     '')
-    (kdePackages.cantor.overrideAttrs (old: {
-      buildInputs = (old.buildInputs or [ ]) ++ [
-        config.ali.packages.pythonForJupyter
-      ];
-    }))
-    # kdePackages.rkward
-    # positron-bin
-    # sage
-    # mathematica
+    swi-prolog
+    # (kdePackages.cantor.overrideAttrs (old: {
+    #   buildInputs = (old.buildInputs or [ ]) ++ [
+    #     config.ali.packages.pythonForJupyter
+    #   ];
+    # }))
+    config.ali.packages.cantor # mathematica # sage
+    # rkward
+    lean4
+    leanPackages.mathlib
   ];
   development = with pkgs; [
     # luajit
-    # julia
+    # config.ali.jetbrains.julia
     grpc
     protobuf
     bruno
@@ -182,7 +191,7 @@ let
     heaptrack
     sqlc
     kdePackages.kcachegrind
-    config.ali.jetbrains.datagrip
+    config.ali.jetbrains.datagrip # Unfree
     # Add kexi for database management
     sqls
     yaml-language-server
@@ -192,37 +201,35 @@ let
     marksman
     devtoolbox
     # kdePackages.licentia
-    # kdePackages.kregexpeditor
   ];
   platform = with pkgs; [
-    runc
     kubectl
     kubernetes-helm
-    freelens-bin
+    headlamp
     podman
     podman-desktop
     dive
     skopeo
     docker-compose
     minikube
+    crun # runc
+    cri-o # containerd
+    cri-tools
+    buildah
   ];
-  ocamlPkgs =
-    with pkgs;
-    [
-      ocaml
-      dune_3
-    ]
-    ++ (with pkgs.ocamlPackages; [
-      odoc
-      utop
-      merlin
-      ocaml-lsp
-      ocamlformat
-    ]); # pkgs.opam is ditched in favour of nix
-  prolog = with pkgs; [ swi-prolog ];
+  ocamlPkgs = with pkgs; [
+    ocaml
+    dune_3
+  ]
+  ++ (with pkgs.ocamlPackages; [
+    odoc
+    utop
+    merlin
+    ocaml-lsp
+    ocamlformat
+  ]); # pkgs.opam is ditched in favour of nix
   python = with pkgs; [
-    config.ali.jetbrains.pycharm
-    config.ali.jetbrains.dataspell
+    config.ali.jetbrains.pycharm # positron-bin
     pyright
     basedpyright
     ruff
@@ -277,7 +284,7 @@ in
     KDE
     ++ niri
     ++ basic
-    ++ expert
+    ++ pro
     ++ ai
     ++ shell_tools
     ++ music
@@ -285,19 +292,30 @@ in
     ++ development
     ++ platform
     ++ ocamlPkgs
-    ++ prolog
     ++ python
     ++ javascript
     ++ goPkgs
     ++ rust
     ++ c;
 
+  chaotic.nyx.overlay.enable = false;
+  chaotic.appmenu-gtk3-module.enable = true;
+  nixpkgs.overlays = [
+    (final: prev: {
+      appmenu-gtk3-module = chaotic.packages.${final.stdenv.hostPlatform.system}.appmenu-gtk3-module;
+    })
+  ]; # This fixes GTK3 apps warnings
+
   programs.appimage.enable = true;
   services.flatpak.enable = true;
   xdg.portal = {
     enable = true;
     xdgOpenUsePortal = true;
-    extraPortals = [ pkgs.kdePackages.xdg-desktop-portal-kde pkgs.xdg-desktop-portal-gtk ];
+    extraPortals = [
+      pkgs.kdePackages.xdg-desktop-portal-kde
+      pkgs.xdg-desktop-portal-gtk
+      pkgs.xdg-desktop-portal-gnome
+    ];
     config.common.default = [
       "kde"
       "gtk"
@@ -307,22 +325,7 @@ in
   environment.sessionVariables = {
     GOPATH = "/home/ali/.local/share/go";
     GOMODCACHE = "/home/ali/.local/share/go/pkg/mod";
-  };
-
-  programs.proxychains = {
-    enable = true;
-    proxies.windscribe = {
-      type = "socks5";
-      host = "192.168.122.66";
-      port = 18888;
-      enable = true;
-    };
-    proxies.phone = {
-      type = "socks5";
-      host = "10.119.117.156";
-      port = 1080;
-      enable = false;
-    };
+    LEAN_PATH = "${pkgs.leanPackages.mathlib}/.lake/build/lib/lean";
   };
 
   virtualisation.containers.enable = true;
@@ -368,10 +371,15 @@ in
   virtualisation.spiceUSBRedirection.enable = true;
 
   # programs.bcc.enable = true;
+  programs.proxychains.enable = true;
   programs.gnupg.agent.enable = true;
   programs.firejail.enable = true;
   programs.mtr.enable = true;
   programs.bat.enable = true;
+  programs.direnv = {
+    enable = true;
+    nix-direnv.enable = true;
+  };
   # programs.fzf.enable = true;
   # programs.git.enable = true;
 
@@ -384,8 +392,6 @@ in
       Restart = "always";
       ExecStart = ''
         ${config.ali.packages.pythonForJupyter}/bin/jupyter-notebook \
-                    --no-browser --ip=localhost --port=8888 --port-retries 0 \
-                    --notebook-dir=~/Codes/DataSpellProjects \
                     --JupyterApp.config_file=${./jupyter_notebook.py}
       '';
       User = "ali";
@@ -401,9 +407,9 @@ in
       schedule = scgi_permission,0,0,"execute.nothrow=chmod,\"g+rw,o=\",(cfg.rpcsock)"
       system.file.allocate=1
       system.file.allocate.set=1
-      network.http.proxy_address = "socks5h://192.168.122.66:18888"
-      network.http.proxy_address.set = "socks5h://192.168.122.66:18888"
     '';
+    # network.http.proxy_address = "socks5h://192.168.122.66:18888"
+    # network.http.proxy_address.set = "socks5h://192.168.122.66:18888"
   };
   services.flood.enable = true;
   systemd.services.flood.serviceConfig.SupplementaryGroups = [ "rtorrent" ];
@@ -413,12 +419,12 @@ in
   services.v2raya.cliPackage = pkgs.xray;
   services.sing-box.enable = true;
 
-  services.ollama.enable = true;
-  services.ollama.loadModels = [
-    "qwen3:4b-instruct-2507-q4_K_M"
-    "qwen3-embedding:0.6b-q8_0"
-    # "qwen3-coder:30b-a3b-q4_K_M"
-  ];
+  # services.ollama.enable = true;
+  # services.ollama.loadModels = [
+  #   "qwen3:4b-instruct-2507-q4_K_M"
+  #   "qwen3-embedding:0.6b-q8_0"
+  #   "qwen3-coder:30b-a3b-q4_K_M"
+  # ];
 
   security.wrappers = config.ali.security.dvdae;
 }

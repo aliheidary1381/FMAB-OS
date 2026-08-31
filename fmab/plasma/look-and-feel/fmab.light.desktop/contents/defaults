@@ -20,5 +20,5 @@ cursorTheme=breeze_cursors
 library=org.kde.breeze
 theme=Breeze
 
-[KSplash]
+[ksplashrc][KSplash]
 Theme=fmab.light.desktop

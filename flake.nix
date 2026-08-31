@@ -4,6 +4,11 @@
   inputs = {
     nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
     systems.url = "github:nix-systems/default";
+    chaotic = {
+      url = "github:chaotic-cx/nyx/nyxpkgs-unstable";
+      inputs.nixpkgs.follows = "nixpkgs";
+      inputs.home-manager.follows = "home-manager";
+    };
     grub2-themes = {
       url = "github:vinceliuice/grub2-themes";
       inputs.nixpkgs.follows = "nixpkgs";
@@ -36,6 +41,7 @@
   outputs =
     {
       nixpkgs,
+      chaotic,
       grub2-themes,
       home-manager,
       plasma-manager,
@@ -54,14 +60,16 @@
     {
       nixosConfigurations.aliheydaripc = nixpkgs.lib.nixosSystem {
         specialArgs = {
-          inherit nix-jetbrains-plugins;
+          inherit nix-jetbrains-plugins chaotic;
         };
         modules = [
+          chaotic.nixosModules.default
           grub2-themes.nixosModules.default
           nixvim.nixosModules.nixvim
           catppuccin.nixosModules.catppuccin
           {
             imports = [
+              ./configs/system-wide/temporary_fixes.nix
               ./configs/system-wide/hardware.nix
               ./configs/system-wide/system.nix
               ./configs/system-wide/nvim.nix
@@ -83,9 +91,11 @@
           catppuccin.homeModules.catppuccin
           {
             imports = [
+              ./configs/system-wide/temporary_fixes.nix
               ./packages/all.nix
               ./configs/home-manager/home.nix
               ./configs/system-wide/starship.nix
+              ./configs/system-wide/nvim.nix
               ./configs/home-manager/niri.nix
               ./configs/home-manager/plasma.nix
               ./configs/home-manager/helix.nix
@@ -99,3 +109,5 @@
       };
     };
 }
+
+# TODO: nixvim lint and python lsp and gensim

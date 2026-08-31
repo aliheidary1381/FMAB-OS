@@ -15,8 +15,6 @@
     automatic = true;
     persistent = false;
   };
-  nixpkgs.config.allowUnfree = true;
-  nixpkgs.config.permittedInsecurePackages = [ "olm-3.2.16" ]; # for neochat
 
   networking = {
     hostName = "aliheydaripc"; # system.name follows this
@@ -28,25 +26,25 @@
     networkmanager = {
       enable = true;
       wifi.backend = "iwd";
-      # wifi.macAddress = "random";
-      # ethernet.macAddress = "random";
+      wifi.macAddress = "random";
+      ethernet.macAddress = "random";
       plugins = with pkgs; [
         networkmanager-ssh
         networkmanager-openvpn
         networkmanager-l2tp
       ];
-      # insertNameservers = [ "1.1.1.1" "8.8.8.8" ];
-      # appendNameservers = [
-      #   "1.1.1.1"
-      #   "8.8.8.8"
-      # ];
-      # dns = "systemd-resolved";
+      insertNameservers = [
+        "1.1.1.1"
+        "8.8.8.8"
+      ];
+      appendNameservers = [
+        "178.22.122.100"
+        "185.51.200.2"
+      ];
     };
     nameservers = [
-      # "178.22.122.100"
-      # "185.51.200.2"
-      # "1.1.1.1"
-      # "8.8.8.8"
+      "1.1.1.1"
+      "8.8.8.8"
     ];
     hosts = {
       "192.168.0.1" = [ "login.modares.ac.ir" ];
@@ -69,14 +67,16 @@
       DNSSEC = "allow-downgrade";
       DNSOverTLS = "opportunistic";
       FallbackDNS = [
-        # "178.22.122.100"
-        # "185.51.200.2"
-        # "1.1.1.1"
-        # "8.8.8.8"
+        "1.0.0.1"
+        "8.8.4.4"
       ];
     };
   };
-  # programs.captive-browser.enable = true;
+
+  programs.captive-browser = {
+    enable = true;
+    interface = "wlan0";
+  };
 
   time.timeZone = "Asia/Tehran";
   location.latitude = 35.43;
@@ -85,11 +85,10 @@
   # internationalisation
   i18n = {
     defaultLocale = "en_GB.UTF-8";
-    extraLocaleSettings = {
-      # LC_ALL = "en_GB.UTF-8";
-      LC_TIME = "fa_IR";
-    };
     extraLocales = [ "fa_IR/UTF-8" ];
+    extraLocaleSettings = {
+      LC_TIME = "fa_IR"; # LC_ALL = "en_GB.UTF-8";
+    };
   };
 
   # Bootloader
@@ -115,7 +114,7 @@
       kdePackages.breeze-plymouth
       config.ali.packages.fmab-customizations
     ];
-    font = "${config.ali.fonts.my-fonts}/share/fonts/truetype/lost-land.ttf";
+    font = "${config.ali.fonts.my-fonts}/share/fonts/truetype/Lost-Land.ttf";
     theme = "fmab.${config.catppuccin.flavor}"; # available: matrix, breeze, breeze-text, catppuccin-frappe, catppuccin-latte, catppuccin-macchiato, catppuccin-mocha, details, fade-in, glow, script, solar, spinfinity, spinner, text, tribar
   };
 
@@ -128,10 +127,10 @@
 
   catppuccin = {
     enable = true;
+    autoEnable = false;
     flavor = lib.mkDefault "frappe";
     accent = "yellow";
-    grub.enable = false;
-    plymouth.enable = false;
+    # tty.enable = true;
   };
 
   specialisation = {
@@ -144,12 +143,14 @@
   };
 
   services.getty.autologinUser = "ali";
-  # services.kmscon = {
-  #   enable = true;
-  #   hwRender = false;
-  #   fonts = [{ name = "Fira Code Nerd Font Mono"; package = pkgs.nerd-fonts.fira-code; }];
-  #   # useXkbConfig
-  # };
+  services.kmscon = {
+    enable = true;
+    config = {
+      hwaccel = false;
+      font-name = "Fira Code Nerd Font Mono";
+      palette-background = if config.catppuccin.flavor == "latte" then "48, 52, 70" else "239, 241, 245";
+    };
+  };
   console.keyMap = "us";
 
   programs.niri = {
@@ -169,15 +170,13 @@
     # to do: https://danklinux.com/docs/dankmaterialshell/nixos#plugins https://danklinux.com/plugins
   };
   programs.dsearch.enable = true;
-  # xdg.portal.config.niri = {
-  #   "default" = [ "kde" "gtk" ];
-  #   "org.freedesktop.impl.portal.Access" = [ "kde" "gtk" ];
-  #   "org.freedesktop.impl.portal.FileChooser" = [ "kde" "gtk" ];
-  #   "org.freedesktop.impl.portal.Notification" = [ "kde" "gtk" ];
-  #   "org.freedesktop.impl.portal.Secret" = [ "kde" ];
-  #   "org.freedesktop.impl.portal.ScreenCast" = [ "kde" ];
-  #   "org.freedesktop.impl.portal.Screenshot" = [ "kde" ];
-  # };
+  xdg.portal.config.niri = {
+    "default" = lib.mkForce [ "kde" "gtk" ];
+    "org.freedesktop.impl.portal.Access" = lib.mkForce [ "kde" "gtk" ];
+    "org.freedesktop.impl.portal.FileChooser" = lib.mkForce [ "kde" ];
+    "org.freedesktop.impl.portal.Notification" = lib.mkForce [ "kde" ];
+    "org.freedesktop.impl.portal.Secret" = lib.mkForce [ "kde" ];
+  };
 
   services.colord.enable = true;
 
@@ -233,6 +232,15 @@
     monospace = [ "FiraCode Nerd Font Mono" ];
     sansSerif = [ "IRANSansX Light" ];
   };
+  fonts.fontconfig.localConf = ''
+    <fontconfig>
+      <selectfont>
+        <rejectfont>
+          <glob>*/helmholtz-ellis-ji-notation/HEJI2Text.otf</glob>
+        </rejectfont>
+      </selectfont>
+    </fontconfig>
+  '';
 
   users.users = {
     ali = {
@@ -247,6 +255,7 @@
         "podman"
         "libvirtd"
       ];
+      shell = pkgs.fish;
     };
     root = {
       home = "/root";

@@ -1,7 +1,7 @@
 { pkgs }:
 pkgs.stdenv.mkDerivation {
   pname = "lalezar-fonts";
-  version = "unstable-2025-11-13";
+  version = "1.004";
 
   src = pkgs.fetchFromGitHub {
     owner = "BornaIz";
@@ -10,9 +10,8 @@ pkgs.stdenv.mkDerivation {
     hash = "sha256-95z58ABTx53aREXRpj9xgclX9kuGiQiiKBwqwnF6f8g=";
   };
 
-  installPhase = ''
-    install -Dm644 fonts/Lalezar-Regular.otf $out/share/fonts/opentype/lalezar.otf
-  '';
+  nativeBuildInputs = [ pkgs.installFonts ];
+  dontInstallWebfonts = true;
 
   meta = {
     description = "A multi-script display typeface for popular culture";

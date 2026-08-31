@@ -1,7 +1,7 @@
 { pkgs }:
 pkgs.stdenv.mkDerivation {
   pname = "parastoo-font";
-  version = "unstable-2025-11-13";
+  version = "3.0";
 
   src = pkgs.fetchFromGitHub {
     owner = "googlefonts";
@@ -10,9 +10,8 @@ pkgs.stdenv.mkDerivation {
     hash = "sha256-4MgM9DWm2O4xEOMe3cIp56gFjJ7t+a3t9B65VKa9HlY=";
   };
 
-  installPhase = ''
-    install -Dm644 fonts/variable/Parastoo\[wght\].ttf $out/share/fonts/truetype/parastoo.ttf
-  '';
+  nativeBuildInputs = [ pkgs.installFonts ];
+  dontInstallWebfonts = true;
 
   meta = {
     description = "Google Fonts fork of Parastoo, a Persian (Farsi) font by @rastikerdar.";

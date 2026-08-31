@@ -29,5 +29,6 @@ sync_theme
 dbus-monitor "type='signal',interface='org.freedesktop.portal.Settings',member='SettingChanged'" | while read line
     if string match -q "*color-scheme*" "$line"
         sync_theme
+        sed -i '/^gtk-application-prefer-dark-theme/d' ~/.config/gtk-4.0/settings.ini
     end
 end

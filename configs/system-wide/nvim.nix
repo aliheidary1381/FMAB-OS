@@ -1,7 +1,8 @@
-{ config, ... }:
+{ config, pkgs, ... }:
 {
   programs.nixvim = {
     enable = true;
+    nixpkgs.source = pkgs.path;
     defaultEditor = true;
     viAlias = true;
     vimAlias = true;
@@ -51,7 +52,7 @@
       trouble.enable = true;
       todo-comments.enable = true;
       conform-nvim.enable = true;
-      lint.enable = true; # to do
+      # lint.enable = true;
       lspconfig.enable = true;
       treesitter.enable = true;
       ts-autotag.enable = true;

@@ -1,0 +1,57 @@
+{
+  pkgs,
+  pythonForJupyter,
+  R,
+  julia
+}:
+let
+  runtimeDeps = [
+    pkgs.libqalculate
+    pkgs.luajit
+    julia
+    pythonForJupyter
+    R
+    pkgs.texliveFull
+  ];
+in
+pkgs.kdePackages.mkKdeDerivation {
+  pname = "cantor";
+
+  extraNativeBuildInputs = [
+    pkgs.pkg-config
+    pkgs.shared-mime-info
+  ];
+
+  extraBuildInputs = [
+    pkgs.pcre2
+    pkgs.kdePackages.qtsvg
+    pkgs.kdePackages.qttools
+    pkgs.kdePackages.qtwebengine
+
+    pkgs.libspectre
+    pkgs.kdePackages.poppler
+    pkgs.libqalculate
+    pkgs.luajit
+    julia
+    pythonForJupyter
+    R
+  ];
+
+  extraCmakeFlags = [
+    "-DR_EXECUTABLE=${pkgs.lib.getExe R}"
+    "-DJULIA_EXECUTABLE=${pkgs.lib.getExe julia}"
+    "-DPython3_EXECUTABLE=${pkgs.lib.getExe pythonForJupyter}"
+    "-DPython3_ROOT_DIR=${pythonForJupyter}"
+    "-DPython3_FIND_STRATEGY=LOCATION"
+  ];
+
+  preFixup = ''
+    patchelf --add-rpath "${pkgs.lib.getLib R}/lib/R/lib" "$out/bin/cantor_rserver"
+    patchelf --add-rpath "${pkgs.lib.getLib pkgs.pcre2}/lib" "$out/bin/cantor_juliaserver"
+    patchelf --add-rpath "${pkgs.lib.getLib pythonForJupyter.python}/lib" "$out/bin/cantor_pythonserver"
+  '';
+
+  qtWrapperArgs = [
+    "--prefix PATH : ${pkgs.lib.makeBinPath runtimeDeps}"
+  ];
+}

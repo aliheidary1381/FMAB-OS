@@ -97,7 +97,7 @@
         style = "fg:crust bg:pink";
         disabled = false;
         show_notifications = true;
-        min_time_to_notify = 45000;
+        min_time_to_notify = 5000;
       };
       container = {
         disabled = false;
@@ -129,7 +129,7 @@
           "Codes" = "";
           "CLionProjects" = "";
           "DataGripProjects" = "";
-          "DataSpellProjects" = "";
+          "JupyterNotebooks" = "";
           "GolandProjects" = "";
           "PycharmProjects" = "";
           "WebStormProjects" = "";

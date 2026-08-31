@@ -395,17 +395,17 @@
   };
 
   xdg.configFile."waveterm/waveai.json".text = builtins.toJSON {
-    "qwen3-instruct" = {
-      "display:name" = "Qwen3 instruct (4b-instruct-2507-q4_K_M)";
-      "display:description" = "Local 4B model via Ollama";
-      "display:order" = 1;
-      "ai:apitype" = "openai-chat";
-      "ai:baseurl" = "http://localhost:11434/v1";
-      "ai:name" = "qwen3";
-      "ai:model" = "qwen3:4b-instruct-2507-q4_K_M";
-      "ai:thinkinglevel" = "low";
-      "ai:endpoint" = "http://localhost:11434/v1/chat/completions";
-      "ai:apitoken" = "ollama"; # doesn't matter. it's ignored
-    };
+    # "qwen3-instruct" = {
+    #   "display:name" = "Qwen3 instruct (4b-instruct-2507-q4_K_M)";
+    #   "display:description" = "Local 4B model via Ollama";
+    #   "display:order" = 1;
+    #   "ai:apitype" = "openai-chat";
+    #   "ai:baseurl" = "http://localhost:11434/v1";
+    #   "ai:name" = "qwen3";
+    #   "ai:model" = "qwen3:4b-instruct-2507-q4_K_M";
+    #   "ai:thinkinglevel" = "low";
+    #   "ai:endpoint" = "http://localhost:11434/v1/chat/completions";
+    #   "ai:apitoken" = "ollama"; # doesn't matter. it's ignored
+    # };
   };
 }
