@@ -1,9 +1,6 @@
 { config, ... }:
-# to do: disable GPU
-# Note for the future: v0.14.4 Renamed presets/bg.json to backgrounds.json and moved background config to new tab:background key
-# But NixOS latest is still v0.13.1
 {
-  xdg.configFile."waveterm/presets/bg.json".text = builtins.toJSON {
+  xdg.configFile."waveterm/presets/backgrounds.json".text = builtins.toJSON {
     "bg@default" = {
       "display:name" = "Default";
       "display:order" = -1;
@@ -388,6 +385,7 @@
     "term:cursorblink" = true;
     "term:bellsound" = true;
     "term:bellindicator" = true;
+    "tab:background" = "catppuccin-${config.catppuccin.flavor}";
     "tab:preset" = "catppuccin-${config.catppuccin.flavor}";
     "term:theme" = "catppuccin-${config.catppuccin.flavor}";
     "term:fontsize" = 16;

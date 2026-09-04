@@ -1,5 +1,5 @@
 { pkgs }:
-pkgs.stdenv.mkDerivation rec {
+pkgs.stdenv.mkDerivation {
   pname = "gandom-fonts";
   version = "0.8";
 

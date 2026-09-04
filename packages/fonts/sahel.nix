@@ -1,5 +1,5 @@
 { pkgs }:
-pkgs.stdenv.mkDerivation rec {
+pkgs.stdenv.mkDerivation {
   pname = "sahel-fonts";
   version = "3.4.0";
 

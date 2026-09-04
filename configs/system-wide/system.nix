@@ -19,7 +19,7 @@
   networking = {
     hostName = "aliheydaripc"; # system.name follows this
     useDHCP = lib.mkDefault true;
-    # proxy.default = "socks5://192.168.122.66:18888"; # schema reminder schema://user:password@proxy:port
+    # proxy.default = "schema://user:password@proxy:port";
     proxy.noProxy = "127.0.0.1,localhost";
     useNetworkd = true;
     nftables.enable = true;
@@ -57,8 +57,11 @@
       "ipsec.d/ipsec.nm-l2tp.secrets"
     ];
   };
-  systemd.network.enable = true;
-  systemd.network.wait-online.enable = true;
+  systemd.network = {
+    enable = true;
+    wait-online.enable = true;
+    wait-online.anyInterface = true;
+  };
   services.firewalld.enable = true;
   services.resolved = {
     enable = true;
@@ -130,7 +133,7 @@
     autoEnable = false;
     flavor = lib.mkDefault "frappe";
     accent = "yellow";
-    # tty.enable = true;
+    tty.enable = true;
   };
 
   specialisation = {
@@ -143,6 +146,8 @@
   };
 
   services.getty.autologinUser = "ali";
+  services.getty.greetingLine = ''   tty \l '';
+  services.getty.helpLine = lib.mkForce "";
   services.kmscon = {
     enable = true;
     config = {

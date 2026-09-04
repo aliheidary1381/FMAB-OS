@@ -74,7 +74,7 @@ let
   ];
   pro = with pkgs; [
     kdePackages.neochat # cinny-desktop
-    logseq
+    # logseq
     libreoffice-qt
     pdfarranger
     stirling-pdf-desktop
@@ -87,6 +87,7 @@ let
     libguestfs-with-appliance
     virt-viewer
     screenkey
+    scrcpy
     # Add subtitlecomposer for subtitle editing, kdePackages.kdenlive for video editing, and davinci-resolve-studio for more advanced editing
     # Add blender-hip for 3D graphics
   ];
@@ -183,7 +184,7 @@ let
   ];
   development = with pkgs; [
     # luajit
-    # config.ali.jetbrains.julia
+    # config.ali.packages.julia
     grpc
     protobuf
     bruno
@@ -206,16 +207,13 @@ let
     kubectl
     kubernetes-helm
     headlamp
-    podman
     podman-desktop
     dive
     skopeo
     docker-compose
     minikube
     crun # runc
-    cri-o # containerd
-    cri-tools
-    buildah
+    # buildah # podman already uses it under the hood
   ];
   ocamlPkgs = with pkgs; [
     ocaml
@@ -328,36 +326,200 @@ in
     LEAN_PATH = "${pkgs.leanPackages.mathlib}/.lake/build/lib/lean";
   };
 
-  virtualisation.containers.enable = true;
-  virtualisation.containers.registries.search = [
-    "quay.io"
-    "public.ecr.aws"
-    "ghcr.io"
-    "mirror.cdn.ir"
-    "docker.arvancloud.ir"
-    "docker.mobinhost.com"
-    "hub.hamdocker.ir"
-    "mirror-docker.runflare.com"
-    "docker.devneeds.ir"
-    "focker.ir"
-    "docker.kernel.ir"
-    "hub.megan.ir"
-    "docker.hyperclouds.ir"
-    "mirrors.pardisco.co"
-    "docker-mirror.liara.ir"
-    "docker-mirror.kargadan.ir"
-    "docker.iranserver.com"
-    "docker.jamko.ir"
-    "mirror2.chabokan.net"
-    # "repo.iut.ac.ir"
-    # "repo.ito.gov.ir"
-  ];
+  virtualisation.containers = {
+    enable = true;
+    containersConf.settings.engine.runtime = "crun";
+    registries.settings = {
+    	unqualified-search-registries = [
+	    "quay.io"
+	    "docker.io"
+			"pkg.dev"
+			"public.ecr.aws"
+			"ghcr.io"
+			"mcr.microsoft.com"
+			"registry.k8s.io"
+	  ];
+      registry = [
+        {
+          location = "quay.io";
+          mirror = [
+            {
+              location = "quay.hamdocker.ir";
+            }
+            {
+              location = "mirror-docker.runflare.com";
+            }
+            {
+              location = "quay-mirror.liara.ir";
+            }
+            {
+              location = "docker-quay-mirror.kargadan.ir";
+            }
+            {
+              location = "focker.ir/quay.io";
+            }
+          ];
+        }
+        {
+          location = "docker.io";
+          mirror = [
+            {
+              location = "mirror.cdn.ir";
+            }
+            {
+              location = "docker.arvancloud.ir";
+            }
+            {
+              location = "docker.mobinhost.com";
+            }
+            {
+              location = "hub.hamdocker.ir";
+            }
+            {
+              location = "docker-mirror.liara.ir";
+            }
+            {
+              location = "docker-mirror.kargadan.ir";
+            }
+            {
+              location = "docker.devneeds.ir";
+            }
+            {
+              location = "mirror-docker.runflare.com";
+            }
+            {
+              location = "focker.ir";
+            }
+            {
+              location = "hub.megan.ir";
+            }
+            {
+              location = "docker.kernel.ir";
+            }
+            {
+              location = "docker.hyperclouds.ir";
+            }
+            {
+              location = "mirrors.pardisco.co";
+            }
+            {
+              location = "docker.chrepo.ir"; # "docker.jamko.ir"
+            }
+            {
+              location = "mirror2.chabokan.net";
+            }
+            {
+              location = "docker.iranserver.com";
+            }
+            # "repo.iut.ac.ir"
+            # "repo.ito.gov.ir"
+          ];
+        }
+        {
+          location = "pkg.dev";
+          mirror = [
+            {
+              location = "gcr.hamdocker.ir";
+            }
+            {
+              location = "mirror-docker.runflare.com";
+            }
+            {
+              location = "focker.ir/gcr.io";
+            }
+          ];
+        }
+        {
+          location = "pkg.dev";
+          prefix = "*.gcr.io";
+          mirror = [
+            {
+              location = "gcr.hamdocker.ir";
+            }
+            {
+              location = "mirror-docker.runflare.com";
+            }
+            {
+              location = "focker.ir/gcr.io";
+            }
+            {
+              location = "us.gcr.io";
+            }
+            {
+              location = "gcr.io";
+            }
+          ];
+        }
+        {
+          location = "public.ecr.aws";
+          mirror = [
+            {
+              location = "elastic.hamdocker.ir";
+            }
+          ];
+        }
+        {
+          location = "ghcr.io";
+          mirror = [
+	        {
+	          location = "mirror-docker.runflare.com";
+	        }
+					{
+              location = "ghcr-mirror.liara.ir";
+            }
+					{
+              location = "focker.ir/ghcr.io";
+            }
+          ];
+        }
+        {
+          location = "mcr.microsoft.com";
+          mirror = [
+            {
+              location = "mcr.hamdocker.ir";
+            }
+            {
+              location = "mirror-docker.runflare.com";
+            }
+            {
+              location = "mcr-mirror.liara.ir";
+            }
+            {
+              location = "docker-mcr-mirror.kargadan.ir";
+            }
+          ];
+        }
+        {
+          location = "registry.k8s.io";
+          mirror = [
+            {
+              location = "mirror-docker.runflare.com";
+            }
+            {
+              location = "k8s-mirror.liara.ir";
+            }
+            {
+              location = "docker-k8s-mirror.kargadan.ir";
+            }
+            {
+              location = "focker.ir/registry.k8s.io";
+            }
+          ];
+        }
+      ];
+    };
+  };
   virtualisation.podman = {
     enable = true;
     dockerCompat = true; # For WinBoat Windows containers
     dockerSocket.enable = true;
     defaultNetwork.settings.dns_enabled = true;
+    extraRuntimes = [ pkgs.crun ];
   };
+  virtualisation.cri-o.enable = true; # includes cri-o & cri-tools
+  virtualisation.cri-o.runtime = "crun";
+  virtualisation.containerd.enable = false; # using cri-o instead
+  # services.kubernetes.kubelet.containerRuntimeEndpoint = "unix:///run/crio/crio.sock";
   virtualisation.oci-containers.backend = "podman";
   systemd.targets.machines.enable = true; # For nspawn Linux containers
   virtualisation.waydroid.enable = true; # For WayDroid Android containers https://wiki.nixos.org/wiki/Waydroid https://docs.waydro.id/usage/
@@ -388,6 +550,9 @@ in
     after = [ "network.target" ];
     wantedBy = [ "multi-user.target" ];
     path = [ pkgs.bash pkgs.fish ];
+    environment = {
+      JUPYTER_PATH = "${config.ali.packages.extraJupyterKernels}/share/jupyter";
+    };
     serviceConfig = {
       Restart = "always";
       ExecStart = ''
@@ -402,14 +567,10 @@ in
   services.rtorrent = {
     enable = true;
     configText = pkgs.lib.mkAfter ''
-      method.insert=d.down.sequential,value|const,0
-      method.insert.set=d.down.sequential,value|const,0
-      schedule = scgi_permission,0,0,"execute.nothrow=chmod,\"g+rw,o=\",(cfg.rpcsock)"
-      system.file.allocate=1
-      system.file.allocate.set=1
+      method.insert = d.down.sequential, value|const, 0
+      schedule2 = scgi_permission, 0, 0, "execute.nothrow=chmod,\"g+rw,o=\",(cfg.rpcsock)"
+      system.file.allocate.set = 1
     '';
-    # network.http.proxy_address = "socks5h://192.168.122.66:18888"
-    # network.http.proxy_address.set = "socks5h://192.168.122.66:18888"
   };
   services.flood.enable = true;
   systemd.services.flood.serviceConfig.SupplementaryGroups = [ "rtorrent" ];

@@ -2,7 +2,7 @@
  
  // -------------------------------- Assets ---------------------------------- //
  
--global.title.text = "Plasma 6.7.2 ";
+-global.title.text = "Plasma 6.7.4 ";
 -global.defaults.font.default = "Noto Sans 12";
 -global.defaults.font.title = "Noto Sans 14";
 +global.title.text = "Don't forget 3.oct.11";

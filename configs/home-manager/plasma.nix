@@ -7,12 +7,12 @@
         plasmusicToolbar = {
           background = "standard";
           position = {
-            horizontal = 1106;
-            vertical = 379;
+            horizontal = 1136;
+            vertical = 208;
           };
           size = {
-            height = 496;
-            width = 304;
+            height = 592;
+            width = 400;
           };
         };
       }

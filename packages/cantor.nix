@@ -43,11 +43,11 @@ pkgs.kdePackages.mkKdeDerivation {
     "-DPython3_EXECUTABLE=${pkgs.lib.getExe pythonForJupyter}"
     "-DPython3_ROOT_DIR=${pythonForJupyter}"
     "-DPython3_FIND_STRATEGY=LOCATION"
+    "-DCMAKE_EXE_LINKER_FLAGS=-Wl,-rpath-link,${pkgs.lib.getLib pkgs.pcre2}/lib"
   ];
 
   preFixup = ''
     patchelf --add-rpath "${pkgs.lib.getLib R}/lib/R/lib" "$out/bin/cantor_rserver"
-    patchelf --add-rpath "${pkgs.lib.getLib pkgs.pcre2}/lib" "$out/bin/cantor_juliaserver"
     patchelf --add-rpath "${pkgs.lib.getLib pythonForJupyter.python}/lib" "$out/bin/cantor_pythonserver"
   '';
 

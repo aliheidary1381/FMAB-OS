@@ -33,8 +33,9 @@ in
     ali.packages.antigravity-acp = antigravity-acp;
     ali.packages.cantor = cantor;
     ali.packages.python = devenvs.python;
-    ali.packages.pythonForJupyter = pythonForJupyter;
-    ali.packages.R = R;
+    ali.packages.pythonForJupyter = devenvs.pythonForJupyter;
+    ali.packages.extraJupyterKernels = devenvs.extraJupyterKernels;
+    ali.packages.R = devenvs.R;
   };
 
   options.ali = {
@@ -54,6 +55,7 @@ in
     packages.cantor = lib.mkOption { type = lib.types.package; };
     packages.python = lib.mkOption { type = lib.types.package; };
     packages.pythonForJupyter = lib.mkOption { type = lib.types.package; };
+    packages.extraJupyterKernels = lib.mkOption { type = lib.types.package; };
     packages.R = lib.mkOption { type = lib.types.package; };
   };
 }
