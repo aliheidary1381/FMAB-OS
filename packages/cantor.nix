@@ -2,7 +2,7 @@
   pkgs,
   pythonForJupyter,
   R,
-  julia
+  julia,
 }:
 let
   runtimeDeps = [

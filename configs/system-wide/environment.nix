@@ -31,7 +31,7 @@ let
       qtdeclarative
     ]
     ++ (with pkgs; [
-    	lxqt.pavucontrol-qt
+      lxqt.pavucontrol-qt
       systemdgenie
       elf-dissector
       krita
@@ -212,17 +212,19 @@ let
     crun # runc
     # buildah # podman already uses it under the hood
   ];
-  ocamlPkgs = with pkgs; [
-    ocaml
-    dune_3
-  ]
-  ++ (with pkgs.ocamlPackages; [
-    odoc
-    utop
-    merlin
-    ocaml-lsp
-    ocamlformat
-  ]); # pkgs.opam is ditched in favour of nix
+  ocamlPkgs =
+    with pkgs;
+    [
+      ocaml
+      dune_3
+    ]
+    ++ (with pkgs.ocamlPackages; [
+      odoc
+      utop
+      merlin
+      ocaml-lsp
+      ocamlformat
+    ]); # pkgs.opam is ditched in favour of nix
   python = with pkgs; [
     config.ali.jetbrains.pycharm # positron-bin
     pyright
@@ -322,19 +324,20 @@ in
     LEAN_PATH = "${pkgs.leanPackages.mathlib}/.lake/build/lib/lean";
   };
 
+  # shared low-level OCI configuration under /etc/containers/. Applies to Podman, Buildah, Skopeo, and CRI-O, etc.
   virtualisation.containers = {
     enable = true;
     containersConf.settings.engine.runtime = "crun";
     registries.settings = {
-    	unqualified-search-registries = [
-	    "quay.io"
-	    "docker.io"
-			"pkg.dev"
-			"public.ecr.aws"
-			"ghcr.io"
-			"mcr.microsoft.com"
-			"registry.k8s.io"
-	  ];
+      unqualified-search-registries = [
+        "quay.io"
+        "docker.io"
+        "pkg.dev"
+        "public.ecr.aws"
+        "ghcr.io"
+        "mcr.microsoft.com"
+        "registry.k8s.io"
+      ];
       registry = [
         {
           location = "quay.io";
@@ -439,6 +442,9 @@ in
               location = "focker.ir/gcr.io";
             }
             {
+              location = "pkg.dev";
+            }
+            {
               location = "us.gcr.io";
             }
             {
@@ -457,13 +463,13 @@ in
         {
           location = "ghcr.io";
           mirror = [
-	        {
-	          location = "mirror-docker.runflare.com";
-	        }
-					{
+            {
+              location = "mirror-docker.runflare.com";
+            }
+            {
               location = "ghcr-mirror.liara.ir";
             }
-					{
+            {
               location = "focker.ir/ghcr.io";
             }
           ];
@@ -505,6 +511,7 @@ in
       ];
     };
   };
+  # container engine
   virtualisation.podman = {
     enable = true;
     dockerCompat = true; # For WinBoat Windows containers
@@ -512,12 +519,13 @@ in
     defaultNetwork.settings.dns_enabled = true;
     extraRuntimes = [ pkgs.crun ];
   };
-  virtualisation.cri-o.enable = true; # includes cri-o & cri-tools
-  virtualisation.cri-o.runtime = "crun";
-  virtualisation.containerd.enable = false; # using cri-o instead
+  # container runtime
+  # virtualisation.cri-o.enable = true; # includes cri-o & cri-tools
+  # virtualisation.cri-o.runtime = "crun";
+  # virtualisation.containerd.enable = false; # using cri-o instead
   # services.kubernetes.kubelet.containerRuntimeEndpoint = "unix:///run/crio/crio.sock";
-  virtualisation.oci-containers.backend = "podman";
   systemd.targets.machines.enable = true; # For nspawn Linux containers
+  virtualisation.oci-containers.backend = "podman";
   virtualisation.waydroid.enable = true; # For WayDroid Android containers https://wiki.nixos.org/wiki/Waydroid https://docs.waydro.id/usage/
   programs.virt-manager.enable = true;
   users.groups.libvirtd.members = [ "ali" ];
@@ -545,7 +553,10 @@ in
     description = "Jupyter development server";
     after = [ "network.target" ];
     wantedBy = [ "multi-user.target" ];
-    path = [ pkgs.bash pkgs.fish ];
+    path = [
+      pkgs.bash
+      pkgs.fish
+    ];
     environment = {
       JUPYTER_PATH = "${config.ali.packages.extraJupyterKernels}/share/jupyter";
     };

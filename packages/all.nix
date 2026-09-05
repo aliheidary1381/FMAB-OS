@@ -16,7 +16,14 @@ let
   pythonForJupyter = devenvs.pythonForJupyter;
   R = devenvs.R;
   julia = devenvs.julia;
-  cantor = import ./cantor.nix { inherit pkgs pythonForJupyter R julia; };
+  cantor = import ./cantor.nix {
+    inherit
+      pkgs
+      pythonForJupyter
+      R
+      julia
+      ;
+  };
 in
 {
   config = {

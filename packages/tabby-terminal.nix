@@ -1,4 +1,5 @@
-{ pkgs }: with pkgs;
+{ pkgs }:
+with pkgs;
 let
   version = "1.0.230";
 

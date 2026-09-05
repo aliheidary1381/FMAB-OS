@@ -6,6 +6,11 @@
   programs.fish = {
     enable = true;
     shellInit = builtins.readFile ./init.fish;
+    loginShellInit = ''
+      bind ctrl-h backward-kill-word
+      bind ctrl-left backward-word
+      bind ctrl-right forward-word
+    '';
     shellAliases = {
       build = "sudo nixos-rebuild switch";
       build-hm = "home-manager switch -b backup --impure --flake /etc/nixos";
@@ -22,8 +27,8 @@
       wsh = "~/.local/share/waveterm/bin/wsh"; # config.xdg.dataHome is ~/.local/share
       ffmpeg = "ffmpeg -hide_banner";
       fix-network = "sudo resolvectl flush-caches && sudo systemctl restart systemd-resolved && sudo nmcli radio wifi off";
-      niri-with-noctalia = "rm ~/.config/niri/config.kdl && cp -L ~/.config/niri/config.noctalia.kdl ~/.config/niri/config.kdl && niri-session";
-      niri-with-dms = "rm ~/.config/niri/config.kdl && cp -L ~/.config/niri/config.dms.kdl ~/.config/niri/config.kdl && niri-session";
+      niri-with-noctalia = "rm ~/.config/niri/config.kdl && cp -L ~/.config/niri/config.noctalia.kdl ~/.config/niri/config.kdl && niri";
+      niri-with-dms = "rm ~/.config/niri/config.kdl && cp -L ~/.config/niri/config.dms.kdl ~/.config/niri/config.kdl && niri";
     };
   };
 

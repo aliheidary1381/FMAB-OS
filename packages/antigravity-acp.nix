@@ -1,5 +1,5 @@
 {
-	pkgs,
+  pkgs,
 }:
 let
   sources = {
@@ -22,7 +22,7 @@ let
       or (throw "Unsupported platform for antigravity-acp: ${pkgs.stdenv.hostPlatform.system}");
 in
 pkgs.stdenv.mkDerivation {
-	pname = "antigravity-acp";
+  pname = "antigravity-acp";
   version = "1.0.0";
 
   src = pkgs.fetchurl {
@@ -31,7 +31,8 @@ pkgs.stdenv.mkDerivation {
 
   nativeBuildInputs = [
     pkgs.unzip
-  ] ++ pkgs.lib.optionals pkgs.stdenv.hostPlatform.isLinux [
+  ]
+  ++ pkgs.lib.optionals pkgs.stdenv.hostPlatform.isLinux [
     pkgs.autoPatchelfHook
   ];
 

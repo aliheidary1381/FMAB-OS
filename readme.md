@@ -99,7 +99,7 @@ I also recommend turning on OpenGL on Display SPICE in Virt-manager.
 ### Secondary DE
 
 I have also added an additional Wayland compositors (window manager) just for fun.
-To use it, open a secondary tty by `Ctrl`+`Alt`+`F2` or `F3`, and then type either
+To use it, open a secondary tty by pressing `Ctrl`+`Alt`+ `F3`, and then type either
 `niri-with-noctalia` or `niri-with-dms` to open Niri + Noctalia or Niri + DankMaterialShell.
 
 ## Background image acknowledgements 🙌
@@ -122,6 +122,7 @@ Licensed by _Crunchyroll_ from Sony Group Corporation, and distributed in NA by 
 ## Future plans / TODO 🔮
 
 - `services.undervolt.enable`
+- migrate to home-manager's `qt.kde.settings` instead of plasma-manager.
 
 ## Alternatives / Competitors 🏅
 

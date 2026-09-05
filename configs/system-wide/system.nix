@@ -50,13 +50,6 @@
       "192.168.0.1" = [ "login.modares.ac.ir" ];
     };
   };
-  services.xl2tpd.enable = true; # Needed for networkmanager-l2tp IPsec Settings...
-  services.strongswan = { # Needed for networkmanager-l2tp IPsec Settings...
-    enable = true;
-    secrets = [
-      "ipsec.d/ipsec.nm-l2tp.secrets"
-    ];
-  };
   systemd.network = {
     enable = true;
     wait-online.enable = true;
@@ -126,6 +119,8 @@
     plasma-login-manager.enable = true;
     defaultSession = "plasma";
   };
+  systemd.services.plasmalogin.environment.XDG_DATA_DIRS =
+    lib.mkForce "${config.services.displayManager.sessionData.desktops}/share:/run/current-system/sw/share";
   services.desktopManager.plasma6.enable = true;
 
   catppuccin = {
@@ -146,14 +141,66 @@
   };
 
   services.getty.autologinUser = "ali";
-  services.getty.greetingLine = '' tty \l '';
+  services.getty.greetingLine = '' \l '';
   services.getty.helpLine = lib.mkForce "";
+  systemd.services."autovt@tty3" = {
+    description = "Getty on tty3 (for Niri session)";
+    after = [
+      "systemd-user-sessions.service"
+      "plymouth-quit-wait.service"
+      "getty-pre.target"
+    ];
+    before = [ "getty.target" ];
+    conflicts = [ "rescue.service" ];
+    unitConfig = {
+      IgnoreOnIsolate = true;
+    };
+    serviceConfig = {
+      ExecStart = [
+        ""
+        (builtins.concatStringsSep " " (
+          [
+            (lib.getExe' pkgs.util-linux "agetty")
+            "--login-program"
+            config.services.getty.loginProgram
+            "--issue-file"
+            "/etc/issue:/etc/issue.d:/run/issue:/run/issue.d"
+          ]
+          ++ lib.optional (
+            config.services.getty.autologinUser != null
+          ) "--autologin ${config.services.getty.autologinUser}"
+          ++ config.services.getty.extraArgs
+          ++ [
+            "--noclear"
+            "--keep-baud"
+            "tty3"
+            "115200,38400,9600"
+            "linux"
+          ]
+        ))
+      ];
+      Type = "idle";
+      Restart = "always";
+      RestartSec = 0;
+      UtmpIdentifier = "tty3";
+      TTYPath = "/dev/tty3";
+      TTYReset = "yes";
+      TTYVHangup = "yes";
+      TTYVTDisallocate = "yes";
+      StandardInput = "tty";
+      StandardOutput = "tty";
+      StandardError = "journal";
+    };
+    restartIfChanged = false;
+  };
+
   services.kmscon = {
     enable = true;
     config = {
       hwaccel = false;
       font-name = "Fira Code Nerd Font Mono";
-      palette-background = if config.catppuccin.flavor == "latte" then "48, 52, 70" else "239, 241, 245";
+      palette = "custom";
+      palette-background = if config.catppuccin.flavor == "latte" then "239, 241, 245" else "48, 52, 70";
     };
   };
   console.keyMap = "us";
@@ -163,8 +210,14 @@
     useNautilus = false;
   };
   xdg.portal.config.niri = {
-    "default" = lib.mkForce [ "kde" "gtk" ];
-    "org.freedesktop.impl.portal.Access" = lib.mkForce [ "kde" "gtk" ];
+    "default" = lib.mkForce [
+      "kde"
+      "gtk"
+    ];
+    "org.freedesktop.impl.portal.Access" = lib.mkForce [
+      "kde"
+      "gtk"
+    ];
     "org.freedesktop.impl.portal.FileChooser" = lib.mkForce [ "kde" ];
     "org.freedesktop.impl.portal.Notification" = lib.mkForce [ "kde" ];
     "org.freedesktop.impl.portal.Secret" = lib.mkForce [ "kde" ];
@@ -184,7 +237,7 @@
   };
   programs.dsearch.enable = true;
   programs.noctalia = {
-  	enable = true;
+    enable = true;
     systemd.enable = false;
   };
 

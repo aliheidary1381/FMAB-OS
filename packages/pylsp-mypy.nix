@@ -1,5 +1,6 @@
 {
-	pkgs, ...
+  pkgs,
+  ...
 }:
 
 pkgs.python314Packages.buildPythonPackage (finalAttrs: {

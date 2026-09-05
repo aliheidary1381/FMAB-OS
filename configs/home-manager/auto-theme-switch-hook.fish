@@ -12,10 +12,12 @@ function sync_theme
 
     if test "$val" = "2"
         echo "KDE reports Light Mode. Switching..."
+        rm -f /home/ali/.config/okularpartrc
         install --mode=644 --owner=ali --group=users /home/ali/.config/okularpartrc-frappe /home/ali/.config/okularpartrc
         eval "$base_gen/specialisation/light/activate"
     else if test "$val" = "1"
         echo "KDE reports Dark Mode. Switching..."
+        rm -f /home/ali/.config/okularpartrc
         install --mode=644 --owner=ali --group=users /home/ali/.config/okularpartrc-latte /home/ali/.config/okularpartrc
         eval "$base_gen/specialisation/dark/activate"
     else

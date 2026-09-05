@@ -1,4 +1,5 @@
-{ pkgs }: with pkgs;
+{ pkgs }:
+with pkgs;
 python3Packages.buildPythonApplication (finalAttrs: {
   pname = "varia";
   version = "2026.3.27";

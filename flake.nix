@@ -4,6 +4,10 @@
   inputs = {
     nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
     systems.url = "github:nix-systems/default";
+    treefmt-nix = {
+      url = "github:numtide/treefmt-nix";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
     chaotic = {
       url = "github:chaotic-cx/nyx/nyxpkgs-unstable";
       inputs.nixpkgs.follows = "nixpkgs";
@@ -48,6 +52,7 @@
       catppuccin,
       nixvim,
       nix-jetbrains-plugins,
+      treefmt-nix,
       ...
     }:
     let
@@ -56,8 +61,13 @@
         inherit system;
         config.allowUnfree = true;
       };
+      treefmtEval = treefmt-nix.lib.evalModule pkgs {
+        projectRootFile = "flake.nix";
+        programs.nixfmt.enable = true;
+      };
     in
     {
+      formatter.${system} = treefmtEval.config.build.wrapper;
       nixosConfigurations.aliheydaripc = nixpkgs.lib.nixosSystem {
         specialArgs = {
           inherit nix-jetbrains-plugins chaotic;
@@ -101,7 +111,10 @@
               ./configs/home-manager/helix.nix
               ./configs/home-manager/zed.nix
               ./configs/home-manager/wave.nix
+              ./configs/home-manager/tabby.nix
+              ./configs/home-manager/streamrip.nix
               ./configs/home-manager/onlyoffice.nix
+              ./configs/home-manager/okularpartrc.nix
               ./configs/home-manager/equalization.nix
             ];
           }
