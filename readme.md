@@ -1,7 +1,3 @@
-<div align="center">
-    <img src="./fmab/logo.jpg" alt="FMA:B OS logo" style="width:33%; height:auto; border-radius:25%;">
-</div>
-
 # FMA:B OS ❄️
 
 A curated collection of high‑quality, ready‑to‑use components for building your own NixOS configuration.
@@ -15,31 +11,35 @@ a wide range of preconfigured software, and several virtualization options.
 <details>
 <summary>🖼️ Dark mode</summary>
 
-![Screenshot](./fmab/plasma/look-and-feel/fmab.dark.desktop/contents/previews/fullscreenpreview.png "Screenshot")
+![Screenshot](./assets/lockscreen-dark.png "Lock screen")
 
-![Screenshot](./fmab/plasma/look-and-feel/fmab.dark.desktop/contents/previews/fullscreenpreview2.png "Screenshot")
+![Screenshot](./assets/splash-dark.png "Splash screen")
 
-![Screenshot](./fmab/plasma/look-and-feel/fmab.dark.desktop/contents/previews/fullscreenlockscreen.png "Lock screen")
+![Screenshot](./assets/preview-dark-1.png "Screenshot")
+
+![Screenshot](./assets/preview-dark-2.png "Screenshot")
 
 </details>
 
 <details>
 <summary>🖼️ Light mode</summary>
 
-![Screenshot](./fmab/plasma/look-and-feel/fmab.light.desktop/contents/previews/fullscreenpreview.png "Screenshot")
+![Screenshot](./assets/lockscreen-light.png "Lock screen")
 
-![Screenshot](./fmab/plasma/look-and-feel/fmab.light.desktop/contents/previews/fullscreenlockscreen.png "Lock screen")
+![Screenshot](./assets/splash-light.png "Splash screen")
 
-![Screenshot](./fmab/plasma/look-and-feel/fmab.light.desktop/contents/previews/fullscreensplash.png "Splash screen")
+![Screenshot](./assets/preview-light.png "Screenshot")
 
 </details>
 
 <details>
 <summary>🖼️ Start up</summary>
 
-![Screenshot](./fmab/grub/fullscreenpreview.png "GRUB")
+![Screenshot](./assets/fullscreenpreview.png "GRUB")
 
-![Screenshot](./fmab/plymouth/themes/fmab.frappe/fullscreenpreview.png "Splash screen")
+![Screenshot](./assets/plymouth-dark.png "Splash screen (dark mode)")
+
+![Screenshot](./assets/plymouth-light.png "Splash screen (light mode)")
 
 </details>
 
