@@ -31,6 +31,7 @@ let
       qtdeclarative
     ]
     ++ (with pkgs; [
+    	lxqt.pavucontrol-qt
       systemdgenie
       elf-dissector
       krita
@@ -38,10 +39,6 @@ let
       krename
     ])
     ++ [ config.ali.packages.fmab-customizations ];
-  niri = with pkgs; [
-    noctalia-shell
-    lxqt.pavucontrol-qt
-  ];
   basic = with pkgs; [
     home-manager
     qalculate-qt
@@ -74,7 +71,7 @@ let
   ];
   pro = with pkgs; [
     kdePackages.neochat # cinny-desktop
-    # logseq
+    logseq
     libreoffice-qt
     pdfarranger
     stirling-pdf-desktop
@@ -280,7 +277,6 @@ in
 {
   environment.systemPackages =
     KDE
-    ++ niri
     ++ basic
     ++ pro
     ++ ai
@@ -578,14 +574,7 @@ in
   # services.netbird.enable = true;
   services.v2raya.enable = true;
   services.v2raya.cliPackage = pkgs.xray;
-  services.sing-box.enable = true;
-
-  # services.ollama.enable = true;
-  # services.ollama.loadModels = [
-  #   "qwen3:4b-instruct-2507-q4_K_M"
-  #   "qwen3-embedding:0.6b-q8_0"
-  #   "qwen3-coder:30b-a3b-q4_K_M"
-  # ];
+  # services.sing-box.enable = true;
 
   security.wrappers = config.ali.security.dvdae;
 }

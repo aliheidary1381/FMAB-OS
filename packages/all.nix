@@ -1,6 +1,7 @@
 {
   lib,
   pkgs,
+  config,
   ...
 }:
 let
@@ -10,7 +11,8 @@ let
   tabby-terminal = import ./tabby-terminal.nix { inherit pkgs; };
   varia = import ./varia.nix { inherit pkgs; };
   antigravity-acp = import ./antigravity-acp.nix { inherit pkgs; };
-  devenvs = import ./dev-envs.nix { inherit pkgs; };
+  devenvs = import ./dev-envs.nix { inherit pkgs config; };
+  pylsp-mypy = import ./pylsp-mypy.nix { inherit pkgs; };
   pythonForJupyter = devenvs.pythonForJupyter;
   R = devenvs.R;
   julia = devenvs.julia;
@@ -31,6 +33,7 @@ in
     ali.packages.tabby-terminal = tabby-terminal;
     ali.packages.varia = varia;
     ali.packages.antigravity-acp = antigravity-acp;
+    ali.packages.pylsp-mypy = pylsp-mypy;
     ali.packages.cantor = cantor;
     ali.packages.python = devenvs.python;
     ali.packages.pythonForJupyter = devenvs.pythonForJupyter;
@@ -54,6 +57,7 @@ in
     packages.antigravity-acp = lib.mkOption { type = lib.types.package; };
     packages.cantor = lib.mkOption { type = lib.types.package; };
     packages.python = lib.mkOption { type = lib.types.package; };
+    packages.pylsp-mypy = lib.mkOption { type = lib.types.package; };
     packages.pythonForJupyter = lib.mkOption { type = lib.types.package; };
     packages.extraJupyterKernels = lib.mkOption { type = lib.types.package; };
     packages.R = lib.mkOption { type = lib.types.package; };

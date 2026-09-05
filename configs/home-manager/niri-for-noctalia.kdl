@@ -39,20 +39,46 @@ layout {
     }
 }
 debug {
-  // Allows notification actions and window activation from Noctalia.
   honor-xdg-activation-with-invalid-serial
 }
 layer-rule {
-  match namespace="^noctalia-overview*"
+  match namespace="^noctalia-backdrop"
   place-within-backdrop true
 }
-spawn-sh-at-startup "noctalia-shell --no-duplicate"
+layer-rule {
+  match namespace="^noctalia-(bar-[^\"]+|notification|dock|panel|attached-panel|osd)$"
+  background-effect {
+    xray false
+    // blur false
+  }
+}
+layer-rule {
+    match namespace="noctalia-window-switcher"
+    background-effect {
+        blur true
+        xray false
+    }
+}
+spawn-at-startup "noctalia"
 prefer-no-csd
 screenshot-path "~/Pictures/Screenshots/Screenshot from %Y-%m-%d %H-%M-%S.png"
 window-rule {
     geometry-corner-radius 20
     clip-to-geometry true
 }
+window-rule {
+  match app-id="dev.noctalia.Noctalia"
+  open-floating true
+  default-column-width { fixed 1080; }
+  default-window-height { fixed 920; }
+}
+window-rule {
+  background-effect {
+    blur true
+    xray false
+  }
+}
+
 binds {
     Mod+Shift+Slash { show-hotkey-overlay; }
     Mod+T hotkey-overlay-title="Open the terminal emulator" { spawn "tabby"; }

@@ -1,4 +1,4 @@
-{ pkgs, ... }: rec
+{ pkgs, config, ... }: rec
 {
 	julia = pkgs.julia.withPackages [ "IJulia" "GR" "Plots" "PyPlot" "Gadfly" ];
   pythonForJupyter = pkgs.python313.withPackages (ps: with ps; [ # ps is python313Packages
@@ -26,7 +26,7 @@
     opencv4
     pillow
     tf-keras
-    # gensim
+    gensim
     transformers
     accelerate
     datasets
@@ -81,7 +81,7 @@
     pip # PyCharm needs this to list the installed packages, but it's useless otherwise.
     python-lsp-server
     python-lsp-ruff
-    # pylsp-mypy
+    config.ali.packages.pylsp-mypy
     black
     brotli
   ]));

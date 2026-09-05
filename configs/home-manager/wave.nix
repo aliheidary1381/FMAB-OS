@@ -1,6 +1,6 @@
-{ config, ... }:
-{
-  xdg.configFile."waveterm/presets/backgrounds.json".text = builtins.toJSON {
+{ pkgs, lib, config, ... }:
+let
+  backgrounds = pkgs.writeText "wave-backgrounds.json" (builtins.toJSON {
     "bg@default" = {
       "display:name" = "Default";
       "display:order" = -1;
@@ -130,9 +130,9 @@
       "bg:activebordercolor" = "#df8e1d"; # accent = yellow
       "bg" = "#eff1f5";
     };
-  };
+  });
 
-  xdg.configFile."waveterm/termthemes.json".text = builtins.toJSON {
+  themes = pkgs.writeText "wave-themes.json" (builtins.toJSON {
     "default-dark" = {
       "display:name" = "Default Dark";
       "display:order" = 2;
@@ -359,9 +359,9 @@
       "background" = "#eff1f5";
       "cursor" = "#dc8a78";
     };
-  };
+  });
 
-  xdg.configFile."waveterm/settings.json".text = builtins.toJSON {
+  settings = pkgs.writeText "wave-settings.json" (builtins.toJSON {
     "app:defaultnewblock" = "term";
     "app:ctrlvpaste" = true;
     "autoupdate:enabled" = false;
@@ -389,21 +389,19 @@
     "tab:preset" = "catppuccin-${config.catppuccin.flavor}";
     "term:theme" = "catppuccin-${config.catppuccin.flavor}";
     "term:fontsize" = 16;
-    "waveai:defaultmode" = "gemma3n";
-  };
-
-  xdg.configFile."waveterm/waveai.json".text = builtins.toJSON {
-    # "qwen3-instruct" = {
-    #   "display:name" = "Qwen3 instruct (4b-instruct-2507-q4_K_M)";
-    #   "display:description" = "Local 4B model via Ollama";
-    #   "display:order" = 1;
-    #   "ai:apitype" = "openai-chat";
-    #   "ai:baseurl" = "http://localhost:11434/v1";
-    #   "ai:name" = "qwen3";
-    #   "ai:model" = "qwen3:4b-instruct-2507-q4_K_M";
-    #   "ai:thinkinglevel" = "low";
-    #   "ai:endpoint" = "http://localhost:11434/v1/chat/completions";
-    #   "ai:apitoken" = "ollama"; # doesn't matter. it's ignored
-    # };
-  };
+  });
+in
+{
+  home.activation.waveSettings = lib.hm.dag.entryAfter [ "writeBoundary" ] ''
+    target="${config.xdg.configHome}/waveterm"
+    if [ ! -e "$target"/presets/backgrounds.json ]; then
+      install -D --mode=644 --owner=${config.home.username} --group=users ${backgrounds} "$target"/presets/backgrounds.json
+    fi
+    if [ ! -e "$target"/presets/termthemes.json ]; then
+      install -D --mode=644 --owner=${config.home.username} --group=users ${themes} "$target"/presets/termthemes.json
+    fi
+    if [ ! -e "$target"/settings.json ]; then
+      install -D --mode=644 --owner=${config.home.username} --group=users ${settings} "$target"/settings.json
+    fi
+  '';
 }

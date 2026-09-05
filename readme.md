@@ -48,23 +48,23 @@ a wide range of preconfigured software, and several virtualization options.
 I’ve tried to stick to KDE‑native (or at least Qt6‑native FOSS) applications
 unless there was a strong reason not to.
 
-  * **GRUB** bootloader
-  * **Plymouth**
-  * **KDE Plasma** (**Qt6**) desktop environment on **Wayland**,
+- **GRUB** bootloader
+- **Plymouth**
+- **KDE Plasma** (**Qt6**) desktop environment on **Wayland**,
   plus _Plasma Login Manager_ as the display manager
-  * **Catppuccin** colour palletes
-  * **Wave** terminal emulator
-  * **Fish** shell with customized prompt using **Starship**
-  * **Helix** CLI editor
-  * **Zed** GUI editor
-  * **Local AI:** Ollama, Jan AI, local Qwen models, with integrations for Zed IDE
+- **Catppuccin** colour palletes
+- **Wave** terminal emulator
+- **Fish** shell with customized prompt using **Starship**
+- **Helix** CLI editor
+- **Zed** GUI editor
+- **Local AI:** Ollama, Jan AI, local Qwen models, with integrations for Zed IDE
   and Wave Terminal.
-  * **Development environment:** Rust, Go, C, C++, JS, Python, R, OCaml, and even Prolog,
+- **Development environment:** Rust, Go, C, C++, JS, Python, R, OCaml, and even Prolog,
   plus a JuPyteR env with Python and R kernels and many data-science libs preinstalled.
   JetBrains IDEs include plugins out of the box.
-  * **Pre-installed software** for music, image, and video playing and editing, office work,
+- **Pre-installed software** for music, image, and video playing and editing, office work,
   and academic use. (see the [full list here](./configs/system-wide/environment.nix)).
-  * systemd, networkd, resolved, nftables, networkmanager, pipewire, btrfs, dbus-broker,
+- systemd, networkd, resolved, nftables, networkmanager, pipewire, btrfs, dbus-broker,
   glibc, [core packages](https://nixos.org/manual/nixos/stable/options#opt-environment.corePackages),
   [default packages](https://nixos.org/manual/nixos/stable/options#opt-environment.defaultPackages),
   LTS kernel, etc.
@@ -73,20 +73,20 @@ A clean installation uses roughly 100GiB of disk space (+10GiB for local LLMs).
 
 ### Web app addresses 🧑‍💻
 
-  * Flood is at [localhost:3000](http://localhost:3000/)
-  * Jupyter Notebook is at [localhost:8888](http://localhost:8888/)
-  * v2rayA at [localhost:2017](http://localhost:2017/)
-  * noVNC (for QEMU Windows) is at [localhost:8006](http://localhost:8006/)
+- Flood is at [localhost:3000](http://localhost:3000/)
+- Jupyter Notebook is at [localhost:8888](http://localhost:8888/)
+- v2rayA at [localhost:2017](http://localhost:2017/)
+- noVNC (for QEMU Windows) is at [localhost:8006](http://localhost:8006/)
   noVNC is mainly used for debugging and diagnostics. Windows apps are normally accessed through
   the WinBoat app.
 
 ### Virtualization
 
-  * Podman Desktop for containers
-  * Bottles/Proton/Wine for Windows
-  * Waydroid for Android
-  * Virt-manager for everything else
-  * systemd-nspawn (for Linux) and WinBoat (for Windows) are also available.
+- Podman Desktop for containers
+- Bottles/Proton/Wine for Windows
+- Waydroid for Android
+- Virt-manager for everything else
+- systemd-nspawn (for Linux) and WinBoat (for Windows) are also available.
 
 Obviously, these take almost no space until initialized (i.e., until you download the guest OSes).
 
@@ -121,10 +121,9 @@ Licensed by _Crunchyroll_ from Sony Group Corporation, and distributed in NA by 
 
 ## Future plans / TODO 🔮
 
-  * Replacing BTRFS with BCacheFS.
-  * `services.undervolt.enable`
+- `services.undervolt.enable`
 
 ## Alternatives / Competitors 🏅
 
-  * [Nixy](https://github.com/anotherhadi/nixy) is based on Hyprland, with Caelestia-shell theme and
+- [Nixy](https://github.com/anotherhadi/nixy) is based on Hyprland, with Caelestia-shell theme and
   Base16 colour pallete. It also includes a fully configured *arrs home media server. Check it out!

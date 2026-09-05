@@ -146,7 +146,7 @@
   };
 
   services.getty.autologinUser = "ali";
-  services.getty.greetingLine = ''   tty \l '';
+  services.getty.greetingLine = '' tty \l '';
   services.getty.helpLine = lib.mkForce "";
   services.kmscon = {
     enable = true;
@@ -162,6 +162,14 @@
     enable = true;
     useNautilus = false;
   };
+  xdg.portal.config.niri = {
+    "default" = lib.mkForce [ "kde" "gtk" ];
+    "org.freedesktop.impl.portal.Access" = lib.mkForce [ "kde" "gtk" ];
+    "org.freedesktop.impl.portal.FileChooser" = lib.mkForce [ "kde" ];
+    "org.freedesktop.impl.portal.Notification" = lib.mkForce [ "kde" ];
+    "org.freedesktop.impl.portal.Secret" = lib.mkForce [ "kde" ];
+  };
+
   programs.dms-shell = {
     enable = true;
     systemd.enable = false;
@@ -175,12 +183,9 @@
     # to do: https://danklinux.com/docs/dankmaterialshell/nixos#plugins https://danklinux.com/plugins
   };
   programs.dsearch.enable = true;
-  xdg.portal.config.niri = {
-    "default" = lib.mkForce [ "kde" "gtk" ];
-    "org.freedesktop.impl.portal.Access" = lib.mkForce [ "kde" "gtk" ];
-    "org.freedesktop.impl.portal.FileChooser" = lib.mkForce [ "kde" ];
-    "org.freedesktop.impl.portal.Notification" = lib.mkForce [ "kde" ];
-    "org.freedesktop.impl.portal.Secret" = lib.mkForce [ "kde" ];
+  programs.noctalia = {
+  	enable = true;
+    systemd.enable = false;
   };
 
   services.colord.enable = true;

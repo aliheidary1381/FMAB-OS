@@ -105,19 +105,27 @@ in
   };
 
   programs.fish.shellInitLast = ''fish_config theme choose "catppuccin-frappe" --color-theme=${if config.catppuccin.flavor == "latte" then "light" else "dark"}'';
-  xdg.configFile."okularpartrc".source = ./okularpartrc.${config.catppuccin.flavor};
 
   xdg.configFile."home-manager".source = /etc/nixos;
 
   # qt.kde.settings = {};
   # qt.qt6ctSettings = {};
 
+  xdg.configFile."okularpartrc-frappe".source = ./okularpartrc-frappe;
+  xdg.configFile."okularpartrc-latte".source = ./okularpartrc-latte;
+
   home.activation.streamripConfig = lib.hm.dag.entryAfter [ "writeBoundary" ] ''
-    install -D --mode=600 --owner=${config.home.username} --group=users ${./streamrip.toml} "${config.xdg.configHome}/streamrip/config.toml"
+	  target="${config.xdg.configHome}/streamrip/config.toml"
+	  if [ ! -e "$target" ]; then
+	    install -D --mode=600 --owner=${config.home.username} --group=users ${./streamrip.toml} "$target"
+	  fi
   '';
 
   home.activation.tabbyConfig = lib.hm.dag.entryAfter [ "writeBoundary" ] ''
-    install -D --mode=644 --owner=${config.home.username} --group=users ${./tabby.yaml} "${config.xdg.configHome}/tabby/config.yaml"
+    target="${config.xdg.configHome}/tabby/config.yaml"
+    if [ ! -e "$target" ]; then
+      install -D --mode=644 --owner=${config.home.username} --group=users ${./tabby.yaml} "$target"
+    fi
   '';
 
   home.activation.copyFonts = lib.hm.dag.entryAfter [ "writeBoundary" ] ''

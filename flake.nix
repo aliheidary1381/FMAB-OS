@@ -109,5 +109,3 @@
       };
     };
 }
-
-# TODO: nixvim lint and python lsp and gensim

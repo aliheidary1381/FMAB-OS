@@ -48,7 +48,6 @@ pkgs.kdePackages.mkKdeDerivation {
 
   preFixup = ''
     patchelf --add-rpath "${pkgs.lib.getLib R}/lib/R/lib" "$out/bin/cantor_rserver"
-    patchelf --add-rpath "${pkgs.lib.getLib pythonForJupyter.python}/lib" "$out/bin/cantor_pythonserver"
   '';
 
   qtWrapperArgs = [
