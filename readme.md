@@ -35,7 +35,7 @@ a wide range of preconfigured software, and several virtualization options.
 <details>
 <summary>🖼️ Start up</summary>
 
-![Screenshot](./assets/fullscreenpreview.png "GRUB")
+![Screenshot](./assets/grub.png "GRUB")
 
 ![Screenshot](./assets/plymouth-dark.png "Splash screen (dark mode)")
 
