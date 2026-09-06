@@ -92,7 +92,6 @@
         python-lsp-server
         python-lsp-ruff
         config.ali.packages.pylsp-mypy
-        black
         brotli
       ]
     )

@@ -125,6 +125,7 @@ let
     zoxide
     imagemagick
     ffmpeg-full
+    pandoc
     tldr
     pass
   ];
@@ -231,6 +232,8 @@ let
     basedpyright
     ruff
     pyrefly
+    black
+    ty
     config.ali.packages.python
   ]; # uv & pkgs.python313Packages.pip is also ditched
   javascript = with pkgs; [

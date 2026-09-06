@@ -19,7 +19,7 @@
       config = "nix config show";
       proxy = "proxychains4 fish";
       update = "pushd /etc/nixos/ && nix flake update; popd";
-      hash = "nix-prefetch-url";
+      hash = "nix store prefetch-file";
       cp = "cp -i";
       mv = "mv -i";
       rm = "gtrash put --rm-mode -i -v";

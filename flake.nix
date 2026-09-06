@@ -115,6 +115,7 @@
               ./configs/home-manager/streamrip.nix
               ./configs/home-manager/onlyoffice.nix
               ./configs/home-manager/okularpartrc.nix
+              ./configs/home-manager/jetbrains.nix
               ./configs/home-manager/equalization.nix
             ];
           }
